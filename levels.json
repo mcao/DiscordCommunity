@@ -1,0 +1,22 @@
+[
+	{
+		"points": 500,
+		"name": "blah blah first role name",
+		"id": 112233445566778899
+	},
+	{
+		"points": 2500,
+		"name": "another role",
+		"id": 12345678912345789
+	},
+	{
+		"points": 5000,
+		"name": "cool role bruh",
+		"id": 11101000111001010
+	},
+	{
+		"points": 10000,
+		"name": "wow you really have no life",
+		"id": 11111111111111111
+	}
+]
