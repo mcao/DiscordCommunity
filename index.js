@@ -4,7 +4,7 @@ const Eris = require("eris"),
 var bot = new Eris.CommandClient(config.token, {}, config.commandOpts);
 
 bot.on("ready", () => {
-    console.log("Ready!");
+    console.log(`Logged in as ${bot.user.username}#${bot.user.discriminator}!`);
 
     readdir('./modules/', (err, files) => {
         console.log(`Loading ${files.length} modules!`);
