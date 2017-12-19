@@ -41,4 +41,24 @@ module.exports = (bot) => {
             description: "Executes to command line",
             fullDescription: "This command is used to execute command line commands."
         });
+
+    bot.registerCommand("update", (msg, args) => {
+        bot.createMessage(msg.channel.id, "Updating...").then(e => {
+			var evaled = require("child_process").execSync('git pull').toString()
+			bot.createMessage(e.channel.id, "```" + evaled + "```")
+			if (!evaled.indexOf("Already up-to-date.") > -1) {
+				bot.createMessage(e.channel.id, "New code successfully pulled! Restarting...")
+				setTimeout(function() {
+					process.exit(0)
+				}, 2000);
+			}
+		})
+    },
+        {
+            requirements: {
+                userIDs: ["112667714530652160", "171319044715053057"]
+            },
+            description: "Executes to command line",
+            fullDescription: "This command is used to execute command line commands."
+        });
 }
