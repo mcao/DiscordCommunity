@@ -46,7 +46,7 @@ module.exports = (bot) => {
         bot.createMessage(msg.channel.id, "Updating...").then(e => {
 			var evaled = require("child_process").execSync('git pull').toString()
 			bot.createMessage(e.channel.id, "```" + evaled + "```")
-			if (!evaled.indexOf("Already up-to-date.") > -1) {
+			if (evaled.indexOf("Already up-to-date.") < 0) {
 				bot.createMessage(e.channel.id, "New code successfully pulled! Restarting...")
 				setTimeout(function() {
 					process.exit(0)
