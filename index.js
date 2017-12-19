@@ -6,7 +6,7 @@ var bot = new Eris.CommandClient(config.token, {}, config.commandOpts);
 bot.on("ready", () => {
     console.log(`Logged in as ${bot.user.username}#${bot.user.discriminator}!`);
 
-    bot.editStatus({ name: `${config.game} | ${config.commandOpts.prefix}help` })
+    bot.editStatus({ name: `${config.game} | ${config.commandOpts.prefix[0]}help` })
 
     readdir('./modules/', (err, files) => {
         console.log(`Loading ${files.length} modules!`);
