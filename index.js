@@ -1,10 +1,12 @@
 const Eris = require("eris"),
     config = require("./config.json"),
-    readdir = require("fs").readdir;    
+    readdir = require("fs").readdir;
 var bot = new Eris.CommandClient(config.token, {}, config.commandOpts);
 
 bot.on("ready", () => {
     console.log(`Logged in as ${bot.user.username}#${bot.user.discriminator}!`);
+
+    bot.editStatus(`${config.game} | ${config.commandOpts.prefix}help`)
 
     readdir('./modules/', (err, files) => {
         console.log(`Loading ${files.length} modules!`);
