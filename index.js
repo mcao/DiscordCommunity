@@ -23,9 +23,8 @@ bot.on("ready", () => {
 });
 
 bot.on("guildMemberAdd", function (guild, member) {
-    if (guild.id == "358528040617377792") {
-        bot.createMessage("392152516596465664", `Welcome ${member.user} to **${guild.name}!** :tada::tada:`)
-    }
+    if (guild.id == "358528040617377792")
+        bot.createMessage("392152516596465664", `Welcome <@${member.user.id}> to **${guild.name}!** :tada::tada:`)
 })
 
 bot.on("guildBanAdd", function (guild, user) {
