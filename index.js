@@ -34,7 +34,9 @@ bot.on("guildBanAdd", function (guild, user) {
                     }
                 }
                 bot.guilds.get(guild.id).getBans(user.id).then(thisBans => {
-                    bot.getUser(user.id).createMessage(`You have been banned on ${bot.guilds.get(guildList[i]).name} for ${thisBans[0].reason}!`)
+                    bot.getDMChannel(user.id).then(chan => {
+                        bot.createMessage(chan.id, `You have been banned on ${bot.guilds.get(guildList[i]).name} for ${thisBans[0].reason}!`)
+                    })
                     bot.getChannel("389588585889660928").createMessage(`Banning ${user.username} on ${bot.guilds.get(guildList[i]).name}!`)
                     // bot.guilds.get(guildList[i]).banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name + " for " + thisBans[0].reason)
                 });
