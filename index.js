@@ -24,7 +24,8 @@ bot.on("ready", () => {
 
 bot.on("guildMemberAdd", function (guild, member) {
     if (guild.id == "358528040617377792") {
-        bot.createMessage("392152516596465664", `Welcome <@${member.user.id}> to **${guild.name}!** :tada::tada:`)
+        bot.createMessage("392152516596465664", `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada:
+Please remember to read the <#392171939101409290> and post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>`)
         setTimeout(function() {
             member.addRole(guild.roles.get('392169263982444546'), "Member Autorole")
         }, 30000)
