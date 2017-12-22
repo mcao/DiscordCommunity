@@ -28,7 +28,7 @@ bot.on("guildBanAdd", function (guild, user) {
     for (var i = 0; i < guildList.length; i++) {
         try {
             bot.guilds.get(guildList[i]).getBans().then(thatBans => {
-                for (var i = 0; i < thatBans.length; i++) {
+                for (var j = 0; j < thatBans.length; j++) {
                     if (thatBans[i].user.id == user.id) {
                         return;
                     }
