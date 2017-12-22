@@ -22,19 +22,23 @@ bot.on("ready", () => {
     });
 });
 
-bot.on("guildBanAdd", function(guild, user) {
+bot.on("guildBanAdd", function (guild, user) {
     const guildList = bot.config.guilds;
 
     for (var i = 0; i < guildList.length; i++) {
-        bot.guilds.get(guildList[i]).getBans().then(thatBans => {
-            for (var i = 0; i < thatBans.length; i++) {
-                if (thatBans[i].user.id == user.id) {
-                    return;
+        try {
+            bot.guilds.get(guildList[i]).getBans().then(thatBans => {
+                for (var i = 0; i < thatBans.length; i++) {
+                    if (thatBans[i].user.id == user.id) {
+                        return;
+                    }
                 }
-            }
-            bot.getChannel("389588585889660928").createMessage(`Banning ${user.id} on ${guild.name}!`)
-            // bot.guilds.get(guildList[i]).banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name)
-        })
+                bot.getChannel("389588585889660928").createMessage(`Banning ${user.id} on ${guild.name}!`)
+                // bot.guilds.get(guildList[i]).banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name)
+            })
+        } catch (err) {
+            bot.getChannel("389588585889660928").createMessage(`Error: ${err}`)
+        }
     }
 });
 
