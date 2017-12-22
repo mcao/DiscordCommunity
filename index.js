@@ -1,6 +1,7 @@
-const Eris = require("eris"),
+const { CommandClient } = require("eris"),
     readdir = require("fs").readdir;
-var bot = new Eris.CommandClient(require("./config.json").token, {}, require("./config.json").commandOpts);
+var bot = new CommandClient(require("./config.json").token, {}, require("./config.json").commandOpts);
+
 require('./funcs.js')(bot)
 
 bot.on("ready", () => {
@@ -19,6 +20,21 @@ bot.on("ready", () => {
         });
         console.log(`Modules loaded!`);
     });
+});
+
+bot.on("guildBanAdd", function(guild, user) {
+    const guildList = bot.config.guilds;
+
+    for (var i = 0; i < guildList.length; i++) {
+        bot.guilds.get(guildList[i]).getBans().then(thatBans => {
+            for (var i = 0; i < thatBans.length; i++) {
+                if (thatBans[i].user.id == user.id) {
+                    return;
+                }
+            }
+            bot.guilds.get(guildList[i]).banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name)
+        })
+    }
 });
 
 bot.connect();

@@ -1,22 +1,23 @@
 [
 	{
 		"points": 500,
-		"name": "blah blah first role name",
-		"id": 112233445566778899
+		"id": 393606932608450561
 	},
 	{
 		"points": 2500,
-		"name": "another role",
-		"id": 12345678912345789
+		"id": 393606931014746113
 	},
 	{
 		"points": 5000,
-		"name": "cool role bruh",
-		"id": 11101000111001010
+		"id": 393606929068589057
 	},
 	{
 		"points": 10000,
-		"name": "wow you really have no life",
-		"id": 11111111111111111
+		"id": 393606926467989507
+	},
+	{
+		"points": -1,
+		"id": 393606924433752064,
+		"condition": 20
 	}
 ]
