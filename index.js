@@ -23,8 +23,12 @@ bot.on("ready", () => {
 });
 
 bot.on("guildMemberAdd", function (guild, member) {
-    if (guild.id == "358528040617377792")
+    if (guild.id == "358528040617377792") {
         bot.createMessage("392152516596465664", `Welcome <@${member.user.id}> to **${guild.name}!** :tada::tada:`)
+        setTimeout(function() {
+            member.addRole(guild.roles.get('392169263982444546'), "Member Autorole")
+        }, 30000)
+    }
 })
 
 bot.on("guildBanAdd", function (guild, user) {
