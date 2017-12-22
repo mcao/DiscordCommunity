@@ -33,11 +33,11 @@ bot.on("guildBanAdd", function (guild, user) {
                         return;
                     }
                 }
-                bot.guilds.get(guild.id).getBans(user.id).then(thisBans => {
+                guild.getBans(user.id).then(thisBans => {
                     bot.getDMChannel(user.id).then(chan => {
-                        bot.createMessage(chan.id, `You have been banned on ${bot.guilds.get(guildList[i]).name} for ${thisBans[0].reason}!`)
+                        bot.createMessage(chan.id, `You have been banned from all Discord Hub servers for ${thisBans[0].reason}!`)
                     })
-                    bot.getChannel("389588585889660928").createMessage(`Banning ${user.username} on ${bot.guilds.get(guildList[i]).name}!`)
+                    bot.getChannel("389588585889660928").createMessage(`Banning ${user.username} on ${guildList[i]}!`)
                     // bot.guilds.get(guildList[i]).banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name + " for " + thisBans[0].reason)
                 });
             })
