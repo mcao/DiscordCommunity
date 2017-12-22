@@ -27,7 +27,8 @@ bot.on("guildBanAdd", function (guild, user) {
 
     for (var i = 0; i < guildList.length; i++) {
         try {
-            bot.guilds.get(guildList[i]).getBans().then(thatBans => {
+            const guild2 = bot.guilds.get(guildList[i])
+            guild2.getBans().then(thatBans => {
                 for (var j = 0; j < thatBans.length; j++) {
                     if (thatBans[j].user.id == user.id) {
                         return;
@@ -35,10 +36,10 @@ bot.on("guildBanAdd", function (guild, user) {
                 }
                 guild.getBans(user.id).then(thisBans => {
                     bot.getDMChannel(user.id).then(chan => {
-                        bot.createMessage(chan.id, `You have been banned from all Discord Hub servers for ${thisBans[0].reason}!`)
+                        bot.createMessage(chan.id, `You have been banned from ${guild2.name} for ${thisBans[0].reason}!`)
                     })
-                    bot.getChannel("389588585889660928").createMessage(`Banning ${user.username} on ${guildList[i]}!`)
-                    // bot.guilds.get(guildList[i]).banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name + " for " + thisBans[0].reason)
+                    console.log(`Banning ${user.username} on ${guild2.name}!`)
+                    guild2.banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name + " for " + thisBans[0].reason)
                 });
             })
         } catch (err) {
