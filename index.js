@@ -32,7 +32,8 @@ bot.on("guildBanAdd", function(guild, user) {
                     return;
                 }
             }
-            bot.guilds.get(guildList[i]).banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name)
+            bot.getChannel("389588585889660928").createMessage(`Banning ${user.id} on ${guild.name}!`)
+            // bot.guilds.get(guildList[i]).banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name)
         })
     }
 });
