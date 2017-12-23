@@ -85,7 +85,7 @@ module.exports = (bot) => {
 
     bot.register("restart", function (msg, args) {
         bot.createMessage(msg.channel.id, "Restarting...")
-        writeFile("./channel.json", { channel: msg.channel.id })
+        writeFile("./channel.json", `{ channel: ${msg.channel.id} }`)
         setTimeout(() => { process.exit(0) }, 2000);
     },
         {
