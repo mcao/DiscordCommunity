@@ -41,7 +41,7 @@ module.exports = (bot) => {
         bot.log("[LEVELS] Ranks successfully backed up!")
     }
 
-    bot.log = function () {
+    bot.log = function (txt) {
         console.log(this.timestamp() + "  [LOG]  | " + txt)
     }
 
