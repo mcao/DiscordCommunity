@@ -23,7 +23,7 @@ module.exports = (bot) => {
         bot.createMessage(msg.channel.id, m);
     },
         {
-            description: "Outputs a list of ranks.",
+            description: "Outputs a list of ranks for the server.",
             fullDescription: "This command is used to return a list of the server's ranks.",
             requirements: {
                 roleIDs: ['392169263982444546', '392157677184221185', '392150288729112587']
