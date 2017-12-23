@@ -48,8 +48,12 @@ bot.on("messageCreate", function (msg) {
         bot.createMessage(msg.channel.id, "Automatic Code Update Initiated.").then(e => {
             var evaled = require("child_process").execSync('git pull').toString()
             bot.createMessage(msg.channel.id, "Automatic Code Update Successful.")
-            var e = msg.embeds[0].description.toString()
-            bot.createMessage(msg.channel.id, `<@171319044715053057>, the following changes were pushed by **${e.substring(e.indexOf("-") + 2, e.indexOf(" ", e.substring(e.indexOf("-") + 2)))}**. Please approve the changes and restart the bot.\n\`\`\`${evaled}\`\`\``)
+            var e = msg.embeds[0].description.toString(),
+                start = e.indexOf("-") + 2,
+                end = e.indexOf(" ", e.indexOf("-") + 2)
+            if (end < 0)
+                end = e.length
+            bot.createMessage(msg.channel.id, `<@171319044715053057>, the following changes were pushed by **${e.substring(start, end)}**. Please approve the changes and restart the bot.\n\`\`\`${evaled}\`\`\``)
         })
     }
 })
