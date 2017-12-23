@@ -13,8 +13,18 @@ module.exports = (bot) => {
         }
     }
 
-    bot.incrementMessages = function (msg) {
-        
+    bot.incrementMessage = function (msg) {
+        if (bot.ranks[msg.author.id]) {
+            bot.ranks[msg.author.id].messageCount++;
+            // Check for promotion
+        } else {
+            bot.ranks[msg.author.id] = {
+                id: msg.author.id,
+                inServer: 1,
+                messageCount: 1,
+                lastRankAssignment: 0
+            }
+        }
     }
 
     bot.loadRanks = function () {

@@ -35,7 +35,7 @@ bot.on("ready", () => {
         bot.getMessage(JSON.parse(readFileSync("./channel.json")).channel, JSON.parse(readFileSync("./channel.json")).message).then(msg => {
             msg.edit("Restarted!")
         })
-    } catch(err) {
+    } catch (err) {
         console.log(err);
     };
 });
@@ -43,6 +43,9 @@ bot.on("ready", () => {
 bot.on("messageCreate", function (msg) {
     if (msg.channel.id === '392154952794898432') {
         msg.addReaction('🐿');
+    }
+    if (!msg.author.bot && msg.channel.guild.id == '358528040617377792') {
+        bot.incrementMessage(msg)
     }
     if (msg.channel.id == "392442695756546059" && msg.author.id == "392445621165883392") {
         bot.createMessage(msg.channel.id, "Automatic Code Update Initiated.").then(e => {
