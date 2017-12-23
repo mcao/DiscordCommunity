@@ -78,8 +78,8 @@ module.exports = (bot) => {
             requirements: {
                 userIDs: bot.config.owners
             },
-            description: "Executes to command line",
-            fullDescription: "This command is used to execute command line commands."
+            description: "Updates the bot's code.",
+            fullDescription: "This command is used to update the bot's code on Github."
         });
 
     bot.register("reload", (msg, args) => {

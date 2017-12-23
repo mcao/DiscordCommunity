@@ -30,6 +30,21 @@ bot.on("ready", () => {
     }, 300000)
 });
 
+bot.on("messageCreate", function (msg) {
+    if (msg.channel.id == "392442695756546059" && msg.author.id == "392445621165883392") {
+        bot.createMessage(msg.channel.id, "Automatic Code Update Initiated.").then(e => {
+            var evaled = require("child_process").execSync('git pull').toString()
+            e.edit("```" + evaled + "```")
+            if (evaled.indexOf("Already up-to-date.") < 0) {
+                bot.createMessage(e.channel.id, "Code successfully updated! Restarting...")
+                setTimeout(function () {
+                    process.exit(0)
+                }, 2000);
+            }
+        })
+    }
+})
+
 bot.on("guildMemberAdd", function (guild, member) {
     if (guild.id == "358528040617377792") {
         bot.createMessage("392152516596465664", `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada:
