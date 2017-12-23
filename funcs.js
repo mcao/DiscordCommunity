@@ -14,21 +14,20 @@ module.exports = (bot) => {
     }
 
     bot.incrementMessages = function (msg) {
-        var ranks = this.loadRanks();
         
     }
 
     bot.loadRanks = function () {
-        var ranksJson = fs.readFileSync("./ranks.json"),
-            ranks = JSON.parse(ranksJson)
+        var ranksJson = fs.readFileSync("./ranks.json")
+        bot.ranks = JSON.parse(ranksJson)
 
         bot.log("[LEVELS] Ranks successfully loaded!")
-        return ranks;
     }
 
-    bot.writeRanks = function (levels) {
-        fs.writeFileSync("./ranks.json", JSON.stringify(levels, null, 3));
+    bot.writeRanks = function () {
+        fs.writeFileSync("./ranks.json", JSON.stringify(bot.ranks, null, 3));
         bot.log("[LEVELS] Ranks successfully saved to file!")
+        bot.backupRanks();
     }
 
     bot.backupRanks = function () {

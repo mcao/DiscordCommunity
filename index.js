@@ -24,10 +24,11 @@ bot.on("ready", () => {
         bot.log(`Modules loaded!`);
     });
 
+    bot.loadRanks();
     bot.backupRanks();
 
     setTimeout(() => {
-        bot.backupRanks();
+        bot.writeRanks();
     }, 300000)
 
     try {
