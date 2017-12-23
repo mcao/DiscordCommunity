@@ -39,6 +39,9 @@ bot.on("ready", () => {
 });
 
 bot.on("messageCreate", function (msg) {
+    if (msg.channel.id === '392154952794898432') {
+        msg.addReaction('🐿');
+    }
     if (msg.channel.id == "392442695756546059" && msg.author.id == "392445621165883392") {
         bot.createMessage(msg.channel.id, "Automatic Code Update Initiated.").then(e => {
             var evaled = require("child_process").execSync('git pull').toString()
