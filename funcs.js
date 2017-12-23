@@ -16,7 +16,15 @@ module.exports = (bot) => {
     bot.incrementMessage = function (msg) {
         if (bot.ranks[msg.author.id]) {
             bot.ranks[msg.author.id].messageCount++;
-            // Check for promotion
+            var ranks = require('./modules/ranklist.json')
+            for (var i = 0; i < ranks.length; i++) {
+                if (bot.ranks[msg.author.id].messageCount > ranks[i].points && 
+                    bot.ranks[msg.author.id].lastRankAssignment < i &&
+                    ranks[i].points > -1) {
+                        var role = msg.channel.guild.roles.get(ranks[i].id)
+                        bot.createMessage(msg.channel.id, "YOU HAVE GOTTEN TO " + role.name + "!!!!")
+                    }
+            }
         } else {
             bot.ranks[msg.author.id] = {
                 id: msg.author.id,
