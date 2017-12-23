@@ -10,7 +10,7 @@ module.exports = (bot) => {
     var levels = bot.loadRanks()
 
     bot.register("ranks", (msg, args) => {
-        var ranks = require('./ranks.json'),
+        var ranks = require('./ranklist.json'),
             m = ""
         for (var i = 0; i < ranks.length; i++) {
             var role = msg.channel.guild.roles.get(ranks[i].id)

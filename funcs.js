@@ -19,7 +19,7 @@ module.exports = (bot) => {
     }
 
     bot.loadRanks = function () {
-        var ranksJson = fs.readFileSync("./modules/ranks.json"),
+        var ranksJson = fs.readFileSync("./ranks.json"),
             ranks = JSON.parse(ranksJson)
 
         bot.log("[LEVELS] Ranks successfully loaded!")
@@ -27,12 +27,12 @@ module.exports = (bot) => {
     }
 
     bot.writeRanks = function (levels) {
-        fs.writeFileSync("./modules/ranks.json", JSON.stringify(levels, null, 3));
+        fs.writeFileSync("./ranks.json", JSON.stringify(levels, null, 3));
         bot.log("[LEVELS] Ranks successfully saved to file!")
     }
 
     bot.backupRanks = function () {
-        var ranksJson = fs.readFileSync("./modules/ranks.json"),
+        var ranksJson = fs.readFileSync("./ranks.json"),
             ranks = JSON.parse(ranksJson),
             d = new Date().getDate(),
             m = new Date().getMonth() + 1,
