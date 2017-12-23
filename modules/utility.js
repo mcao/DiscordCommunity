@@ -18,7 +18,7 @@ module.exports = (bot) => {
         var code = args.join(" ");
         try {
             let evaled = eval(code);
-            let type = typeof evaled;
+            let type = typeof evaled || 'undefined';
             let insp = util.inspect(evaled, {
                 depth: 1
             });
@@ -35,7 +35,7 @@ module.exports = (bot) => {
                 return "**Result:**\n```js\n" + toStr + "```\n**Type:**\n```js\n" + type + "```"
             }
         } catch (err) {
-            return "```js\n" + clean(err.message) + "```\n```js\n" + type + "```"
+            return "```js\n" + clean(err.message) + "```"
         }
     },
         {
