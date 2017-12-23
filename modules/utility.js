@@ -84,9 +84,10 @@ module.exports = (bot) => {
         });
 
     bot.register("restart", function (msg, args) {
-        bot.createMessage(msg.channel.id, "Restarting...")
-        writeFile("./channel.json", `{ "channel" : "${msg.channel.id}" }`)
-        setTimeout(() => { process.exit(0) }, 2000);
+        bot.createMessage(msg.channel.id, "Restarting...").then(m => {
+            writeFile("./channel.json", `{ "channel" : "${m.channel.id}", "message": "${m.id}" }`)
+        })
+        setTimeout(() => { process.exit(0) }, 1000);
     },
         {
             requirements: {
