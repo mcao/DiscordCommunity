@@ -1,6 +1,4 @@
-var levels = this.loadRanks(),
-    ranks = require('./ranks.json');
-    
+
 /*{
     id: "",
     inServer: 0,
@@ -9,12 +7,15 @@ var levels = this.loadRanks(),
 }*/
 
 module.exports = (bot) => {
+    var levels = bot.loadRanks()
+
     bot.register("ranks", (msg, args) => {
-        var m = "";
+        var m = "",
+            ranks = require('./ranks.json');
         for (var i = 0; i < ranks.length; i++) {
             if (ranks[i].points > -1) {
                 m += `**${msg.channel.guild.roles.get(ranks[i].id).name}** - ${ranks[i].points} Messages`
-            } else { 
+            } else {
                 m += `**${msg.channel.guild.roles.get(ranks[i].id).name}** - Top ${ranks[i].condition}`
             }
         }
