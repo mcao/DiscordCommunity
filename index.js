@@ -41,8 +41,16 @@ bot.on("ready", () => {
 });
 
 bot.on("messageCreate", function (msg) {
-    if (msg.channel.id === '392173094728630275') {
-        msg.addReaction('HYPE:390554575888842764'); 
+    const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
+    switch(msg.channel.id) {
+        case '392173071223750656': // #announcements
+        case '392407095171088384': // #fun-of-the-day
+        case '392172869154635786': // #discord-news
+        case '392173094728630275': // #events
+            reactions.forEach(function(reaction) {
+                msg.addReaction(reaction);
+            });
+        break;
     }
     if (!msg.author.bot && msg.channel.guild.id == '358528040617377792') {
         bot.incrementMessage(msg)
