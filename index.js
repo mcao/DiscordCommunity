@@ -41,7 +41,7 @@ bot.on("ready", () => {
 });
 
 bot.on("messageCreate", function (msg) {
-    if (msg.channel.id === '392442695756546059') {
+    if (msg.channel.id === '392173094728630275') {
         msg.addReaction('HYPE:390554575888842764'); 
     }
     if (!msg.author.bot && msg.channel.guild.id == '358528040617377792') {
