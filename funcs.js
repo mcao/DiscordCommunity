@@ -22,7 +22,7 @@ module.exports = (bot) => {
                     bot.ranks[msg.author.id].lastRankAssignment - 1 < i &&
                     ranks[i].points > -1) {
                         var role = msg.channel.guild.roles.get(ranks[i].id)
-                        bot.createMessage(msg.channel.id, `Congratulations <@${msg.author.id}>, you have achieved **${role.name}**!`)
+                        bot.createMessage(msg.channel.id, `Congratulations <@${msg.author.id}>, you have achieved **${role.name}**! 🎉🎉🎉`)
                         bot.ranks[msg.author.id].lastRankAssignment++;
                         msg.addReaction("🎉");
                         msg.member.addRole(role.id);
@@ -41,14 +41,15 @@ module.exports = (bot) => {
     bot.loadRanks = function () {
         var ranksJson = fs.readFileSync("./ranks.json")
         bot.ranks = JSON.parse(ranksJson)
-
         bot.log("[LEVELS] Ranks successfully loaded!")
+        return "Ranks successfully loaded!"
     }
 
     bot.writeRanks = function () {
         fs.writeFileSync("./ranks.json", JSON.stringify(bot.ranks, null, 3));
         bot.log("[LEVELS] Ranks successfully saved to file!")
         bot.backupRanks();
+        return "Ranks successfully saved to file!";
     }
 
     bot.backupRanks = function () {
@@ -59,6 +60,7 @@ module.exports = (bot) => {
             y = new Date().getFullYear();
         fs.writeFileSync(`ranks-${d}-${m}-${y}.json`, JSON.stringify(ranks, null, 3))
         bot.log("[LEVELS] Ranks successfully backed up!")
+        return "Ranks successfully backed up!"
     }
 
     bot.log = function (txt) {

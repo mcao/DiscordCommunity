@@ -27,7 +27,7 @@ bot.on("ready", () => {
     bot.loadRanks();
     bot.backupRanks();
 
-    setTimeout(() => {
+    setInterval(() => {
         bot.writeRanks();
     }, 300000)
 
