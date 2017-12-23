@@ -1,6 +1,6 @@
-var levels = bot.loadRanks(),
+var levels = this.loadRanks(),
     ranks = require('./ranks.json');
-
+    
 /*{
     id: "",
     inServer: 0,

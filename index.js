@@ -12,10 +12,12 @@ bot.on("ready", () => {
     readdir('./modules/', (err, files) => {
         bot.log(`Loading ${files.length} modules!`);
         files.forEach(f => {
-            try {
-                require(`./modules/${f}`)(bot)
-            } catch (e) {
-                bot.log(`Unable to load module ${f}: ${e}`);
+            if (f.endsWith(".js")) {
+                try {
+                    require(`./modules/${f}`)(bot)
+                } catch (e) {
+                    bot.log(`Unable to load module ${f}: ${e}`);
+                }
             }
         });
         bot.log(`Modules loaded!`);
