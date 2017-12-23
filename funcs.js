@@ -22,7 +22,10 @@ module.exports = (bot) => {
                     bot.ranks[msg.author.id].lastRankAssignment - 1 < i &&
                     ranks[i].points > -1) {
                         var role = msg.channel.guild.roles.get(ranks[i].id)
-                        bot.createMessage(msg.channel.id, "YOU HAVE GOTTEN TO " + role.name + "!!!!")
+                        bot.createMessage(msg.channel.id, `Congratulations <@${msg.author.id}>, you have achieved **${role.name}**!`)
+                        bot.ranks[msg.author.id].lastRankAssignment = i;
+                        msg.addReaction("tada");
+                        msg.member.addRole(role.id);
                     }
             }
         } else {
