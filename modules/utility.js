@@ -1,4 +1,5 @@
 const readdir = require("fs").readdir,
+    writeFile = require("fs").writeFileSync,
     util = require("util"),
     hastebin = require('hastebin-gen');
 
@@ -80,6 +81,19 @@ module.exports = (bot) => {
             },
             description: "Updates the bot's code.",
             fullDescription: "This command is used to update the bot's code on Github."
+        });
+
+    bot.register("restart", function (msg, args) {
+        bot.createMessage(msg.channel.id, "Restarting...")
+        writeFile("../channel.txt", msg.channel.id)
+        process.exit(0);
+    },
+        {
+            requirements: {
+                userIDs: bot.config.owners
+            },
+            description: "Restart the bot.",
+            fullDescription: "This command is used to restart the bot."
         });
 
     bot.register("reload", (msg, args) => {

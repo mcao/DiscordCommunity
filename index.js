@@ -1,5 +1,6 @@
 const { CommandClient } = require("eris"),
-    readdir = require("fs").readdir;
+    readdir = require("fs").readdir,
+    readFileSync = require("fs").readFileSync;
 var bot = new CommandClient(require("./config.json").token, {}, require("./config.json").commandOpts);
 
 require('./funcs.js')(bot)
@@ -28,16 +29,22 @@ bot.on("ready", () => {
     setTimeout(() => {
         bot.backupRanks();
     }, 300000)
+
+    try {
+        bot.createMessage(readFileSync("./channel.txt"), "Restarted!")
+    } catch(err) {
+        console.log(err);
+    };
 });
 
 bot.on("messageCreate", function (msg) {
     if (msg.channel.id == "392442695756546059" && msg.author.id == "392445621165883392") {
         bot.createMessage(msg.channel.id, "Automatic Code Update Initiated.").then(e => {
             var evaled = require("child_process").execSync('git pull').toString()
-            bot.createMessage(e.channel.id, "Automatic Code Update Successful. Restarting...")
-            setTimeout(function () {
-                process.exit(0)
-            }, 2000);
+            bot.createMessage(e.channel.id, "Automatic Code Update Successful.")
+            var e = m.embeds[0].description.toString()
+            bot.createMessage(e.channel.id, `<@171319044715053057>, the following changes were pushed by 
+**${e.substring(e.indexOf("-") + 1, e.length)}.** Please approve the changes and restart the bot.?\n${evaled}`)
         })
     }
 })
