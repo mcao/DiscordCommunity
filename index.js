@@ -32,7 +32,7 @@ bot.on("ready", () => {
     }, 300000)
 
     try {
-        bot.createMessage(readFileSync("./channel.txt"), "Restarted!")
+        bot.createMessage(readFileSync("./channel.txt").toString(), "Restarted!")
     } catch(err) {
         console.log(err);
     };
