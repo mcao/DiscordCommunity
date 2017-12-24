@@ -24,12 +24,12 @@ bot.on("ready", () => {
         bot.log(`Modules loaded!`);
     });
 
-    bot.loadRanks();
-    bot.backupRanks();
+    bot.loadProfiles();
+    bot.backupProfiles();
     bot.twentyFourHourTimer();
 
     setInterval(() => {
-        bot.writeRanks();
+        bot.writeProfiles();
     }, 300000)
 
     try {
