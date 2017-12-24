@@ -65,8 +65,8 @@ module.exports = (bot) => {
     }
 
     bot.writeProfiles = function () {
-        var profilesJson = fs.readFileSync("./ranks.json"),
-            profiles = JSON.parse(ranksJson)
+        var profilesJson = fs.readFileSync("./profiles.json"),
+            profiles = JSON.parse(profilesJson)
         if (JSON.stringify(profiles) == JSON.stringify(bot.profiles)) return; // Only writes if there's a difference
 
         fs.writeFileSync("./profiles.json", JSON.stringify(bot.profiles, null, 3));
