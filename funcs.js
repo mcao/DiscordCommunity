@@ -62,6 +62,10 @@ module.exports = (bot) => {
     }
 
     bot.writeRanks = function () {
+        var ranksJson = fs.readFileSync("./ranks.json"),
+            ranks = JSON.parse(ranksJson)
+        if (JSON.stringify(ranks) == JSON.stringify(bot.ranks)) return; // Only writes if there's a difference
+
         fs.writeFileSync("./ranks.json", JSON.stringify(bot.ranks, null, 3));
         bot.log("[LEVELS] Ranks successfully saved to file!")
         bot.backupRanks();
