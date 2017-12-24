@@ -24,12 +24,13 @@ module.exports = (bot) => {
 
     bot.register("rank", (msg, args) => {
         if (msg.mentions[0] && msg.mentions[0].username) {
+            if (msg.mentions[0].bot) return bot.createMessage(msg.channel.id, "Bots don't have ranks!");
             if (bot.profiles[msg.mentions[0].id]) {
                 if (bot.profiles[msg.mentions[0].id].lastRankAssignment - 1 > -1)
                     var rank = msg.channel.guild.roles.get(ranks[bot.profiles[msg.mentions[0].id].lastRankAssignment].id).name
                 else
                     var rank = "None"
-
+                
                 bot.createMessage(msg.channel.id,
                     `**${msg.mentions[0].username}#${msg.mentions[0].discriminator}**
 **Messages:** ${bot.profiles[msg.mentions[0].id].messageCount}
