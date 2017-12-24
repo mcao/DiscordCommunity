@@ -51,7 +51,7 @@ module.exports = (bot) => {
                 messageCount: 1,
                 lastRankAssignment: 0,
                 warnings: [
-                    
+
                 ]
             }
         }
@@ -60,7 +60,7 @@ module.exports = (bot) => {
     bot.loadProfiles = function () {
         var profilesJson = fs.readFileSync("./profiles.json")
         bot.profiles = JSON.parse(profilesJson)
-        bot.log("[LEVELS] Profiles successfully loaded!")
+        bot.log("[PROFILES] Profiles successfully loaded!")
         return "Profiles successfully loaded!"
     }
 

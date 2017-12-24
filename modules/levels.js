@@ -25,12 +25,28 @@ module.exports = (bot) => {
     bot.register("rank", (msg, args) => {
         if (bot.profiles[msg.author.id].lastRankAssignment - 1 > -1)
             var rank = msg.channel.guild.roles.get(ranks[bot.profiles[msg.author.id].lastRankAssignment].id).name
-        else 
+        else
             var rank = "None"
-        bot.createMessage(msg.channel.id,
-            `**${msg.author.username}#${msg.author.discriminator}**
+
+        if (msg.mentions[0] && msg.mentions[0].username) {
+            if (bot.profiles[msg.mentions[0].id]) {
+                bot.createMessage(msg.channel.id,
+                    `**${mmsg.mentions[0].username}#${msg.mentions[0].discriminator}**
+**Messages:** ${bot.profiles[msg.mentions[0].id].messageCount}
+**Rank:** ${rank}`)
+            } else {
+                bot.createMessage(msg.channel.id, "It looks like you have no ranking yet :cry:")
+            }
+        } else if (bot.profiles[msg.author.id]) {
+            if (bot.profiles[msg.author.id]) {
+                bot.createMessage(msg.channel.id,
+                    `**${msg.author.username}#${msg.author.discriminator}**
 **Messages:** ${bot.profiles[msg.author.id].messageCount}
 **Rank:** ${rank}`)
+            } else {
+                bot.createMessage(msg.channel.id, "It looks like you have no ranking yet :cry:")
+            }
+        }
     },
         {
             description: "Checks a user's rank on the server.",
