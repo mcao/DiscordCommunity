@@ -22,6 +22,7 @@ module.exports = (bot) => {
                     }
                 }
                 bot.log("Deducted 2% from levels!")
+                bot.writeRanks()
             }
         }, 60000)
     }
