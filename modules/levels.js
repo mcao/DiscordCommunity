@@ -31,7 +31,7 @@ module.exports = (bot) => {
                     var rank = "None"
 
                 bot.createMessage(msg.channel.id,
-                    `**${mmsg.mentions[0].username}#${msg.mentions[0].discriminator}**
+                    `**${msg.mentions[0].username}#${msg.mentions[0].discriminator}**
 **Messages:** ${bot.profiles[msg.mentions[0].id].messageCount}
 **Rank:** ${rank}`)
             } else {
