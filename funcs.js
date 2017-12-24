@@ -13,20 +13,35 @@ module.exports = (bot) => {
         }
     }
 
+    bot.twentyFourHourTimer = function (msg) {
+        setInterval(function () {
+            if (new Date().getHours() == 0 && new Date().getMinutes() == 0) {
+                for (var key in bot.ranks) {
+                    if (bot.ranks.hasOwnProperty(key)) {
+                        bot.ranks[key].messageCount = Math.ceil(bot.ranks[key].messageCount * 0.98);
+                    }
+                }
+                bot.log("Deducted 2% from levels!")
+            }
+        }, 60000)
+    }
+
     bot.incrementMessage = function (msg) {
         if (bot.ranks[msg.author.id]) {
             bot.ranks[msg.author.id].messageCount++;
             var ranks = require('./modules/ranklist.json')
             for (var i = 0; i < ranks.length; i++) {
-                if (bot.ranks[msg.author.id].messageCount > ranks[i].points && 
+                if (bot.ranks[msg.author.id].messageCount > ranks[i].points &&
                     bot.ranks[msg.author.id].lastRankAssignment - 1 < i &&
                     ranks[i].points > -1) {
-                        var role = msg.channel.guild.roles.get(ranks[i].id)
-                        bot.createMessage(msg.channel.id, `Congratulations <@${msg.author.id}>, you have achieved **${role.name}**! 🎉🎉🎉`)
-                        bot.ranks[msg.author.id].lastRankAssignment++;
-                        msg.addReaction("🎉");
-                        msg.member.addRole(role.id);
-                    }
+                    var role = msg.channel.guild.roles.get(ranks[i].id)
+                    bot.createMessage(msg.channel.id, `Congratulations <@${msg.author.id}>, you have achieved **${role.name}**! 🎉🎉🎉`)
+                    bot.ranks[msg.author.id].lastRankAssignment++;
+                    msg.addReaction("🎉");
+                    msg.member.addRole(role.id);
+                    if (i > 0)
+                        msg.member.removeRole(msg.channel.guild.roles.get(ranks[i - 1].id).id)
+                }
             }
         } else {
             bot.ranks[msg.author.id] = {
@@ -65,6 +80,7 @@ module.exports = (bot) => {
 
     bot.log = function (txt) {
         console.log(this.timestamp() + "  [LOG]  | " + txt)
+        bot.createMessage(bot.config.logChannel, txt);
     }
 
     bot.timestamp = function () {

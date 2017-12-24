@@ -26,6 +26,7 @@ bot.on("ready", () => {
 
     bot.loadRanks();
     bot.backupRanks();
+    bot.twentyFourHourTimer();
 
     setInterval(() => {
         bot.writeRanks();
@@ -36,7 +37,7 @@ bot.on("ready", () => {
             msg.edit("Restarted!")
         })
     } catch (err) {
-        console.log(err);
+        bot.log(err);
     };
 });
 
