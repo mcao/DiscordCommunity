@@ -28,7 +28,7 @@ module.exports = (bot) => {
     }
     bot.resetMessages = function(userID) {
         bot.profiles[userID].messageCount = 0;
-        
+        bot.profiles[userID].lastRoleAssigned = 0;
     }
     bot.incrementMessage = function (msg) {
         if (bot.profiles[msg.author.id]) {
