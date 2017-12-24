@@ -24,7 +24,7 @@ module.exports = (bot) => {
         bot.register("reset", (msg, args) => {
             var user = msg.mentions[0].id;
             if (args.length === 0) return bot.createMessage(msg.channel.id, 'Please provide a user.');
-            if (msg.mentions.bot) return bot.createMessage(msg.channel.id, 'Bots don\'t have ranks!.');
+            if (msg.mentions[0].bot) return bot.createMessage(msg.channel.id, 'Bots don\'t have ranks!.');
             if (!msg.mentions[0] && args.length !== 18) return bot.createMessage(msg.channel.id, 'Invalid user.')
             if (args.length === 18 && typeof args === 'number') user = args;
             const levelRoles = ['393606932608450561', '393606931014746113', '393606929068589057', '393606926467989507', '393606924433752064'];
