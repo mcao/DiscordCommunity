@@ -16,71 +16,74 @@ module.exports = (bot) => {
     bot.twentyFourHourTimer = function (msg) {
         setInterval(function () {
             if (new Date().getHours() == 0 && new Date().getMinutes() == 0) {
-                for (var key in bot.ranks) {
-                    if (bot.ranks.hasOwnProperty(key)) {
-                        bot.ranks[key].messageCount = Math.ceil(bot.ranks[key].messageCount * 0.98);
+                for (var key in bot.profiles) {
+                    if (bot.profiles.hasOwnProperty(key)) {
+                        bot.profiles[key].messageCount = Math.ceil(bot.profiles[key].messageCount * 0.98);
                     }
                 }
                 bot.log("Deducted 2% from levels!")
-                bot.writeRanks()
+                bot.writeProfiles()
             }
         }, 60000)
     }
 
     bot.incrementMessage = function (msg) {
-        if (bot.ranks[msg.author.id]) {
-            bot.ranks[msg.author.id].messageCount++;
-            var ranks = require('./modules/ranklist.json')
-            for (var i = 0; i < ranks.length; i++) {
-                if (bot.ranks[msg.author.id].messageCount > ranks[i].points &&
-                    bot.ranks[msg.author.id].lastRankAssignment - 1 < i &&
-                    ranks[i].points > -1) {
-                    var role = msg.channel.guild.roles.get(ranks[i].id)
+        if (bot.profiles[msg.author.id]) {
+            bot.profiles[msg.author.id].messageCount++;
+            var profiles = require('./modules/ranklist.json')
+            for (var i = 0; i < profiles.length; i++) {
+                if (bot.profiles[msg.author.id].messageCount > profiles[i].points &&
+                    bot.profiles[msg.author.id].lastRankAssignment - 1 < i &&
+                    profiles[i].points > -1) {
+                    var role = msg.channel.guild.roles.get(profiles[i].id)
                     bot.createMessage(msg.channel.id, `Congratulations <@${msg.author.id}>, you have achieved **${role.name}**! 🎉🎉🎉`)
-                    bot.ranks[msg.author.id].lastRankAssignment++;
+                    bot.profiles[msg.author.id].lastRankAssignment++;
                     msg.addReaction("🎉");
                     msg.member.addRole(role.id);
                     if (i > 0)
-                        msg.member.removeRole(msg.channel.guild.roles.get(ranks[i - 1].id).id)
+                        msg.member.removeRole(msg.channel.guild.roles.get(profiles[i - 1].id).id)
                 }
             }
         } else {
-            bot.ranks[msg.author.id] = {
+            bot.profiles[msg.author.id] = {
                 id: msg.author.id,
                 inServer: 1,
                 messageCount: 1,
-                lastRankAssignment: 0
+                lastRankAssignment: 0,
+                warnings: [
+                    
+                ]
             }
         }
     }
 
-    bot.loadRanks = function () {
-        var ranksJson = fs.readFileSync("./ranks.json")
-        bot.ranks = JSON.parse(ranksJson)
-        bot.log("[LEVELS] Ranks successfully loaded!")
-        return "Ranks successfully loaded!"
+    bot.loadProfiles = function () {
+        var profilesJson = fs.readFileSync("./profiles.json")
+        bot.profiles = JSON.parse(profilesJson)
+        bot.log("[LEVELS] Profiles successfully loaded!")
+        return "Profiles successfully loaded!"
     }
 
-    bot.writeRanks = function () {
-        var ranksJson = fs.readFileSync("./ranks.json"),
-            ranks = JSON.parse(ranksJson)
-        if (JSON.stringify(ranks) == JSON.stringify(bot.ranks)) return; // Only writes if there's a difference
+    bot.writeProfiles = function () {
+        var profilesJson = fs.readFileSync("./ranks.json"),
+            profiles = JSON.parse(ranksJson)
+        if (JSON.stringify(profiles) == JSON.stringify(bot.profiles)) return; // Only writes if there's a difference
 
-        fs.writeFileSync("./ranks.json", JSON.stringify(bot.ranks, null, 3));
-        bot.log("[LEVELS] Ranks successfully saved to file!")
-        bot.backupRanks();
-        return "Ranks successfully saved to file!";
+        fs.writeFileSync("./profiles.json", JSON.stringify(bot.profiles, null, 3));
+        bot.log("[LEVELS] Profiles successfully saved to file!")
+        bot.backupProfiles();
+        return "Profiles successfully saved to file!";
     }
 
-    bot.backupRanks = function () {
-        var ranksJson = fs.readFileSync("./ranks.json"),
-            ranks = JSON.parse(ranksJson),
+    bot.backupProfiles = function () {
+        var profilesJson = fs.readFileSync("./profiles.json"),
+            profiles = JSON.parse(profilesJson),
             d = new Date().getDate(),
             m = new Date().getMonth() + 1,
             y = new Date().getFullYear();
-        fs.writeFileSync(`ranks-${d}-${m}-${y}.json`, JSON.stringify(ranks, null, 3))
-        bot.log("[LEVELS] Ranks successfully backed up!")
-        return "Ranks successfully backed up!"
+        fs.writeFileSync(`profiles-${d}-${m}-${y}.json`, JSON.stringify(profiles, null, 3))
+        bot.log("[PROFILE] Profiles successfully backed up!")
+        return "Profiles successfully backed up!"
     }
 
     bot.log = function (txt) {

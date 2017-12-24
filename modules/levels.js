@@ -1,16 +1,9 @@
 
-/*{
-    id: "",
-    inServer: 0,
-    messageCount: 0000,
-    lastRankAssignment: 124677
-}*/
 var ranks = require('./ranklist.json')
 
 module.exports = (bot) => {
     bot.register("ranks", (msg, args) => {
-        var ranks = require('./ranklist.json'),
-            m = ""
+        var m = ""
         for (var i = 0; i < ranks.length; i++) {
             var role = msg.channel.guild.roles.get(ranks[i].id)
             if (ranks[i].points > -1) {
@@ -30,13 +23,13 @@ module.exports = (bot) => {
         });
 
     bot.register("rank", (msg, args) => {
-        if (bot.ranks[msg.author.id].lastRankAssignment - 1 > -1)
-            var rank = msg.channel.guild.roles.get(ranks[bot.ranks[msg.author.id].lastRankAssignment].id).name
+        if (bot.profiles[msg.author.id].lastRankAssignment - 1 > -1)
+            var rank = msg.channel.guild.roles.get(ranks[bot.profiles[msg.author.id].lastRankAssignment].id).name
         else 
             var rank = "None"
         bot.createMessage(msg.channel.id,
             `**${msg.author.username}#${msg.author.discriminator}**
-**Messages:** ${bot.ranks[msg.author.id].messageCount}
+**Messages:** ${bot.profiles[msg.author.id].messageCount}
 **Rank:** ${rank}`)
     },
         {
