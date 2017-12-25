@@ -87,6 +87,7 @@ module.exports = (bot) => {
         bot.createMessage(msg.channel.id, "Restarting...").then(m => {
             writeFile("./channel.json", `{ "channel" : "${m.channel.id}", "message": "${m.id}" }`)
         })
+        bot.writeProfiles()
         setTimeout(() => { process.exit(0) }, 1000);
     },
         {
