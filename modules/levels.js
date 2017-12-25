@@ -39,7 +39,7 @@ module.exports = (bot) => {
             });
                 
             for(let i = 0; i < 20; i++) {
-                embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]}`});
+                embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
             }
                 
             bot.createMessage(msg.channel.id, {embed: embed}).then(m => m.addReaction('◀') && m.addReaction('🔵') && m.addReaction('▶'));
