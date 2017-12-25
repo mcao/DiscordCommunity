@@ -42,7 +42,7 @@ module.exports = (bot) => {
                 embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]}`});
             }
                 
-            bot.createMessage(msg.channel.id, {embed: embed});
+            bot.createMessage(msg.channel.id, {embed: embed}).then(m => m.addReaction('◀') && m.addReaction(' ▶'));
         },
         {
             description: "Shows the leaderboard.",
