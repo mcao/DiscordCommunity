@@ -46,6 +46,8 @@ bot.on("messageCreate", function (msg) {
     switch (msg.channel.id) {
         case '392407095171088384': // #fun-of-the-day
             if (msg.content.toLowerCase().includes('poll')) return;
+        case '392152654505050112': // #introductions:
+            msg.addReaction('bexhey:390556541360799748');
         case '392173071223750656': // #announcements
         case '392172869154635786': // #discord-news
         case '392173094728630275': // #events
