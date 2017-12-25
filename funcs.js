@@ -70,7 +70,7 @@ module.exports = (bot) => {
         if (JSON.stringify(profiles) == JSON.stringify(bot.profiles)) return; // Only writes if there's a difference
 
         fs.writeFileSync("./profiles.json", JSON.stringify(bot.profiles, null, 3));
-        bot.log("[LEVELS] Profiles successfully saved to file!")
+        bot.log("[PROFILES] Profiles successfully saved to file!")
         bot.backupProfiles();
         return "Profiles successfully saved to file!";
     }

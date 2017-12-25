@@ -43,16 +43,16 @@ bot.on("ready", () => {
 
 bot.on("messageCreate", function (msg) {
     const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
-    switch(msg.channel.id) {
+    switch (msg.channel.id) {
         case '392407095171088384': // #fun-of-the-day
             if (msg.content.toLowerCase().includes('poll')) return;
         case '392173071223750656': // #announcements
         case '392172869154635786': // #discord-news
         case '392173094728630275': // #events
-            reactions.forEach(function(reaction) {
+            reactions.forEach(function (reaction) {
                 msg.addReaction(reaction);
             });
-        break;
+            break;
     }
     if (!msg.author.bot && msg.channel.guild.id == '358528040617377792') {
         bot.incrementMessage(msg)
@@ -71,7 +71,7 @@ bot.on("guildMemberAdd", function (guild, member) {
     if (guild.id == "358528040617377792") {
         bot.createMessage("392152516596465664", `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada:
 Please remember to read the <#392171939101409290> and post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>`)
-        setTimeout(member.addRole('392169263982444546', "Autorole"), 30000);
+        setTimeout(function () { member.addRole('392169263982444546', "Autorole") }, 30000);
     }
 })
 
