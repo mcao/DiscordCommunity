@@ -21,6 +21,33 @@ module.exports = (bot) => {
                 roleIDs: ['392169263982444546', '392157677184221185', '392150288729112587']
             }
         });
+        bot.register("leaderboard", (msg, args) => {
+            let embed = {
+                title: "Leaderboard",
+                color: 0xffffff,
+                fields: []
+            }
+                
+                
+            let userIDs = Object.keys(bot.profiles).sort(function(a,b) {
+                let result = bot.profiles[b].messageCount - bot.profiles[a].messageCount;
+                return result;
+            });
+            let messageCount =  [];
+            userIDs.forEach(function(hi) {
+                messageCount.push(bot.profiles[hi].messageCount)
+            });
+                
+            for(let i = 0; i < userIDs.length; i++) {
+                embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]}`});
+            }
+                
+            bot.createMessage(msg.channel.id, {embed: embed});
+        },
+        {
+            description: "Shows the leaderboard.",
+            fullDescription: "Shows the top 10 users with the most message count.",
+        });
         bot.register("reset", (msg, args) => {
             var user = msg.mentions[0].id;
             if (args.length === 0) return bot.createMessage(msg.channel.id, 'Please provide a user.');
