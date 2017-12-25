@@ -38,7 +38,7 @@ module.exports = (bot) => {
                 messageCount.push(bot.profiles[hi].messageCount)
             });
                 
-            for(let i = 0; i < 21; i++) {
+            for(let i = 0; i < 20; i++) {
                 embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]}`, inline: true});
             }
                 
