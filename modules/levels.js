@@ -39,7 +39,7 @@ module.exports = (bot) => {
             });
                 
             for(let i = 0; i < 20; i++) {
-                embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]}`, inline: true});
+                embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]}`});
             }
                 
             bot.createMessage(msg.channel.id, {embed: embed});
