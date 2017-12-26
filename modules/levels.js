@@ -21,7 +21,7 @@ module.exports = (bot) => {
                 roleIDs: ['392169263982444546', '392157677184221185', '392150288729112587']
             }
         });
-        
+
     bot.register("leaderboard", (msg, args) => {
         var start = 0,
             end = 20
@@ -30,7 +30,10 @@ module.exports = (bot) => {
         var messageCount = leaderboard[1];
         var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
         for (let i = start; i < end; i++) {
-            var user = bot.users.get(userIDs[i]).username || "Unknown"
+            if (bot.users.get(userIDs[i]))
+                var user = bot.users.get(userIDs[i]).username
+            else
+                var user = "Unknown"
             str += `\n#${i + 1}: ${user} - ${messageCount[i]} messages`
         }
         str += "\nPage 1\`\`\`"
@@ -51,9 +54,12 @@ module.exports = (bot) => {
                         var messageCount = leaderboard[1];
                         var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
                         while (start < end && userIDs[start]) {
-                            var user = bot.users.get(userIDs[start]).username || "Unknown"
+                            if (bot.users.get(userIDs[start]))
+                                var user = bot.users.get(userIDs[start]).username
+                            else
+                                var user = "Unknown"
                             str += `\n#${start}: ${user} - ${messageCount[start]} messages`
-                            start ++;
+                            start++;
                         }
                         str += `\nPage ${i}\`\`\``
                         return str;
