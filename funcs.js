@@ -30,6 +30,19 @@ module.exports = (bot) => {
         bot.profiles[userID].messageCount = 0;
         bot.profiles[userID].lastRoleAssigned = 0;
     }
+    bot.getLeaderboard = function() {
+        let userIDs = Object.keys(bot.profiles).sort(function(a,b) {
+            let IDs = bot.profiles[b].messageCount - bot.profiles[a].messageCount;
+            return IDs;
+        });
+        let messageCount =  [];
+        userIDs.forEach(function(hi) {
+            messageCount.push(bot.profiles[hi].messageCount)
+        });
+        const result = [userIDs, messageCount];
+        return result;
+        
+    }
     bot.incrementMessage = function (msg) {
         if (bot.profiles[msg.author.id]) {
             bot.profiles[msg.author.id].messageCount++;

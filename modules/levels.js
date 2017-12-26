@@ -27,24 +27,37 @@ module.exports = (bot) => {
                 color: 0xffffff,
                 fields: []
             }
-                
-                
-            let userIDs = Object.keys(bot.profiles).sort(function(a,b) {
-                let result = bot.profiles[b].messageCount - bot.profiles[a].messageCount;
-                return result;
-            });
-            let messageCount =  [];
-            userIDs.forEach(function(hi) {
-                messageCount.push(bot.profiles[hi].messageCount)
-            });
-                
+            var leaderboard = getLeaderboard();
+            var userIDs = leaderboard[0];
+            var messageCount = leaderboard[1];
             for(let i = 0; i < 20; i++) {
                 embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
             }
                 
-            bot.createMessage(msg.channel.id, {embed: embed}).then(m => m.addReaction('◀') && m.addReaction('🔵') && m.addReaction('▶'));
+            bot.createMessage(msg.channel.id, {embed: embed});
         },
         {
+            reactionButtons: [ 
+                {
+                    emoji: "◀",
+                    type: "edit",
+                    response: (msg) => {
+                        return;
+                    }
+                },
+                {
+                    emoji: "🔵",
+                    type: "cancel"
+                },
+                {
+                    emoji: "▶",
+                    type: "edit",
+                    response: (msg) => {
+                        return;
+                    }
+                }
+            ],
+            reactionButtonTimeout: 30000,
             description: "Shows the leaderboard.",
             fullDescription: "Shows the top 10 users with the most message count.",
         });
