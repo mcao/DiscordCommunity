@@ -34,24 +34,24 @@ module.exports = (bot) => {
                 embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
             }
                 
-            bot.createMessage(msg.channel.id, {embed: embed});
+            bot.createMessage(msg.channel.id, {embed: embed}).then(m => m.addReaction('◀') && m.addReaction('🔵') && m.addReaction('▶'));
         },
         {
             reactionButtons: [ // Add reaction buttons to the command
                 {
-                    emoji: "⬅",
+                    emoji: "◀",
                     type: "edit",
                     response: (msg) => { // Reverse the message content
                         return msg.content.split().reverse().join();
                     }
                 },
                 {
-                    emoji: "🔁",
+                    emoji: "▶",
                     type: "edit", // Pick a new pong variation
                     response: ["Pang!", "Peng!", "Ping!", "Pong!", "Pung!"]
                 },
                 {
-                    emoji: "⏹",
+                    emoji: "🔵",
                     type: "cancel" // Stop listening for reactions
                 }
             ],
