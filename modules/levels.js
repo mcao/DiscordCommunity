@@ -58,7 +58,7 @@ module.exports = (bot) => {
                             str += `\n#${start}: ${bot.users.get(userIDs[start]).username} - ${messageCount[i]} messages`
                             start + 1;
                         }
-                        
+                        str += "\`\`\`"
                         return str;
                     }
                 },
