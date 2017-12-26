@@ -37,24 +37,22 @@ module.exports = (bot) => {
             bot.createMessage(msg.channel.id, {embed: embed});
         },
         {
-            reactionButtons: [ 
+            reactionButtons: [ // Add reaction buttons to the command
                 {
-                    emoji: "◀",
+                    emoji: "⬅",
                     type: "edit",
-                    response: (msg) => {
-                        return;
+                    response: (msg) => { // Reverse the message content
+                        return msg.content.split().reverse().join();
                     }
                 },
                 {
-                    emoji: "🔵",
-                    type: "cancel"
+                    emoji: "🔁",
+                    type: "edit", // Pick a new pong variation
+                    response: ["Pang!", "Peng!", "Ping!", "Pong!", "Pung!"]
                 },
                 {
-                    emoji: "▶",
-                    type: "edit",
-                    response: (msg) => {
-                        return;
-                    }
+                    emoji: "⏹",
+                    type: "cancel" // Stop listening for reactions
                 }
             ],
             reactionButtonTimeout: 30000,
