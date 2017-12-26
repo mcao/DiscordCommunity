@@ -44,7 +44,7 @@ module.exports = (bot) => {
         {
             reactionButtons: [
                 {
-                    emoji: "◀",
+                    emoji: "▶",
                     type: "edit",
                     response: (msg, args) => {
                         var start = heyhru;
@@ -62,7 +62,7 @@ module.exports = (bot) => {
                     }
                 },
                 {
-                    emoji: "▶",
+                    emoji: "◀",
                     type: "edit",
                     response: ["Pang!", "Peng!", "Ping!", "Pong!", "Pung!"]
                 },
