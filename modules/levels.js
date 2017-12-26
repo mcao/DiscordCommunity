@@ -32,7 +32,7 @@ module.exports = (bot) => {
         for (let i = start; i < end; i++) {
             str += `\n#${i + 1}: ${bot.users.get(userIDs[i]).username} - ${messageCount[i]} messages`
         }
-        str += "Page 1\`\`\`"
+        str += "\nPage 1\`\`\`"
 
         return str
     },
@@ -44,16 +44,16 @@ module.exports = (bot) => {
                     response: (msg, args) => {
                         var i = (msg.content.substring(msg.content.indexOf("Page") + 5, msg.content.indexOf("Page") + 6) * 1) + 1
                         var start = (i * 20);
-                        var end = start += 20;
+                        var end = start + 20;
                         var leaderboard = bot.getLeaderboard();
                         var userIDs = leaderboard[0];
                         var messageCount = leaderboard[1];
                         var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
                         while (start < end) {
                             str += `\n#${start}: ${bot.users.get(userIDs[start]).username} - ${messageCount[start]} messages`
-                            start + 1;
+                            start ++;
                         }
-                        str += `Page ${i}\`\`\``
+                        str += `\nPage ${i}\`\`\``
                         return str;
                     }
                 },
