@@ -34,8 +34,8 @@ module.exports = (bot) => {
                 embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
             }
                 
-            bot.createMessage(msg.channel.id, {embed: embed}).then(m => m.addReaction('◀') && m.addReaction('🔵') && m.addReaction('▶'));
-            return "lol"
+            //bot.createMessage(msg.channel.id, {embed: embed}).then(m => m.addReaction('◀') && m.addReaction('🔵') && m.addReaction('▶'));
+            return embed
         },
         {
             reactionButtons: [
@@ -44,7 +44,6 @@ module.exports = (bot) => {
                     type: "edit",
                     response: (msg, args) => { 
                         msg.delete();
-                        return 'hi'
                     }
                 },
                 {
