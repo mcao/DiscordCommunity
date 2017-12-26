@@ -21,7 +21,7 @@ module.exports = (bot) => {
                 roleIDs: ['392169263982444546', '392157677184221185', '392150288729112587']
             }
         });
-    var heyhru = 21;
+        
     bot.register("leaderboard", (msg, args) => {
         /*let embed = {
             title: "Leaderboard",
