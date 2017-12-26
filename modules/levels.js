@@ -58,7 +58,7 @@ module.exports = (bot) => {
                                 var user = bot.users.get(userIDs[start]).username
                             else
                                 var user = "Unknown"
-                            str += `\n#${start}: ${user} - ${messageCount[start]} messages`
+                            str += `\n#${start + 1}: ${user} - ${messageCount[start]} messages`
                             start++;
                         }
                         str += `\nPage ${i + 1}\`\`\``
@@ -82,7 +82,7 @@ module.exports = (bot) => {
                                 var user = bot.users.get(userIDs[start]).username
                             else
                                 var user = "Unknown"
-                            str += `\n#${start}: ${user} - ${messageCount[start]} messages`
+                            str += `\n#${start + 1}: ${user} - ${messageCount[start]} messages`
                             start++;
                         }
                         str += `\nPage ${i - 1}\`\`\``
