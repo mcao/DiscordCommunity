@@ -49,7 +49,7 @@ module.exports = (bot) => {
                         var userIDs = leaderboard[0];
                         var messageCount = leaderboard[1];
                         var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
-                        while (start < end) {
+                        while (start < end && userIDs[start]) {
                             str += `\n#${start}: ${bot.users.get(userIDs[start]).username} - ${messageCount[start]} messages`
                             start ++;
                         }
