@@ -31,9 +31,9 @@ module.exports = (bot) => {
         var userIDs = leaderboard[0];
         var messageCount = leaderboard[1];
         var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
-        for (let i = 1; i < 21; i++) {
+        for (let i = 0; i < 21; i++) {
             //embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
-            str += `\n#${i}: ${bot.users.get(userIDs[i]).username} - ${messageCount[i]} messages`
+            str += `\n#${i + 1}: ${bot.users.get(userIDs[i]).username} - ${messageCount[i]} messages`
         }
         str += "\`\`\`"
 
