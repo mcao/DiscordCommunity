@@ -61,14 +61,33 @@ module.exports = (bot) => {
                             str += `\n#${start}: ${user} - ${messageCount[start]} messages`
                             start++;
                         }
-                        str += `\nPage ${i++}\`\`\``
+                        str += `\nPage ${i + 1}\`\`\``
                         return str;
                     }
                 },
                 {
                     emoji: "◀",
                     type: "edit",
-                    response: ["Pang!", "Peng!", "Ping!", "Pong!", "Pung!"]
+                    response: (msg, args) => {
+                        var i = (msg.content.substring(msg.content.indexOf("Page") + 5, msg.content.indexOf("Page") + 6) * 1)
+                        var start = (i * 20) - 1;
+                        if (start < 0) return null;
+                        var end = start + 20;
+                        var leaderboard = bot.getLeaderboard();
+                        var userIDs = leaderboard[0];
+                        var messageCount = leaderboard[1];
+                        var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
+                        while (start < end && userIDs[start]) {
+                            if (bot.users.get(userIDs[start]))
+                                var user = bot.users.get(userIDs[start]).username
+                            else
+                                var user = "Unknown"
+                            str += `\n#${start}: ${user} - ${messageCount[start]} messages`
+                            start++;
+                        }
+                        str += `\nPage ${i - 1}\`\`\``
+                        return str;
+                    }
                 },
                 {
                     emoji: "🔵",
