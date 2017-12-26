@@ -56,8 +56,9 @@ module.exports = (bot) => {
                         while (start < 30) {
                             //embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
                             str += `\n#${start}: ${bot.users.get(userIDs[start]).username} - ${messageCount[i]} messages`
+                            start + 1;
                         }
-                        start + 1;
+                        
                         return str;
                     }
                 },
