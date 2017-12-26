@@ -43,6 +43,34 @@ module.exports = (bot) => {
         {
             reactionButtons: [
                 {
+                    emoji: "◀",
+                    type: "edit",
+                    response: (msg, args) => {
+                        var i = (msg.content.substring(msg.content.indexOf("Page") + 5, msg.content.indexOf("Page") + 6) * 1)
+                        if (i - 1 < 1) return null;
+                        var start = ((i - 2) * 20);
+                        var end = start + 20;
+                        var leaderboard = bot.getLeaderboard();
+                        var userIDs = leaderboard[0];
+                        var messageCount = leaderboard[1];
+                        var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
+                        while (start < end && userIDs[start]) {
+                            if (bot.users.get(userIDs[start]))
+                                var user = bot.users.get(userIDs[start]).username
+                            else
+                                var user = "Unknown"
+                            str += `\n#${start + 1}: ${user} - ${messageCount[start]} messages`
+                            start++;
+                        }
+                        str += `\nPage ${i - 1}\`\`\``
+                        return str;
+                    }
+                },
+                {
+                    emoji: "🔵",
+                    type: "cancel"
+                },
+                {
                     emoji: "▶",
                     type: "edit",
                     response: (msg, args) => {
@@ -64,34 +92,6 @@ module.exports = (bot) => {
                         str += `\nPage ${i + 1}\`\`\``
                         return str;
                     }
-                },
-                {
-                    emoji: "◀",
-                    type: "edit",
-                    response: (msg, args) => {
-                        var i = (msg.content.substring(msg.content.indexOf("Page") + 5, msg.content.indexOf("Page") + 6) * 1)
-                        var start = ((i - 1) * 20);
-                        if (start < 0) return null;
-                        var end = start + 20;
-                        var leaderboard = bot.getLeaderboard();
-                        var userIDs = leaderboard[0];
-                        var messageCount = leaderboard[1];
-                        var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
-                        while (start < end && userIDs[start]) {
-                            if (bot.users.get(userIDs[start]))
-                                var user = bot.users.get(userIDs[start]).username
-                            else
-                                var user = "Unknown"
-                            str += `\n#${start + 1}: ${user} - ${messageCount[start]} messages`
-                            start++;
-                        }
-                        str += `\nPage ${i}\`\`\``
-                        return str;
-                    }
-                },
-                {
-                    emoji: "🔵",
-                    type: "cancel"
                 }
             ],
             reactionButtonTimeout: 30000,
