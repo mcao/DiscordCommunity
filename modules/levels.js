@@ -41,8 +41,9 @@ module.exports = (bot) => {
                 {
                     emoji: "◀",
                     type: "edit",
-                    response: (msg) => { // Reverse the message content
-                        msg.delete()
+                    response: (msg, args) => { // Reverse the message content
+                        msg.delete();
+                        return 'hi'
                     }
                 },
                 {
