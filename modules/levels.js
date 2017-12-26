@@ -28,7 +28,7 @@ module.exports = (bot) => {
         var leaderboard = bot.getLeaderboard();
         var userIDs = leaderboard[0];
         var messageCount = leaderboard[1];
-        var str = `\`\`\`Leaderboard for ${msg.channel.guild.name} | Page 2`
+        var str = `\`\`\`Leaderboard for ${msg.channel.guild.name} | Page 1`
         for (let i = start; i < end; i++) {
             if (bot.users.get(userIDs[i]))
                 var user = bot.users.get(userIDs[i]).username
@@ -80,7 +80,7 @@ module.exports = (bot) => {
                         var leaderboard = bot.getLeaderboard();
                         var userIDs = leaderboard[0];
                         var messageCount = leaderboard[1];
-                        var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
+                        var str = `\`\`\`Leaderboard for ${msg.channel.guild.name} | Page ${i + 1}`
                         while (start < end && userIDs[start]) {
                             if (bot.users.get(userIDs[start]))
                                 var user = bot.users.get(userIDs[start]).username
@@ -89,7 +89,7 @@ module.exports = (bot) => {
                             str += `\n#${start + 1}: ${user} - ${messageCount[start]} messages`
                             start++;
                         }
-                        str += `\nPage ${i + 1}\`\`\``
+                        str += `\`\`\``
                         return str;
                     }
                 }
