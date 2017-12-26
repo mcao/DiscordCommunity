@@ -28,11 +28,13 @@ module.exports = (bot) => {
             color: 0xffffff,
             fields: []
         }*/
+        var start = 0,
+            end = 20
         var leaderboard = bot.getLeaderboard();
         var userIDs = leaderboard[0];
         var messageCount = leaderboard[1];
         var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
-        for (let i = 0; i < 20; i++) {
+        for (let i = start; i < end; i++) {
             //embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
             str += `\n#${i + 1}: ${bot.users.get(userIDs[i]).username} - ${messageCount[i]} messages`
         }
@@ -47,19 +49,19 @@ module.exports = (bot) => {
                     emoji: "▶",
                     type: "edit",
                     response: (msg, args) => {
-                        var start = heyhru;
-                        var end = start + 30;
+                        start += 20;
+                        end += 20;
                         var leaderboard = bot.getLeaderboard();
                         var userIDs = leaderboard[0];
                         var messageCount = leaderboard[1];
                         var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
                         while (start < end) {
                             //embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
-                            str += `\n#${start}: ${bot.users.get(userIDs[start]).username} - ${messageCount[i]} messages`
+                            str += `\n#${start}: ${bot.users.get(userIDs[start]).username} - ${messageCount[start]} messages`
                             start + 1;
                         }
                         str += "\`\`\`"
-                        return 'hey guys hru';
+                        return str;
                     }
                 },
                 {
