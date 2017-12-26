@@ -30,7 +30,7 @@ module.exports = (bot) => {
         var messageCount = leaderboard[1];
         var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
         for (let i = start; i < end; i++) {
-            str += `\n#${i + 1}: ${bot.users.get(userIDs[i]).username} - ${messageCount[i]} messages`
+            str += `\n#${i + 1}: ${bot.users.get(userIDs[i]).username || "Unknown"} - ${messageCount[i]} messages`
         }
         str += "\nPage 1\`\`\`"
 
@@ -50,7 +50,7 @@ module.exports = (bot) => {
                         var messageCount = leaderboard[1];
                         var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
                         while (start < end && userIDs[start]) {
-                            str += `\n#${start}: ${bot.users.get(userIDs[start]).username} - ${messageCount[start]} messages`
+                            str += `\n#${start}: ${bot.users.get(userIDs[start]).username || "Unknown"} - ${messageCount[start]} messages`
                             start ++;
                         }
                         str += `\nPage ${i}\`\`\``
