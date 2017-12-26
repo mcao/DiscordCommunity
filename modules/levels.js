@@ -21,6 +21,7 @@ module.exports = (bot) => {
                 roleIDs: ['392169263982444546', '392157677184221185', '392150288729112587']
             }
         });
+    var heyhru = 21;
     bot.register("leaderboard", (msg, args) => {
         /*let embed = {
             title: "Leaderboard",
@@ -31,7 +32,7 @@ module.exports = (bot) => {
         var userIDs = leaderboard[0];
         var messageCount = leaderboard[1];
         var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
-        for (let i = 0; i < 21; i++) {
+        for (let i = 0; i < 20; i++) {
             //embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
             str += `\n#${i + 1}: ${bot.users.get(userIDs[i]).username} - ${messageCount[i]} messages`
         }
@@ -46,7 +47,18 @@ module.exports = (bot) => {
                     emoji: "◀",
                     type: "edit",
                     response: (msg, args) => {
-                        return "edited!"
+                        var start = heyhru;
+                        var end = heyhru + 30;
+                        var leaderboard = bot.getLeaderboard();
+                        var userIDs = leaderboard[0];
+                        var messageCount = leaderboard[1];
+                        var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
+                        while (start < 30) {
+                            //embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
+                            str += `\n#${start}: ${bot.users.get(userIDs[start]).username} - ${messageCount[i]} messages`
+                        }
+                        start + 1;
+                        return str;
                     }
                 },
                 {
