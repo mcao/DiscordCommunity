@@ -61,7 +61,7 @@ module.exports = (bot) => {
                             str += `\n#${start}: ${user} - ${messageCount[start]} messages`
                             start++;
                         }
-                        str += `\nPage ${i}\`\`\``
+                        str += `\nPage ${i++}\`\`\``
                         return str;
                     }
                 },
