@@ -59,7 +59,7 @@ module.exports = (bot) => {
                             start + 1;
                         }
                         str += "\`\`\`"
-                        return str;
+                        return 'hey guys hru';
                     }
                 },
                 {
