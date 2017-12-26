@@ -48,12 +48,12 @@ module.exports = (bot) => {
                     type: "edit",
                     response: (msg, args) => {
                         var start = heyhru;
-                        var end = heyhru + 30;
+                        var end = start + 30;
                         var leaderboard = bot.getLeaderboard();
                         var userIDs = leaderboard[0];
                         var messageCount = leaderboard[1];
                         var str = `\`\`\`Leaderboard for ${msg.channel.guild.name}:`
-                        while (start < 30) {
+                        while (start < end) {
                             //embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
                             str += `\n#${start}: ${bot.users.get(userIDs[start]).username} - ${messageCount[i]} messages`
                             start + 1;
