@@ -46,8 +46,8 @@ module.exports = (bot) => {
                     emoji: "▶",
                     type: "edit",
                     response: (msg, args) => {
-                        var i = (msg.content.substring(msg.content.indexOf("Page") + 5, msg.content.indexOf("Page") + 6) * 1) + 1
-                        var start = (i * 20);
+                        var i = (msg.content.substring(msg.content.indexOf("Page") + 5, msg.content.indexOf("Page") + 6) * 1)
+                        var start = (i * 20) + 1;
                         var end = start + 20;
                         var leaderboard = bot.getLeaderboard();
                         var userIDs = leaderboard[0];
