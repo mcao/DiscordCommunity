@@ -27,7 +27,7 @@ module.exports = (bot) => {
                 color: 0xffffff,
                 fields: []
             }
-            var leaderboard = getLeaderboard();
+            var leaderboard = bot.getLeaderboard();
             var userIDs = leaderboard[0];
             var messageCount = leaderboard[1];
             for(let i = 0; i < 20; i++) {
