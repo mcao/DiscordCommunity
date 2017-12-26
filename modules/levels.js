@@ -22,20 +22,22 @@ module.exports = (bot) => {
             }
         });
         bot.register("leaderboard", (msg, args) => {
-            let embed = {
+            /*let embed = {
                 title: "Leaderboard",
                 color: 0xffffff,
                 fields: []
-            }
+            }*/
             var leaderboard = bot.getLeaderboard();
             var userIDs = leaderboard[0];
             var messageCount = leaderboard[1];
-            for(let i = 0; i < 20; i++) {
-                embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
+            var str = `Leaderboard for **${msg.channel.guild.name}**:`
+            for(let i = 1; i < 21; i++) {
+                //embed.fields.push({name: `#${i + 1}`, value: `<@${userIDs[i]}> - ${messageCount[i]} messages`});
+                str += `**#${i}:** ${bot.users.get(userIDs[i]).username} - ${messageCount[i]} messages`
             }
                 
             //bot.createMessage(msg.channel.id, {embed: embed}).then(m => m.addReaction('◀') && m.addReaction('🔵') && m.addReaction('▶'));
-            return embed
+            return str
         },
         {
             reactionButtons: [
@@ -43,7 +45,7 @@ module.exports = (bot) => {
                     emoji: "◀",
                     type: "edit",
                     response: (msg, args) => { 
-                        msg.delete();
+                        return "edited!"
                     }
                 },
                 {
