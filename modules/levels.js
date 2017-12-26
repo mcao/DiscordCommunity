@@ -42,7 +42,7 @@ module.exports = (bot) => {
                     emoji: "◀",
                     type: "edit",
                     response: (msg) => { // Reverse the message content
-                        return msg.content.split().reverse().join();
+                        return msg.delete()
                     }
                 },
                 {
