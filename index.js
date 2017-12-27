@@ -43,16 +43,17 @@ bot.on("ready", () => {
 
 bot.on("messageCreate", function (msg) {
     const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
+    const channels = ["392407095171088384", "392173071223750656", "392172869154635786", "392173094728630275"];
     
     if (msg.channel.id == "392152654505050112") { // #introductions
         msg.addReaction('bexhey:390556541360799748');
-    } else if (msg.channel.id == ("392407095171088384" || "392173071223750656" || "392172869154635786" || "392173094728630275")) {
+    } else if (channels.indexOf(msg.channel.id) > -1) {
         if (msg.content.toLowerCase().includes('poll')) return;
         reactions.forEach(function (reaction) {
             msg.addReaction(reaction);
         });
     }
-    
+
     if (!msg.author.bot && msg.channel.guild.id == '358528040617377792') {
         bot.incrementMessage(msg)
     }
