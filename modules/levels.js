@@ -74,8 +74,16 @@ module.exports = (bot) => {
                     emoji: "▶",
                     type: "edit",
                     response: (msg, args) => {
-			if(msg.reactions.length == 1){
-				return msg.content
+			if(Object.keys(msg.reactions).length == 3){
+				var t = false;
+				for(x of msg.reactions){
+					if(x.count != 1){
+						t = true
+					}
+				}
+				if(t == false){
+					return msg.content
+				}
 			}
 			msg.getReaction("▶").then((users) => { users.forEach((v) => { if(v.id != bot.user.id){ msg.removeReaction("▶", v.id)}})});
                         var i = (msg.content.substring(msg.content.indexOf("Page") + 5, msg.content.indexOf("Page") + 6) * 1)
