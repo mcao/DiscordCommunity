@@ -46,6 +46,10 @@ module.exports = (bot) => {
                     emoji: "◀",
                     type: "edit",
                     response: (msg, args) => {
+			if(msg.reactions["◀"].count == 1){
+                                return msg.content
+                        }
+                        msg.getReaction("◀").then((users) => { users.forEach((v) => { if(v.id != bot.user.id){ msg.removeReaction("◀", v.id)}})});
                         var i = (msg.content.substring(msg.content.indexOf("Page") + 5, msg.content.indexOf("Page") + 6) * 1)
                         if (i - 1 < 1) return null;
                         var start = ((i - 2) * 20);
