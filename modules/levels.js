@@ -121,16 +121,27 @@ module.exports = (bot) => {
             }
         });
     bot.register("rank", (msg, args) => {
-        if (msg.mentions[0] && msg.mentions[0].username) {
+        if (msg.mentions[0] && msg.mentions[0].username || args.length == 18) {
+            if (args.length == 18 && msg.channel.guild.members.get(args).bot) return "Bots don't have ranks!";
             if (msg.mentions[0].bot) return "Bots don't have ranks!"
-            if (bot.profiles[msg.mentions[0].id]) {
-                if (bot.profiles[msg.mentions[0].id].lastRankAssignment - 1 > -1)
-                    var rank = msg.channel.guild.roles.get(ranks[bot.profiles[msg.mentions[0].id].lastRankAssignment].id).name
+            if (bot.profiles[msg.mentions[0].id] || bot.profiles[args]) {
+                var id;
+                var user;
+                if (bot.profiles[args]) {
+                    id = args;
+                    user = msg.channel.guild.members.get(args);
+                }
+                if (bot.profiles[msg.mentions[0].id]) {
+                    id = msg.mentions[0].id;
+                    user = msg.mentions[0].id
+                }
+                if (bot.profiles[id].lastRankAssignment - 1 > -1)
+                    var rank = msg.channel.guild.roles.get(ranks[bot.profiles[id].lastRankAssignment].id).name
                 else
                     var rank = "None"
 
-                return `**${msg.mentions[0].username}#${msg.mentions[0].discriminator}**
-**Messages:** ${bot.profiles[msg.mentions[0].id].messageCount}
+                return `**${user.username}#${user.discriminator}**
+**Messages:** ${bot.profiles[id].messageCount}
 **Rank:** ${rank}`
             } else {
                 return "It looks like this person has no ranking yet :cry:"
