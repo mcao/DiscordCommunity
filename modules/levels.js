@@ -141,7 +141,7 @@ module.exports = (bot) => {
                 }
                 if (bot.profiles[msg.mentions[0].id]) {
                     id = msg.mentions[0].id;
-                    user = msg.mentions[0].id
+                    user = msg.mentions[0]
                 }
                 if (bot.profiles[id].lastRankAssignment - 1 > -1)
                     var rank = msg.channel.guild.roles.get(ranks[bot.profiles[id].lastRankAssignment].id).name
