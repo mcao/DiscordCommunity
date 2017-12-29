@@ -164,10 +164,11 @@ module.exports = (bot) => {
 					},
 					{
 						name: "Current rank",
-						value: `${rank}`
+						value: `${rank}`,
+						inline: true
 					}
 				],
-				image: {
+				thumbnail: {
 					url: user.avatarURL
 				}
 			}
@@ -181,9 +182,32 @@ module.exports = (bot) => {
                     var rank = msg.channel.guild.roles.get(ranks[bot.profiles[msg.author.id].lastRankAssignment].id).name
                 else
                     var rank = "None"
-                return `**${msg.author.username}#${msg.author.discriminator}**
-**Messages:** ${bot.profiles[msg.author.id].messageCount}
-**Rank:** ${rank}`
+		let user = msg.author;
+		bot.createMessage(msg.channel.id, {
+			embed: {
+				title: `${user.username}#${user.discriminator}`,
+				author: {
+					name: "Discord Community",
+					icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+				},
+				fields: [
+					{
+						name: "Message count",
+						value: `${bot.profiles[id].messageCount}`,
+						inline: true
+					},
+					{
+						name: "Current rank",
+						value: `${rank}`,
+						inline: true
+					}
+				],
+				thumbnail: {
+					url: user.avatarURL
+				}
+			}
+		});
+                   
             } else {
                 return "It looks like you have no ranking yet :cry:"
             }
