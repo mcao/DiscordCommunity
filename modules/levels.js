@@ -169,7 +169,7 @@ module.exports = (bot) => {
 					}
 				],
 				thumbnail: {
-					url: user.avatarURL
+					url: user.avatarURL.replace("?size=128", "")
 				}
 			}
 		});
@@ -193,7 +193,7 @@ module.exports = (bot) => {
 				fields: [
 					{
 						name: "Message count",
-						value: `${bot.profiles[id].messageCount}`,
+						value: `${bot.profiles[user.id].messageCount}`,
 						inline: true
 					},
 					{
@@ -203,7 +203,7 @@ module.exports = (bot) => {
 					}
 				],
 				thumbnail: {
-					url: user.avatarURL
+					url: user.avatarURL.replace("?size=128", "")
 				}
 			}
 		});
