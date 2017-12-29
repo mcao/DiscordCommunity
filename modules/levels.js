@@ -163,7 +163,7 @@ module.exports = (bot) => {
 						inline: true
 					},
 					{
-						name: "Current rank",
+						name: "Highest rank",
 						value: `${rank}`,
 						inline: true
 					}
@@ -197,7 +197,7 @@ module.exports = (bot) => {
 						inline: true
 					},
 					{
-						name: "Current rank",
+						name: "Highest rank",
 						value: `${rank}`,
 						inline: true
 					}
