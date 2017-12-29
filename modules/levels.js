@@ -148,9 +148,30 @@ module.exports = (bot) => {
                 else
                     var rank = "None"
 
-                return `**${user.username}#${user.discriminator}**
-**Messages:** ${bot.profiles[id].messageCount}
-**Rank:** ${rank}`
+                
+		bot.createMessage(msg.channel.id, {
+			embed: {
+				title: `${user.username}#${user.discriminator}`,
+				author: {
+					name: "Discord Community",
+					icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+				},
+				fields: [
+					{
+						name: "Message count",
+						value: `${bot.profiles[id].messageCount}`,
+						inline: true
+					},
+					{
+						name: "Current rank",
+						value: `${rank}`
+					}
+				],
+				image: {
+					url: user.avatarURL
+				}
+			}
+		});
             } else {
                 return "It looks like this person has no ranking yet :cry:"
             }
