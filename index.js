@@ -55,7 +55,7 @@ bot.on("messageCreate", function (msg) {
         }
     }
     var messageSuggestion = msg.content.toLowerCase();
-    if (messageSuggestion.startsWith('suggestion:')) {
+    if (messageSuggestion.startsWith('suggestion:' && msg.channel.id === '392178846306402314')) {
         for (var vote in voteReactions) {
             msg.addReaction(vote);
         }
