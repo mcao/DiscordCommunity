@@ -129,7 +129,7 @@ module.exports = (bot) => {
             }
         });
     bot.register("rank", (msg, args) => {
-        if (msg.mentions[0] && msg.mentions[0].username || args.length == 18) {
+        if (msg.mentions[0] && msg.mentions[0].username || args.length == 18 || args.length == 17) {
             if (args.length == 18 && msg.channel.guild.members.get(args).bot) return "Bots don't have ranks!";
             if (msg.mentions[0].bot) return "Bots don't have ranks!"
             if (bot.profiles[msg.mentions[0].id] || bot.profiles[args]) {
@@ -144,7 +144,7 @@ module.exports = (bot) => {
                     user = msg.mentions[0]
                 }
                 if (bot.profiles[id].lastRankAssignment - 1 > -1)
-                    var rank = msg.channel.guild.roles.get(ranks[bot.profiles[id].lastRankAssignment].id).name
+                    var rank = msg.channel.guild.roles.get(ranks[bot.profiles[id].lastRankAssignment - 1].id).name
                 else
                     var rank = "None"
 
