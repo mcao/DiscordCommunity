@@ -130,7 +130,7 @@ module.exports = (bot) => {
             }
         });
     bot.register("rank", (msg, args) => {
-        if (msg.mentions[0] && msg.mentions[0].username || args.length == 18) {
+        if (msg.mentions[0] && msg.mentions[0].username || args.length == 18 || args.length == 17) {
             if (args.length == 18 && msg.channel.guild.members.get(args).bot) return "Bots don't have ranks!";
             if (msg.mentions[0].bot) return "Bots don't have ranks!"
             if (bot.profiles[msg.mentions[0].id] || bot.profiles[args]) {
@@ -145,7 +145,7 @@ module.exports = (bot) => {
                     user = msg.mentions[0]
                 }
                 if (bot.profiles[id].lastRankAssignment - 1 > -1)
-                    var rank = msg.channel.guild.roles.get(ranks[bot.profiles[id].lastRankAssignment].id).name
+                    var rank = msg.channel.guild.roles.get(ranks[bot.profiles[id].lastRankAssignment - 1].id).name
                 else
                     var rank = "None"
 
@@ -180,35 +180,35 @@ module.exports = (bot) => {
         } else if (bot.profiles[msg.author.id]) {
             if (bot.profiles[msg.author.id]) {
                 if (bot.profiles[msg.author.id].lastRankAssignment - 1 > -1)
-                    var rank = msg.channel.guild.roles.get(ranks[bot.profiles[msg.author.id].lastRankAssignment].id).name
+                    var rank = msg.channel.guild.roles.get(ranks[bot.profiles[msg.author.id].lastRankAssignment - 1].id).name
                 else
                     var rank = "None"
-		let user = msg.author;
-		bot.createMessage(msg.channel.id, {
-			embed: {
-				title: `${user.username}#${user.discriminator}`,
-				author: {
-					name: "Discord Community",
-					icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
-				},
-				fields: [
-					{
-						name: "Message count",
-						value: `${bot.profiles[user.id].messageCount}`,
-						inline: true
-					},
-					{
-						name: "Highest rank",
-						value: `${rank}`,
-						inline: true
-					}
-				],
-				thumbnail: {
-					url: user.avatarURL.replace("?size=128", "")
-				}
-			}
-		});
-                   
+
+                let user = msg.author;
+                bot.createMessage(msg.channel.id, {
+                    embed: {
+                        title: `${user.username}#${user.discriminator}`,
+                        author: {
+                            name: "Discord Community",
+                            icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+                        },
+                        fields: [
+                            {
+                                name: "Message count",
+                                value: `${bot.profiles[user.id].messageCount}`,
+                                inline: true
+                            },
+                            {
+                                name: "Highest rank",
+                                value: `${rank}`,
+                                inline: true
+                            }
+                        ],
+                        thumbnail: {
+                            url: user.avatarURL.replace("?size=128", "")
+                        }
+                    }
+                });
             } else {
                 return "It looks like you have no ranking yet :cry:"
             }
