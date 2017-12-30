@@ -41,6 +41,7 @@ module.exports = (bot) => {
         return str
     },
         {
+	    aliases: ["lb"],
             reactionButtons: [
                 {
                     emoji: "◀",
