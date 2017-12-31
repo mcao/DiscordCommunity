@@ -12,7 +12,7 @@ module.exports = (bot) => {
             bot.registerCommand(name, command, options)
         }
     }
-    
+
     bot.reactions = [];
 
     bot.twentyFourHourTimer = function (msg) {
@@ -32,7 +32,7 @@ module.exports = (bot) => {
         bot.profiles[userID].messageCount = 0;
         bot.profiles[userID].lastRoleAssigned = 0;
     }
-    
+
     bot.getLeaderboard = function () {
         let userIDs = Object.keys(bot.profiles).sort(function (a, b) {
             let IDs = bot.profiles[b].messageCount - bot.profiles[a].messageCount;
@@ -50,12 +50,23 @@ module.exports = (bot) => {
         let leaderboard = bot.getLeaderboard();
         let users = leaderboard[0];
         let messageCounts = leaderboard[1];
-        users.splice(20)
+        users.splice(20);
         users.forEach((v) => {
             bot.addGuildMemberRole('358528040617377792', v.toString(), '393606924433752064', 'User reached top 20');
         });
 
-        let d = bot.guilds.find((v) => {return v.id == '358528040617377792'})
+        let d = bot.guilds.find((v) => {
+            return v.id == '358528040617377792'
+        });
+        let users_again = leaderboard[0];
+        let members = d.members.map((v) => {
+            return v;
+        });
+
+        let not_top_twenty = users_again.splice(20);
+        members.forEach((v) => {
+            bot.removeGuildMemberRole('358528040617377792', v.id.toString(), '393606924433752064', 'User fell out of top twenty');
+        })
     }
 
     bot.incrementMessage = function (msg) {
