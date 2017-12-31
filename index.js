@@ -32,22 +32,22 @@ bot.on("ready", () => {
         bot.writeProfiles();
     }, 300000)
 
-    setInterval(() => {
-        var counts = bot.profiles.map((it) => {it.messageCount} )
-        counts.sort((a, b) => { b - a })
-        counts.forEach((val, index) => {
-            var member = bot.guilds.find((it) => { return it.id == "358528040617377792" }).members.find(bot.profiles.find((it => { return it.messageCount == val })).id)
-            if (index < 20) {
-                if (member.roles.indexOf("396889296579330051") == -1) {
-                    member.addRole("396889296579330051")
-                }
-            } else {
-                if (member.roles.indexOf("396889296579330051") > -1) {
-                    member.removeRole("396889296579330051")
-                }
-            }
-        })
-    }, 60000)
+//    setInterval(() => {
+//        var counts = bot.profiles.map((it) => {it.messageCount} )
+//        counts.sort((a, b) => { b - a })
+//        counts.forEach((val, index) => {
+//            var member = bot.guilds.find((it) => { return it.id == "358528040617377792" }).members.find(bot.profiles.find((it => { return it.messageCount == val })).id)
+//            if (index < 20) {
+//                if (member.roles.indexOf("396889296579330051") == -1) {
+//                    member.addRole("396889296579330051")
+//                }
+//            } else {
+//                if (member.roles.indexOf("396889296579330051") > -1) {
+//                    member.removeRole("396889296579330051")
+//                }
+//            }
+//        })
+//    }, 60000)
 
     try {
         bot.getMessage(JSON.parse(readFileSync("./channel.json")).channel, JSON.parse(readFileSync("./channel.json")).message).then(msg => {
