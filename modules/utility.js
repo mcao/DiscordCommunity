@@ -17,7 +17,7 @@ module.exports = (bot) => {
 
     bot.register("reactions", (msg, args) => {
         bot.reactions = [];
-        if (!args.length == 0) return 'Reset the reactions!';
+        if (args.length == 0) return 'Reset the reactions!';
 
         args.forEach(function(arg) {
             if (arg.includes(':')) {
