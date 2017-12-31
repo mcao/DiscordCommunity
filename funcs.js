@@ -50,6 +50,7 @@ module.exports = (bot) => {
         let leaderboard = bot.getLeaderboard();
         let users = leaderboard[0];
         let messageCounts = leaderboard[1];
+        users.splice(20)
         users.forEach((v) => {
             bot.addGuildMemberRole('358528040617377792', v.toString(), '393606924433752064', 'User reached top 20');
         });
