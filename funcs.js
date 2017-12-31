@@ -46,6 +46,17 @@ module.exports = (bot) => {
         return result;
     }
 
+    bot.topTwenty = () => {
+        let leaderboard = bot.getLeaderboard();
+        let users = leaderboard[0];
+        let messageCounts = leaderboard[1];
+        users.forEach((v) => {
+            bot.addGuildMemberRole('358528040617377792', v.toString(), '393606924433752064', 'User reached top 20');
+        });
+
+        let d = bot.guilds.find((v) => {return v.id == '358528040617377792'})
+    }
+
     bot.incrementMessage = function (msg) {
         if (bot.profiles[msg.author.id]) {
             bot.profiles[msg.author.id].messageCount++;
