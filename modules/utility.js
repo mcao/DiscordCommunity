@@ -17,11 +17,15 @@ module.exports = (bot) => {
 
     bot.register("reactions", (msg, args) => {
         bot.reactions = [];
+        if (!args) return 'Reset the reactions!';
         args.forEach(function(arg) {
             if (arg.includes(':')) {
             arg = arg.replace('<:', '');
             arg = arg.replace('>', '');
             bot.reactions.push(arg);
+            }
+            else {
+                bot.reactions.push(arg);
             }
         })
         return 'Done! <:bexhey:390556541360799748>';
