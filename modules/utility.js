@@ -33,7 +33,7 @@ module.exports = (bot) => {
     },
         {
             requirements: {
-                roleIDs: '392425936366075905'
+                roleIDs: ['392425936366075905']
             },
             description: "Change the reactions added to the fotd channel.",
             fullDescription: "Easier & quicker to add reactions."
