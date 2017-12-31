@@ -15,6 +15,27 @@ module.exports = (bot) => {
             fullDescription: "This command is used to check the bot's latency, or if it's up."
         });
 
+    bot.register("reactions", (msg, args) => {
+        bot.reactions = [];
+        if (args.length == 0) return 'Reset the reactions!';
+
+        args.forEach(function(arg) {
+            if (arg.includes(':')) {
+            arg = arg.replace('<:', '');
+            arg = arg.replace('>', '');
+            bot.reactions.push(arg);
+            }
+            else {
+                bot.reactions.push(arg);
+            }
+        })
+        return 'Done! <:bexhey:390556541360799748>';
+    },
+        {
+            description: "Change the reactions added to the fotd channel.",
+            fullDescription: "Easier & quicker to add reactions."
+        });
+
     bot.register("eval", (msg, args) => {
         var code = args.join(" ");
         try {

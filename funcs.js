@@ -12,6 +12,8 @@ module.exports = (bot) => {
             bot.registerCommand(name, command, options)
         }
     }
+    
+    bot.reactions = [];
 
     bot.twentyFourHourTimer = function (msg) {
         setInterval(function () {

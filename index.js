@@ -63,6 +63,13 @@ bot.on("messageCreate", function (msg) {
     const voteReactions = ['bexy:393137089622966272', 'bexn:393137089631354880'];
     const channels = ["392407095171088384", "392173071223750656", "392172869154635786", "392173094728630275"];
 
+    if (msg.channel.id == '392407095171088384') {
+        if (bot.reactions.length == 0) return;
+        bot.reactions.forEach(function(reaction) {
+            msg.addReaction(reaction);
+        });
+    }
+    
     if (msg.channel.id == "392152654505050112") { // #introductions
         msg.addReaction('bexhey:390556541360799748');
     } else if (channels.indexOf(msg.channel.id) > -1) {
@@ -71,11 +78,10 @@ bot.on("messageCreate", function (msg) {
             msg.addReaction(reaction);
         }
     }
-    var messageSuggestion = msg.content.toLowerCase();
-    if (messageSuggestion.startsWith('suggestion:') && msg.channel.id === '392178846306402314') {
-        for (var vote in voteReactions) {
+    if (msg.content.toLowerCase().startsWith('suggestion:') && msg.channel.id === '392178846306402314') { // #staff-feedback
+        voteReactions.forEach(function(vote) {
             msg.addReaction(vote);
-        }
+        });
     }
     if (!msg.author.bot && msg.channel.guild.id == '358528040617377792') {
         bot.incrementMessage(msg)
