@@ -65,7 +65,9 @@ module.exports = (bot) => {
 
         let not_top_twenty = users_again.splice(20);
         members.forEach((v) => {
+            if(not_top_twenty.indexOf(v.id) != -1){
             bot.removeGuildMemberRole('358528040617377792', v.id.toString(), '393606924433752064', 'User fell out of top twenty');
+            }
         })
     }
 
