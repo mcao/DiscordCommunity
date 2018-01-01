@@ -90,7 +90,7 @@ module.exports = (bot) => {
                         setTimeout(() => {
                             if (reacted == false) {
                                 bot._events.messageReactionAdd.splice(-1, 1);
-                                msg.channel.createMessage("Reactions timed out, user not thrown in detention")
+                                msg.channel.createMessage("Reactions timed out, user not thrown in detention");
                             }
                         }, 15 * 1000)
                     })
