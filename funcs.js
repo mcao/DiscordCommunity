@@ -1,7 +1,6 @@
 module.exports = (bot) => {
     const fs = require("fs");
     bot.config = require("./config.json")
-    bot.config.owners.push("165023948638126080")
 
     bot.register = function (name, command, options) {
         if (bot.commands[name]) {

@@ -204,4 +204,4 @@ module.exports = (bot) => {
             }
         }
     });
-};
+}
