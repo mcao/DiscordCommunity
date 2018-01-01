@@ -88,7 +88,7 @@ module.exports = (bot) => {
         description: "Warns a user.",
         fullDescription: "A command used to store a warning for a user who has violated a rule..",
         requirements: {
-            roleIDs: ['392157971507052554'],
+            roleIDs: ['392157971507052554', '392150288729112587'],
             userIDs: bot.config.owners
         }
     });
@@ -116,7 +116,8 @@ module.exports = (bot) => {
             description: "Reset warnings for a user.",
             fullDescription: "Resets the warnings for a user.",
             requirements: {
-                roleIDs: ['392157971507052554']
+                roleIDs: ['392157971507052554', '392150288729112587'],
+                userIDs: bot.config.owners
             }
     });
 
