@@ -38,7 +38,7 @@ module.exports = (bot) => {
             channel = warning.channel;
             embedy.fields.push({name: `Warning #${warningNum}`, value: `Moderator: <@${moderator}>\nReason: ${reason}\nChannel: ${channel}`})
         });
-        client.createMessage(msg.channel.id, {embed: embedy});
+        bot.createMessage(msg.channel.id, {embed: embedy});
     },
     {
         description: "Check a user's warnings.",
