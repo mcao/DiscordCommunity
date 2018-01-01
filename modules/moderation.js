@@ -2,6 +2,8 @@
 module.exports = (bot) => {
     bot.register("warnings", (msg, args) => {
         var user;
+        args = args.join(" ");
+        if (args.length == 0) return "Please provide a user.";
         if (args.length == 18) {
             user = msg.channel.guild.members.get(args);
         }
