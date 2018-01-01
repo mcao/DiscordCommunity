@@ -107,28 +107,7 @@ module.exports = (bot) => {
             description: "Shows the leaderboard.",
             fullDescription: "Shows the top 10 users with the most message count.",
         });
-    bot.register("reset", (msg, args) => {
-        var user = msg.mentions[0].id;
-        if (args.length === 0) return bot.createMessage(msg.channel.id, 'Please provide a user.');
-        if (msg.mentions[0].bot) return bot.createMessage(msg.channel.id, 'Bots don\'t have ranks!');
-        if (!msg.mentions[0] && args.length !== 18) return bot.createMessage(msg.channel.id, 'Invalid user.')
-        if (args.length === 18 && typeof args === 'number') user = args;
-        const levelRoles = ['393606932608450561', '393606931014746113', '393606929068589057', '393606926467989507', '393606924433752064'];
-        levelRoles.forEach(function (role) {
-            const person = msg.channel.guild.members.get(user);
-            if (!person.roles.includes(role)) return;
-            person.removeRole(role, `Rank resetted | Done by: ${msg.author.username}#${msg.author.discriminator}`);
-        });
-        bot.resetMessages(user);
-        return `Reset the level for <@${user}>.`
-    },
-        {
-            description: "Resets a level.",
-            fullDescription: "Resets the message count for the given user.",
-            requirements: {
-                roleIDs: ['392157971507052554']
-            }
-        });
+        
     bot.register("rank", (msg, args) => {
         if (msg.mentions[0] && msg.mentions[0].username || args.length == 18 || args.length == 17) {
             if (args.length == 18 && msg.channel.guild.members.get(args).bot) return "Bots don't have ranks!";
