@@ -189,7 +189,7 @@ module.exports = (bot) => {
         }
 
         if (argsArray[0] === "start") {
-            if (argsArray[1].isNaN) {
+            if (isNan(argsArray[1])) {
                 bot.createMessage(msg.channel.id, "Time must be a number!");
             } else {
                 var description = slicedArgs.join("");
