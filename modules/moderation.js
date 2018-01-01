@@ -47,7 +47,7 @@ module.exports = (bot) => {
         description: "Check a user's warnings.",
         fullDescription: "Check the warnings for a given user.",
         requirements: {
-            roleIDs: ['392425936366075905']
+            roleIDs: ['392425936366075905', '392150288729112587']
         }
     });
 
@@ -156,7 +156,7 @@ module.exports = (bot) => {
         description: "Resets a level.",
         fullDescription: "Resets the message count for the given user.",
         requirements: {
-            roleIDs: ['392157971507052554']
+            roleIDs: ['392157971507052554', '392150288729112587']
         }
     });
 }

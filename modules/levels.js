@@ -106,6 +106,9 @@ module.exports = (bot) => {
             reactionButtonTimeout: 30000,
             description: "Shows the leaderboard.",
             fullDescription: "Shows the top 10 users with the most message count.",
+            requirements: {
+                roleIDs: ['392169263982444546']
+            }
         });
         
     bot.register("rank", (msg, args) => {

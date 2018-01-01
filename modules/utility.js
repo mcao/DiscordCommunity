@@ -12,7 +12,10 @@ module.exports = (bot) => {
     },
         {
             description: "Pong!",
-            fullDescription: "This command is used to check the bot's latency, or if it's up."
+            fullDescription: "This command is used to check the bot's latency, or if it's up.",
+            requirements: {
+                roleIDs: ['392169263982444546']
+            }
         });
 
     bot.register("reactions", (msg, args) => {
@@ -33,7 +36,7 @@ module.exports = (bot) => {
     },
         {
             requirements: {
-                roleIDs: ['392425936366075905']
+                roleIDs: ['392425936366075905', '392150288729112587']
             },
             description: "Change the reactions added to the fotd channel.",
             fullDescription: "Easier & quicker to add reactions."
