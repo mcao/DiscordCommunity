@@ -70,7 +70,7 @@ module.exports = (bot) => {
                     m.addReaction("bexy:393137089622966272").then(() => {
                         var reacted = false;
                         bot.on("messageReactionAdd", (message, emoji, usr) => {
-                            if (message.id == msg.id && usr == msg.author.id) {
+                            if (message.id == m.id && usr == msg.author.id) {
                                 switch (emoji.id) {
                                     case "393137089622966272": // Yes emote
                                         msg.channel.createMessage("Putting user in detention");
