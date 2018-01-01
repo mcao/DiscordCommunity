@@ -130,6 +130,7 @@ module.exports = (bot) => {
             }
         }
     }, {
+        aliases: ["clearwarns, clearwarnings, resetwarnings"],
         description: "Reset warnings for a user.",
         fullDescription: "Resets the warnings for a user.",
         requirements: {
