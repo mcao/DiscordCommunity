@@ -166,7 +166,7 @@ module.exports = (bot) => {
         var msgSent;
 
         function countingDown() {
-            countdownTime = countdownTime - 5;
+            countdownTime = countdownTime - 1;
         } // subtracts five from the number given as time in minutes
 
         function countdownFunc() {
@@ -175,6 +175,7 @@ module.exports = (bot) => {
 
         function countdownMessage() {
             var msgSent = bot.createMessage("392173094728630275", "**" + eventDescription + "**\nin **" + countdownTime + "minutes!**");
+            msgSent;
         }
 
         function editMsg() {
