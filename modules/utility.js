@@ -170,8 +170,8 @@ module.exports = (bot) => {
         } // subtracts five from the number given as time in minutes
 
         function countdownFunc() {
-            setTimeout(countingDown, 30000);
-        } // loops countingDown() to run every 5 minutes
+            setTimeout(countingDown, 6000);
+        } // loops countingDown() to run every minute
 
         function countdownMessage() {
             var msgSent = bot.createMessage("392173094728630275", "**" + eventDescription + "**\nin **" + countdownTime + "minutes!**");
@@ -182,8 +182,8 @@ module.exports = (bot) => {
         } // edits the sent message conform the altered countdownTime variable
 
         function sendEdit() {
-            setTimeout(editMsg, 30000);
-        } // loops the above function every 5 minutes
+            setTimeout(editMsg, 6000);
+        } // loops the above function every minute
 
         function stopCountdown() {
             clearTimeout(countdownTime);
@@ -193,6 +193,7 @@ module.exports = (bot) => {
             if (isNaN(argsArray[1])) {
                 bot.createMessage(msg.channel.id, "Time must be a number!");
             } else {
+                bot.createMessage(msg.channel.id, "Event **" + eventDescription + "** started!")
                 countdownMessage();
                 countdownFunc();
                 sendEdit();
