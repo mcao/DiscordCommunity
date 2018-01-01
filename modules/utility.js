@@ -158,3 +158,50 @@ module.exports = (bot) => {
         }
     }
 }
+
+    bot.register("event", (msg, args) => {
+        var argsArray = args.slice();
+        var countdownTime = argsArray[1];
+        var slicedArgs = args.slice(2);
+        var msgSent;
+
+        function countingDown() {
+            countdownTime = countdownTime - 5;
+        } // subtracts five from the number given as time in minutes
+
+        function countdownFunc() {
+            setTimeout(countingDown, 30000);
+        } // loops countingDown() to run every 5 minutes
+
+        function countdownMessage() {
+            var msgSent = bot.createMessage("392173094728630275", "**" + description + "**\nin **" + countdownTime + "minutes!**");
+        }
+
+        function editMsg() {
+            msgSent.edit("**" + description + "**\nin **" + countdownTime + "minutes!**");
+        } // edits the sent message conform the altered countdownTime variable
+
+        function sendEdit() {
+            setTimeout(editMsg, 30000);
+        } // loops the above function every 5 minutes
+
+        function stopCountdown() {
+            clearTimeout(countdownTime);
+        }
+
+        if (argsArray[0] === "start") {
+            if (argsArray[1].isNaN) {
+                bot.createMessage(msg.channel.id, "Time must be a number!");
+            } else {
+                var description = slicedArgs.join("");
+                countdownMessage();
+                countdownFunc();
+                sendEdit();
+                if (countdownTime <= 0) {
+                    stopCountdown();
+                    msgSent.edit("**" + description + " has begun!**");
+                }
+            }
+        }
+    });
+};
