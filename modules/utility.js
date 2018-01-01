@@ -157,7 +157,6 @@ module.exports = (bot) => {
             return text;
         }
     }
-}
 
     bot.register("event", (msg, args) => {
         var argsArray = args.slice();
@@ -204,4 +203,4 @@ module.exports = (bot) => {
             }
         }
     });
-};
+}
