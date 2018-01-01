@@ -201,6 +201,14 @@ module.exports = (bot) => {
                     msgSent.edit("**" + description + " has begun!**");
                 }
             }
+        } else {
+            bot.createMessage(msg.channel.id, "The correct usage is: `!event start <time> <description>`!")
         }
+    }, {
+        requirements: {
+            userIDs: bot.config.owners
+        },
+        description: "Start an event.",
+        fullDescription: "This command is used to start a countdown for an event in the events channel."
     })
 }
