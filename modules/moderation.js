@@ -36,9 +36,9 @@ module.exports = (bot) => {
             moderator = warning.mod;
             reason = warning.reason;
             channel = warning.channel;
-            fields.push({name: `Warning #${warningNum}`, value: `Moderator: <@${moderator}>\nReason: ${reason}\nChannel: ${channel}`})
+            embedy.fields.push({name: `Warning #${warningNum}`, value: `Moderator: <@${moderator}>\nReason: ${reason}\nChannel: ${channel}`})
         });
-        return {embed: embedy};
+        client.createMessage(msg.channel.id, {embed: embedy});
     },
     {
         description: "Check a user's warnings.",
@@ -56,14 +56,12 @@ module.exports = (bot) => {
         if (!reason) return "Please provide a reason.";
         if (user.length == 18) {
             bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
-            bot.createMessage(msg.channel.id, `Warning: ${bot.profiles[user].warnings[0].reason}`);
             return "Warning recorded <:bexy:393137089622966272>";
         }
         else {
             if (msg.mentions[0]) {
                 user = msg.mentions[0].id;
                 bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
-                bot.createMessage(msg.channel.id, `Warning: ${bot.profiles[user].warnings[0].reason}`);
                 return "Warning recorded <:bexy:393137089622966272>";
             }
             else {
