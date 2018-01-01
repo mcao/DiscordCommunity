@@ -62,7 +62,7 @@ module.exports = (bot) => {
             }
                 bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
                 if(bot.profiles[user].warnings.length == 3){
-                    msg.channel.createMessage("This user has been warned 3 times now. Would you like to throw them in detention? [yes/no]"); 
+                    msg.channel.createMessage("This user has been warned 3 times now. Would you like to throw them in detention? [yes/no]").then((f) => {
                     bot.once("messageCreate", (m) => {
                         if(m.author.id == msg.author.id){
                             switch(m.content){
@@ -76,6 +76,7 @@ module.exports = (bot) => {
                             
                         }
                         });
+                    })
                     
                     }else{
                 return "Warning recorded <:bexy:393137089622966272>";
