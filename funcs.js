@@ -15,6 +15,10 @@ module.exports = (bot) => {
 
     bot.reactions = [];
 
+    bot.warn = function(userid, modid, reason, channelid) {
+        bot.profiles[userid].warnings.push({"user": userid, "mod": modid, "reason": reason, "channel": channelid})
+    }
+
     bot.twentyFourHourTimer = function (msg) {
         setInterval(function () {
             if (new Date().getHours() == 0 && new Date().getMinutes() == 0) {
