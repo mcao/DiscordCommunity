@@ -179,7 +179,7 @@ module.exports = (bot) => {
         }
 
         function editMsg() {
-            msgSent.edit("**" + eventDescription + "**\nstarting in **" + countdownTime + " minutes!**");
+            .edit("**" + eventDescription + "**\nstarting in **" + countdownTime + " minutes!**");
         } // edits the sent message conform the altered countdownTime variable
 
         function sendEdit() {
@@ -197,8 +197,8 @@ module.exports = (bot) => {
                 bot.createMessage(msg.channel.id, "Event **" + eventDescription + "** started!")
                 countdownMessage();
                 countdownFunc();
-                sendEdit();
-                if (countdownTime <= 0) {
+                .then sendEdit();
+                .then if (countdownTime <= 0) {
                     stopCountdown();
                     msgSent.edit("**" + eventDescription + " has begun!**");
                 }
