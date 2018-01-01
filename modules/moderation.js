@@ -55,30 +55,11 @@ module.exports = (bot) => {
         if (!args[0]) return "Please provide a user.";
         if (!reason) return "Please provide a reason.";
         if (user.length == 18) {
-            bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
-            if(bot.profiles[user].warnings.length == 3){
-                msg.channel.createMessage("This user has been warned 3 times now. Would you like to throw them in detention? [yes/no]"); 
-                bot.on("messageCreate", (m) => {
-                    let answered = false;
-                    if(m.author.id == msg.author.id && answered == false){
-                        switch(m.content){
-                            case "yes":
-                                m.channel.createMessage("Okay, throwing user in detention");
-                                bot.addGuildMemberRole('358528040617377792', user, '392360679706853387', 'Detention by '+msg.author.username);
-                                break;
-                            default:
-                                m.channel.createMessage("Okay! I will not throw that user in detention");
-                        }
-                        answered = true;
-                        }
-                    });
-                }else{
-            return "Warning recorded <:bexy:393137089622966272>";
-                }
+            user = user
         }
-        else {
             if (msg.mentions[0]) {
                 user = msg.mentions[0].id;
+            }
                 bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
                 if(bot.profiles[user].warnings.length == 3){
                     msg.channel.createMessage("This user has been warned 3 times now. Would you like to throw them in detention? [yes/no]"); 
@@ -99,11 +80,8 @@ module.exports = (bot) => {
                     }else{
                 return "Warning recorded <:bexy:393137089622966272>";
                 }
-            }
-            else {
-                return "Invalid user!";
-            }
-        }
+        
+        
     },
     {
         description: "Warns a user.",
