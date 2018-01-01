@@ -81,6 +81,7 @@ module.exports = (bot) => {
                                         // just nothing
                                 }
                                 reacted = true;
+                                bot._events.messageReactionAdd.splice(-1, 1);
                             }
 
                         });
