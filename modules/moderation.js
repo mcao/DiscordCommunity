@@ -56,14 +56,14 @@ module.exports = (bot) => {
         if (!reason) return "Please provide a reason.";
         if (user.length == 18) {
             bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
-            bot.createMessage(msg.channel.id, `Warning: ${bot.profiles[user].warnings[0]}`);
+            bot.createMessage(msg.channel.id, `Warning: ${bot.profiles[user].warnings[0].reason}`);
             return "Warning recorded <:bexy:393137089622966272>";
         }
         else {
             if (msg.mentions[0]) {
                 user = msg.mentions[0].id;
                 bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
-                bot.createMessage(msg.channel.id, `Warning: ${bot.profiles[user].warnings[0]}`);
+                bot.createMessage(msg.channel.id, `Warning: ${bot.profiles[user].warnings[0].reason}`);
                 return "Warning recorded <:bexy:393137089622966272>";
             }
             else {
