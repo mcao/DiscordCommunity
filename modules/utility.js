@@ -174,12 +174,12 @@ module.exports = (bot) => {
         } // loops countingDown() to run every minute
 
         function countdownMessage() {
-            var msgSent = bot.createMessage("392173094728630275", "**" + eventDescription + "**\nstarting in **" + countdownTime + " minutes!**");
-            msgSent;
+            var msgSent = "**" + eventDescription + "**\nstarting in **" + countdownTime + " minutes!**"
+            bot.createMessage("392173094728630275", msgSent);
         }
 
         function editMsg() {
-            .edit("**" + eventDescription + "**\nstarting in **" + countdownTime + " minutes!**");
+            msgSent.edit("**" + eventDescription + "**\nstarting in **" + countdownTime + " minutes!**");
         } // edits the sent message conform the altered countdownTime variable
 
         function sendEdit() {
