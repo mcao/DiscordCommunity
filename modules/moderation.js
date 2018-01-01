@@ -65,7 +65,7 @@ module.exports = (bot) => {
                     msg.channel.createMessage("This user has been warned 3 times now. Would you like to throw them in detention? [yes/no]").then(() => {
                     bot.on("messageCreate", (m) => {
                         if(m.author.id == msg.author.id){
-                            switch(m.content){
+                            switch(m.content.toLowerCase()){
                                 case "yes":
                                     m.channel.createMessage("Okay, throwing user in detention");
                                     bot.addGuildMemberRole('358528040617377792', user, '392360679706853387', 'Detention by '+msg.author.username);
