@@ -202,5 +202,5 @@ module.exports = (bot) => {
                 }
             }
         }
-    });
+    })
 }
