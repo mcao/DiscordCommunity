@@ -206,7 +206,7 @@ module.exports = (bot) => {
         }
     }, {
         requirements: {
-            userIDs: bot.config.owners, [199584944253698049]
+            roleIDs: [392169572863836160]
         },
         description: "Start an event.",
         fullDescription: "This command is used to start a countdown for an event in the events channel."
