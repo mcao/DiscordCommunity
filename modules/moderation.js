@@ -63,7 +63,7 @@ module.exports = (bot) => {
                 bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
                 if(bot.profiles[user].warnings.length == 3){
                     msg.channel.createMessage("This user has been warned 3 times now. Would you like to throw them in detention? [yes/no]"); 
-                    bot.on("messageCreate", (m) => {
+                    bot.once("messageCreate", (m) => {
                         if(m.author.id == msg.author.id){
                             switch(m.content){
                                 case "yes":
@@ -73,8 +73,8 @@ module.exports = (bot) => {
                                 default:
                                     m.channel.createMessage("Okay! I will not throw that user in detention");
                             }
-                            client._events.messageCreate.splice(-1, 1)
-                            }
+                            
+                        }
                         });
                     
                     }else{
