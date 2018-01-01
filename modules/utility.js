@@ -173,7 +173,7 @@ module.exports = (bot) => {
         } // subtracts five from the number given as time in minutes
 
         function countdownFunc() {
-            setTimeout(countingDown, 6000);
+            setTimeout(countingDown, 60000);
         } // loops countingDown() to run every minute
 
         function countdownMessage() {
@@ -186,7 +186,7 @@ module.exports = (bot) => {
         } // edits the sent message conform the altered countdownTime variable
 
         function sendEdit() {
-            setTimeout(editMsg, 6000);
+            setTimeout(editMsg, 60000);
         } // loops the above function every minute
 
         function stopCountdown() {
