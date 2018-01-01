@@ -77,11 +77,12 @@ module.exports = (bot) => {
                             }
                         });
                     })
+
                     }else{
                 return "Warning recorded <:bexy:393137089622966272>";
                 }
         
-        }
+        
     },
     {
         description: "Warns a user.",
