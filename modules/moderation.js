@@ -64,8 +64,8 @@ module.exports = (bot) => {
             user = msg.mentions[0].id;
         }
         bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
-        if (bot.profiles[user].warnings.length == 3) {
-            msg.channel.createMessage("This user has been warned 3 times now. Would you like to throw them in detention? [yes/no]").then((m) => {
+        if (bot.profiles[user].warnings.length == 4) {
+            msg.channel.createMessage("This user has a total of 4 warns. Would you like to throw them in detention? [yes/no]").then((m) => {
                 m.addReaction("bexn:393137089631354880").then(() => {
                     m.addReaction("bexy:393137089622966272").then(() => {
                         var reacted = false;
