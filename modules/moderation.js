@@ -81,6 +81,33 @@ module.exports = (bot) => {
         }
     });
 
+    bot.register("resetwarns", (msg, args) => {
+        if (args.length == 0) return "Please provide a user.";
+        var user = args[0];
+        if (!args[0]) return "Please provide a user.";
+        if (user.length == 18) {
+            bot.profiles[user].warnings = [];
+            return "Warning reset! <:bexy:393137089622966272>";
+        }
+        else {
+            if (msg.mentions[0]) {
+                user = msg.mentions[0].id;
+                bot.profiles[user].warnings = [];
+                return "Warning reset! <:bexy:393137089622966272>";
+            }
+            else {
+                return "Invalid user!";
+            }
+        }
+    },
+    {
+            description: "Reset warnings for a user.",
+            fullDescription: "Resets the warnings for a user.",
+            requirements: {
+                roleIDs: ['392157971507052554']
+            }
+    });
+
     bot.register("reset", (msg, args) => {
         var user = msg.mentions[0].id;
         if (args.length === 0) return bot.createMessage(msg.channel.id, 'Please provide a user.');
