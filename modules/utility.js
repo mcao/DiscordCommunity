@@ -197,8 +197,8 @@ module.exports = (bot) => {
                 bot.createMessage(msg.channel.id, "Event **" + eventDescription + "** started!")
                 countdownMessage();
                 countdownFunc();
-                .then sendEdit();
-                .then if (countdownTime <= 0) {
+                sendEdit();
+                if (countdownTime <= 0) {
                     stopCountdown();
                     msgSent.edit("**" + eventDescription + " has begun!**");
                 }
