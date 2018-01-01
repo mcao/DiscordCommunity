@@ -9,14 +9,13 @@ module.exports = (bot) => {
         bot.createMessage(msg.channel.id, "Pong!")
             .then(msg => msg.edit("Pong! **" + (new Date(msg.timestamp).getTime() - start) + "ms**"))
             .catch(console.error);
-    },
-        {
-            description: "Pong!",
-            fullDescription: "This command is used to check the bot's latency, or if it's up.",
-            requirements: {
-                roleIDs: ['392169263982444546']
-            }
-        });
+    }, {
+        description: "Pong!",
+        fullDescription: "This command is used to check the bot's latency, or if it's up.",
+        requirements: {
+            roleIDs: ['392169263982444546', '392425936366075905']
+        }
+    });
 
     bot.register("reactions", (msg, args) => {
         bot.reactions = [];
@@ -24,23 +23,21 @@ module.exports = (bot) => {
 
         args.forEach(function(arg) {
             if (arg.includes(':')) {
-            arg = arg.replace('<:', '');
-            arg = arg.replace('>', '');
-            bot.reactions.push(arg);
-            }
-            else {
+                arg = arg.replace('<:', '');
+                arg = arg.replace('>', '');
+                bot.reactions.push(arg);
+            } else {
                 bot.reactions.push(arg);
             }
         })
         return 'Done! <:bexhey:390556541360799748>';
-    },
-        {
-            requirements: {
-                roleIDs: ['392425936366075905', '392150288729112587']
-            },
-            description: "Change the reactions added to the fotd channel.",
-            fullDescription: "Easier & quicker to add reactions."
-        });
+    }, {
+        requirements: {
+            roleIDs: ['392425936366075905', '392150288729112587']
+        },
+        description: "Change the reactions added to the fotd channel.",
+        fullDescription: "Easier & quicker to add reactions."
+    });
 
     bot.register("eval", (msg, args) => {
         var code = args.join(" ");
@@ -65,14 +62,13 @@ module.exports = (bot) => {
         } catch (err) {
             return "```js\n" + clean(err.message) + "```"
         }
-    },
-        {
-            requirements: {
-                userIDs: bot.config.owners
-            },
-            description: "Evaluates code",
-            fullDescription: "This command is used to evaluate code on the bot."
-        });
+    }, {
+        requirements: {
+            userIDs: bot.config.owners
+        },
+        description: "Evaluates code",
+        fullDescription: "This command is used to evaluate code on the bot."
+    });
 
     bot.register("exec", (msg, args) => {
         try {
@@ -81,49 +77,46 @@ module.exports = (bot) => {
             var res = err
         }
         return "```LIDF\n" + res + "```"
-    },
-        {
-            requirements: {
-                userIDs: bot.config.owners
-            },
-            description: "Executes to command line",
-            fullDescription: "This command is used to execute command line commands."
-        });
+    }, {
+        requirements: {
+            userIDs: bot.config.owners
+        },
+        description: "Executes to command line",
+        fullDescription: "This command is used to execute command line commands."
+    });
 
-    bot.register("update", function (msg, args) {
+    bot.register("update", function(msg, args) {
         bot.createMessage(msg.channel.id, "Updating...").then(e => {
             var evaled = require("child_process").execSync('git pull').toString()
             bot.createMessage(e.channel.id, "```" + evaled + "```")
             if (evaled.indexOf("Already up-to-date.") < 0) {
                 bot.createMessage(e.channel.id, "New code successfully pulled! Restarting...")
-                setTimeout(function () {
+                setTimeout(function() {
                     process.exit(0)
                 }, 2000);
             }
         })
-    },
-        {
-            requirements: {
-                userIDs: bot.config.owners
-            },
-            description: "Updates the bot's code.",
-            fullDescription: "This command is used to update the bot's code on Github."
-        });
+    }, {
+        requirements: {
+            userIDs: bot.config.owners
+        },
+        description: "Updates the bot's code.",
+        fullDescription: "This command is used to update the bot's code on Github."
+    });
 
-    bot.register("restart", function (msg, args) {
+    bot.register("restart", function(msg, args) {
         bot.createMessage(msg.channel.id, "Restarting...").then(m => {
             writeFile("./channel.json", `{ "channel" : "${m.channel.id}", "message": "${m.id}" }`)
         })
         bot.writeProfiles()
         setTimeout(() => { process.exit(0) }, 1000);
-    },
-        {
-            requirements: {
-                userIDs: bot.config.owners
-            },
-            description: "Restart the bot.",
-            fullDescription: "This command is used to restart the bot."
-        });
+    }, {
+        requirements: {
+            userIDs: bot.config.owners
+        },
+        description: "Restart the bot.",
+        fullDescription: "This command is used to restart the bot."
+    });
 
     bot.register("reload", (msg, args) => {
         if (args[0] == "reload") return "Please specify a module name!"
@@ -145,18 +138,17 @@ module.exports = (bot) => {
             })
         })
     }, {
-            requirements: {
-                userIDs: bot.config.owners
-            },
-            description: "Reloads a module",
-            fullDescription: "This command is used to reload modules."
-        })
+        requirements: {
+            userIDs: bot.config.owners
+        },
+        description: "Reloads a module",
+        fullDescription: "This command is used to reload modules."
+    })
 
     function clean(text) {
-        if (typeof (text) === "string") {
+        if (typeof(text) === "string") {
             return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
-        }
-        else {
+        } else {
             return text;
         }
     }
