@@ -73,7 +73,7 @@ module.exports = (bot) => {
                                 default:
                                     m.channel.createMessage("Okay! I will not throw that user in detention");
                             }
-                            client._events.messageCreate.splice(-1, 1)
+                            bot._events.messageCreate.splice(-1, 1)
                             }
                         });
                     })
