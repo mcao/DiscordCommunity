@@ -40,7 +40,7 @@ module.exports = (bot) => {
             }
         }
         else if (!args[0]) {
-            var member = msg.author;
+            var member = msg.member;
             if (member.roles.indexOf('279991210356113408') == 0) {
                 member.removeRole('279991210356113408', 'User is not Nitro.');
                 return `Removed Nitro from ${member.username}#${member.discriminator} <:bexy:393137089622966272>`;
@@ -88,7 +88,7 @@ module.exports = (bot) => {
             }
         }
         else if (!args[0]) {
-            var member = msg.author;
+            var member = msg.member;
             if (member.roles.indexOf('392169937755439106') == 0) {
                 member.removeRole('392169937755439106', 'User is not Discord Partner.');
                 return `Removed Discord Partner from ${member.username}#${member.discriminator} <:bexy:393137089622966272>`;
@@ -136,7 +136,7 @@ module.exports = (bot) => {
             }
         }
         else if (!args[0]) {
-            var member = msg.author;
+            var member = msg.member;
             if (member.roles.indexOf('392169890955395078') == 0) {
                 member.removeRole('392169890955395078', 'User is not Hypesquad.');
                 return `Removed Hypesquad from ${member.username}#${member.discriminator} <:bexy:393137089622966272>`;
