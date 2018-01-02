@@ -129,6 +129,7 @@ module.exports = (bot) => {
                             name: "Discord Community",
                             icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
                         },
+                        timestamp: new Date(),
                         fields: [{
                                 name: "Message count",
                                 value: `${bot.profiles[id].messageCount}`,
