@@ -311,7 +311,7 @@ module.exports = (bot) => {
         }
 
         function amountBoolean() {
-            countdownTime == 0;
+            return countdownTime == 0;
         }
 
         function getAmount() {
