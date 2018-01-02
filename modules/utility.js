@@ -27,7 +27,7 @@ module.exports = (bot) => {
                 return `Gave ${member.username}#${member.discriminator} Nitro <:bexy:393137089622966272>`;
             }
         }
-        else if (msg.mentions[0]) { // 0 == true, -1 == false
+        else if(msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
             var userID = msg.mentions[0].id;
             var member = msg.channel.guild.members.get(user);
             if (member.roles.indexOf('279991210356113408') == 0) {
@@ -39,7 +39,7 @@ module.exports = (bot) => {
                 return `Gave ${member.username}#${member.discriminator} Nitro <:bexy:393137089622966272>`;
             }
         }
-        else if (args[0].length == 0) {
+        else if (!args[0]) {
             var member = msg.author;
             if (member.roles.indexOf('279991210356113408') == 0) {
                 member.removeRole('279991210356113408', 'User is not Nitro.');
@@ -75,7 +75,7 @@ module.exports = (bot) => {
                 return `Gave ${member.username}#${member.discriminator} Discord Partner <:bexy:393137089622966272>`;
             }
         }
-        else if (msg.mentions[0]) { // 0 == true, -1 == false
+        else if(msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
             var userID = msg.mentions[0].id;
             var member = msg.channel.guild.members.get(user);
             if (member.roles.indexOf('392169937755439106') == 0) {
@@ -87,7 +87,7 @@ module.exports = (bot) => {
                 return `Gave ${member.username}#${member.discriminator} Discord Partner <:bexy:393137089622966272>`;
             }
         }
-        else if (args[0].length == 0) {
+        else if (!args[0]) {
             var member = msg.author;
             if (member.roles.indexOf('392169937755439106') == 0) {
                 member.removeRole('392169937755439106', 'User is not Discord Partner.');
@@ -123,7 +123,7 @@ module.exports = (bot) => {
                 return `Gave ${member.username}#${member.discriminator} Hypesquad <:bexy:393137089622966272>`;
             }
         }
-        else if (msg.mentions[0]) { // 0 == true, -1 == false
+        else if (msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
             var userID = msg.mentions[0].id;
             var member = msg.channel.guild.members.get(user);
             if (member.roles.indexOf('392169890955395078') == 0) {
@@ -135,7 +135,7 @@ module.exports = (bot) => {
                 return `Gave ${member.username}#${member.discriminator} Hypesquad <:bexy:393137089622966272>`;
             }
         }
-        else if (args[0].length == 0) {
+        else if (!args[0]) {
             var member = msg.author;
             if (member.roles.indexOf('392169890955395078') == 0) {
                 member.removeRole('392169890955395078', 'User is not Hypesquad.');
