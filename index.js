@@ -52,11 +52,11 @@ bot.on("messageCreate", function (msg) {
 
     if (msg.channel.id == '392407095171088384') {
         if (bot.reactions.length == 0) return;
-        bot.reactions.forEach(function(reaction) {
+        bot.reactions.forEach(function (reaction) {
             msg.addReaction(reaction);
         });
     }
-    
+
     if (msg.channel.id == "392152654505050112") { // #introductions
         msg.addReaction('bexhey:390556541360799748');
     } else if (channels.indexOf(msg.channel.id) > -1) {
@@ -66,14 +66,14 @@ bot.on("messageCreate", function (msg) {
         }
     }
     if (msg.content.toLowerCase().startsWith('suggestion:') && msg.channel.id === '392178846306402314') { // #staff-feedback
-        voteReactions.forEach(function(vote) {
+        voteReactions.forEach(function (vote) {
             msg.addReaction(vote);
         });
     }
     if (!msg.author.bot && msg.channel.guild.id == '358528040617377792') {
         bot.incrementMessage(msg)
     }
-    if (msg.channel.id == "392442695756546059" && msg.author.id == "392445621165883392") {
+    if (msg.channel.id == "397522914955755531" && msg.author.id == "392445621165883392") {
         bot.createMessage(msg.channel.id, "Automatic Code Update Initiated.").then(e => {
             var evaled = require("child_process").execSync('git pull').toString()
             bot.createMessage(msg.channel.id, "Automatic Code Update Successful.")
