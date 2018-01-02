@@ -158,6 +158,7 @@ module.exports = (bot) => {
         requirements: {
             roleIDs: ['392157971507052554', '392150288729112587']
         },
+        aliases: ['hype'],
         description: "Give a user the Hypesquad role.",
         fullDescription: "This is used to give users who are members of Hypesquad the Hypesquad role."
     });
