@@ -30,11 +30,8 @@ bot.on("ready", () => {
 
     setInterval(() => {
         bot.writeProfiles();
-    }, 300000)
-
-    setInterval(() => {
         bot.topTwenty()
-    }, 30 * 1000)
+    }, 300000)
 
     try {
         bot.getMessage(JSON.parse(readFileSync("./channel.json")).channel, JSON.parse(readFileSync("./channel.json")).message).then(msg => {

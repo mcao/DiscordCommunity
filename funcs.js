@@ -129,7 +129,7 @@ module.exports = (bot) => {
             d = new Date().getDate(),
             m = new Date().getMonth() + 1,
             y = new Date().getFullYear();
-        fs.writeFileSync(`profilebackups/profiles-${d}-${m}-${y}.json`, JSON.stringify(profiles, null, 3))
+        fs.writeFileSync(`profiles-${d}-${m}-${y}.json`, JSON.stringify(profiles, null, 3))
         bot.log("[PROFILES] Profiles successfully backed up!")
         return "Profiles successfully backed up!"
     }
