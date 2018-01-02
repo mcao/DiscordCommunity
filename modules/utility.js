@@ -194,6 +194,18 @@ module.exports = (bot) => {
         fullDescription: "This command is used to evaluate code on the bot."
     });
 
+    bot.register("say", (msg, args) => {
+        args = args.join(' ');
+        msg.delete();
+        return args;
+    }, {
+        requirements: {
+            roleIDs: ['392425936366075905', '392150288729112587']
+        },
+        description: "Say command",
+        fullDescription: "Deletes the original command and the bot will say the arguments."
+    });
+
     bot.register("exec", (msg, args) => {
         try {
             var res = require("child_process").execSync(args.join(" "))
