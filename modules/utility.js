@@ -22,41 +22,33 @@ module.exports = (bot) => {
             if (member.roles.indexOf('392169841554882570') > -1) {
                 member.removeRole('392169841554882570', 'User is not nitro');
                 return `Removed Nitro from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
-            }
-            else {
+            } else {
                 member.addRole("392169841554882570", "User is nitro");
                 return `Gave **${member.username}#${member.discriminator}** Nitro <:bexy:393137089622966272>`;
             }
-        }
-        else if(msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
+        } else if (msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
             var userID = msg.mentions[0].id;
             var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf('392169841554882570') > -1) {
                 member.removeRole('392169841554882570', 'User is not nitro');
                 return `Removed Nitro from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
-            }
-            else {
+            } else {
                 member.addRole("392169841554882570", "User is nitro");
                 return `Gave **${member.username}#${member.discriminator}** Nitro <:bexy:393137089622966272>`;
             }
-        }
-        
-        else if (!args) {
+        } else if (!args) {
             var member = msg.member;
             if (member.roles.indexOf('392169841554882570') > -1) {
                 member.removeRole('392169841554882570', 'User is not Nitro');
                 return `Removed Nitro from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
-            }
-            else {
+            } else {
                 member.addRole("392169841554882570", "User is nitro");
                 return `Gave **${member.username}#${member.discriminator}** Nitro <:bexy:393137089622966272>`;
             }
-        }
-        else {
+        } else {
             return "Please provide a valid user <:bexn:393137089631354880>"
         }
-    }, 
-    {
+    }, {
         requirements: {
             roleIDs: ['392157971507052554', '392150288729112587']
         },
@@ -72,40 +64,33 @@ module.exports = (bot) => {
             if (member.roles.indexOf('392169937755439106') > -1) {
                 member.removeRole('392169937755439106', 'User is not a Discord Partner');
                 return `Removed Discord Partner from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
-            }
-            else {
+            } else {
                 member.addRole("392169841554882570", "User is is a Discord Partner");
                 return `Gave **${member.username}#${member.discriminator}** Discord Partner <:bexy:393137089622966272>`;
             }
-        }
-        else if(msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
+        } else if (msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
             var userID = msg.mentions[0].id;
             var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf('392169937755439106') > -1) {
                 member.removeRole('392169937755439106', 'User is not Discord Partner');
                 return `Removed Discord Partner from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
-            }
-            else {
+            } else {
                 member.addRole("392169937755439106", "User is Discord Partner");
                 return `Gave **${member.username}#${member.discriminator}** Discord Partner <:bexy:393137089622966272>`;
             }
-        }
-        else if (!args) {
+        } else if (!args) {
             var member = msg.member;
             if (member.roles.indexOf('392169937755439106') > -1) {
                 member.removeRole('392169937755439106', 'User is not Discord Partner');
                 return `Removed Discord Partner from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
-            }
-            else {
+            } else {
                 member.addRole("392169937755439106", "User is Discord Partner");
                 return `Gave **${member.username}#${member.discriminator}** Discord Partner <:bexy:393137089622966272>`;
             }
-        }
-        else {
+        } else {
             return "Please provide a valid user <:bexn:393137089631354880>";
         }
-    }, 
-    {
+    }, {
         requirements: {
             roleIDs: ['392157971507052554', '392150288729112587']
         },
@@ -121,40 +106,33 @@ module.exports = (bot) => {
             if (member.roles.indexOf('392169890955395078') > -1) {
                 member.removeRole('392169890955395078', 'User is not a Hypesquad member');
                 return `Removed Hypesquad from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
-            }
-            else {
+            } else {
                 member.addRole("392169841554882570", "User is is a Hypesquad");
                 return `Gave **${member.username}#${member.discriminator}** Hypesquad <:bexy:393137089622966272>`;
             }
-        }
-        else if (msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
+        } else if (msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
             var userID = msg.mentions[0].id;
             var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf('392169890955395078') > -1) {
                 member.removeRole('392169890955395078', 'User is not Hypesquad');
                 return `Removed Hypesquad from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
-            }
-            else {
+            } else {
                 member.addRole("392169890955395078", "User is Hypesquad");
                 return `Gave **${member.username}#${member.discriminator}** Hypesquad <:bexy:393137089622966272>`;
             }
-        }
-        else if (!args) {
+        } else if (!args) {
             var member = msg.member;
             if (member.roles.indexOf('392169890955395078') > -1) {
                 member.removeRole('392169890955395078', 'User is not Hypesquad');
                 return `Removed Hypesquad from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
-            }
-            else {
+            } else {
                 member.addRole("392169890955395078", "User is Hypesquad");
                 return `Gave **${member.username}#${member.discriminator}** Hypesquad <:bexy:393137089622966272>`;
             }
-        }
-        else {
+        } else {
             return "Please provide a valid user <:bexn:393137089631354880>"
         }
-    }, 
-    {
+    }, {
         requirements: {
             roleIDs: ['392157971507052554', '392150288729112587']
         },
@@ -306,11 +284,11 @@ module.exports = (bot) => {
         var msgSent;
 
         function countingDown() {
-            countdownTime = countdownTime - 1;
+            var countdownTime = countdownTime - 1;
         } // subtracts five from the number given as time in minutes
 
         function countdownFunc() {
-            setTimeout(countingDown, 60000);
+            setTimeout(countingDown(), 60000);
         } // loops countingDown() to run every minute
 
         function countdownMessage() {
@@ -323,11 +301,20 @@ module.exports = (bot) => {
         } // edits the sent message conform the altered countdownTime variable
 
         function sendEdit() {
-            setTimeout(editMsg, 60000);
+            setTimeout(editMsg(), 60000);
         } // loops the above function every minute
 
         function stopCountdown() {
             clearTimeout(countdownTime);
+            clearTimeout(msgSent);
+        }
+
+        function amountBoolean() {
+            countdownTime == 0;
+        }
+
+        function getAmount() {
+            setTimeout(amountBoolean(), 60000)
         }
 
         if (argsArray[0] === "start") {
@@ -338,7 +325,7 @@ module.exports = (bot) => {
                 countdownMessage();
                 countdownFunc();
                 sendEdit();
-                if (countdownTime <= 0) {
+                if (getAmount() == true) {
                     stopCountdown();
                     msgSent.edit("**" + eventDescription + " has begun!**");
                 }
