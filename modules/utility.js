@@ -65,8 +65,9 @@ module.exports = (bot) => {
     });
 
     bot.register("partner", (msg, args) => {
-        if (args[0].length == 18) {
-            var userID = args[0];
+        args = args.join(' ');
+        if (args.length == 18) {
+            var userID = args;
             var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf('392169937755439106') > -1) {
                 member.removeRole('392169937755439106', 'User is not a Discord Partner');
@@ -89,7 +90,7 @@ module.exports = (bot) => {
                 return `Gave ${member.username}#${member.discriminator} Discord Partner <:bexy:393137089622966272>`;
             }
         }
-        else if (!args[0]) {
+        else if (!args) {
             var member = msg.member;
             if (member.roles.indexOf('392169937755439106') > -1) {
                 member.removeRole('392169937755439106', 'User is not Discord Partner');
@@ -113,8 +114,9 @@ module.exports = (bot) => {
     });
 
     bot.register("hypesquad", (msg, args) => {
-        if (args[0].length == 18) {
-            var userID = args[0];
+        args = args.join(' ');
+        if (args.length == 18) {
+            var userID = args;
             var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf('392169890955395078') > -1) {
                 member.removeRole('392169890955395078', 'User is not a Hypesquad member');
@@ -137,7 +139,7 @@ module.exports = (bot) => {
                 return `Gave ${member.username}#${member.discriminator} Hypesquad <:bexy:393137089622966272>`;
             }
         }
-        else if (!args[0]) {
+        else if (!args) {
             var member = msg.member;
             if (member.roles.indexOf('392169890955395078') > -1) {
                 member.removeRole('392169890955395078', 'User is not Hypesquad');
