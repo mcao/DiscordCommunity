@@ -14,6 +14,150 @@ module.exports = (bot) => {
         fullDescription: "This command is used to check the bot's latency, or if it's up."
     });
 
+    bot.register("nitro", (msg, args) => {
+        if (args[0].length == 18) {
+            var userID = args[0];
+            var member = msg.channel.guild.members.get(userID);
+            if (member.roles.indexOf('279991210356113408') == 0) {
+                member.removeRole('279991210356113408', 'User is not nitro.');
+                return `Removed Nitro from ${member.username}#${member.discriminator} <:bexy:393137089622966272>`;
+            }
+            else {
+                member.addRole("392169841554882570", "User is nitro.");
+                return `Gave ${member.username}#${member.discriminator} Nitro <:bexy:393137089622966272>`;
+            }
+        }
+        else if (msg.mentions[0]) { // 0 == true, -1 == false
+            var userID = msg.mentions[0].id;
+            var member = msg.channel.guild.members.get(user);
+            if (member.roles.indexOf('279991210356113408') == 0) {
+                member.removeRole('279991210356113408', 'User is not nitro.');
+                return `Removed Nitro from ${member.username}#${member.discriminator} <:bexy:393137089622966272>`;
+            }
+            else {
+                member.addRole("279991210356113408", "User is nitro.");
+                return `Gave ${member.username}#${member.discriminator} Nitro <:bexy:393137089622966272>`;
+            }
+        }
+        else if (args[0].length == 0) {
+            var member = msg.author;
+            if (member.roles.indexOf('279991210356113408') == 0) {
+                member.removeRole('279991210356113408', 'User is not Nitro.');
+                return `Removed Nitro from ${member.username}#${member.discriminator} <:bexy:393137089622966272>`;
+            }
+            else {
+                member.addRole("279991210356113408", "User is nitro.");
+                return `Gave ${member.username}#${member.discriminator} Nitro <:bexy:393137089622966272>`;
+            }
+        }
+        else {
+            return "Please provide a valid user <:bexn:393137089631354880>"
+        }
+    }, 
+    {
+        requirements: {
+            roleIDs: ['392157971507052554', '392150288729112587']
+        },
+        description: "Give a user the nitro role.",
+        fullDescription: "This is used to give users who have nitro the Nitro role."
+    });
+
+    bot.register("partner", (msg, args) => {
+        if (args[0].length == 18) {
+            var userID = args[0];
+            var member = msg.channel.guild.members.get(userID);
+            if (member.roles.indexOf('392169937755439106') == 0) {
+                member.removeRole('392169937755439106', 'User is not a Discord Partner.');
+                return `Removed Discord Partner from ${member.username}#${member.discriminator} <:bexy:393137089622966272>`;
+            }
+            else {
+                member.addRole("392169841554882570", "User is is a Discord Partner.");
+                return `Gave ${member.username}#${member.discriminator} Discord Partner <:bexy:393137089622966272>`;
+            }
+        }
+        else if (msg.mentions[0]) { // 0 == true, -1 == false
+            var userID = msg.mentions[0].id;
+            var member = msg.channel.guild.members.get(user);
+            if (member.roles.indexOf('392169937755439106') == 0) {
+                member.removeRole('392169937755439106', 'User is not Discord Partner.');
+                return `Removed Discord Partner from ${member.username}#${member.discriminator} <:bexy:393137089622966272>`;
+            }
+            else {
+                member.addRole("392169937755439106", "User is Discord Partner.");
+                return `Gave ${member.username}#${member.discriminator} Discord Partner <:bexy:393137089622966272>`;
+            }
+        }
+        else if (args[0].length == 0) {
+            var member = msg.author;
+            if (member.roles.indexOf('392169937755439106') == 0) {
+                member.removeRole('392169937755439106', 'User is not Discord Partner.');
+                return `Removed Discord Partner from ${member.username}#${member.discriminator} <:bexy:393137089622966272>`;
+            }
+            else {
+                member.addRole("392169937755439106", "User is Discord Partner.");
+                return `Gave ${member.username}#${member.discriminator} Discord Partner <:bexy:393137089622966272>`;
+            }
+        }
+        else {
+            return "Please provide a valid user <:bexn:393137089631354880>"
+        }
+    }, 
+    {
+        requirements: {
+            roleIDs: ['392157971507052554', '392150288729112587']
+        },
+        description: "Give a user the Discord Partner role.",
+        fullDescription: "This is used to give users who have the partner badge the Discord Partner role."
+    });
+
+    bot.register("hypesquad", (msg, args) => {
+        if (args[0].length == 18) {
+            var userID = args[0];
+            var member = msg.channel.guild.members.get(userID);
+            if (member.roles.indexOf('392169890955395078') == 0) {
+                member.removeRole('392169890955395078', 'User is not a Hypesquad member.');
+                return `Removed Hypesquad from ${member.username}#${member.discriminator} <:bexy:393137089622966272>`;
+            }
+            else {
+                member.addRole("392169841554882570", "User is is a Hypesquad.");
+                return `Gave ${member.username}#${member.discriminator} Hypesquad <:bexy:393137089622966272>`;
+            }
+        }
+        else if (msg.mentions[0]) { // 0 == true, -1 == false
+            var userID = msg.mentions[0].id;
+            var member = msg.channel.guild.members.get(user);
+            if (member.roles.indexOf('392169890955395078') == 0) {
+                member.removeRole('392169890955395078', 'User is not Hypesquad.');
+                return `Removed Hypesquad from ${member.username}#${member.discriminator} <:bexy:393137089622966272>`;
+            }
+            else {
+                member.addRole("392169890955395078", "User is Hypesquad.");
+                return `Gave ${member.username}#${member.discriminator} Hypesquad <:bexy:393137089622966272>`;
+            }
+        }
+        else if (args[0].length == 0) {
+            var member = msg.author;
+            if (member.roles.indexOf('392169890955395078') == 0) {
+                member.removeRole('392169890955395078', 'User is not Hypesquad.');
+                return `Removed Hypesquad from ${member.username}#${member.discriminator} <:bexy:393137089622966272>`;
+            }
+            else {
+                member.addRole("392169890955395078", "User is Hypesquad.");
+                return `Gave ${member.username}#${member.discriminator} Hypesquad <:bexy:393137089622966272>`;
+            }
+        }
+        else {
+            return "Please provide a valid user <:bexn:393137089631354880>"
+        }
+    }, 
+    {
+        requirements: {
+            roleIDs: ['392157971507052554', '392150288729112587']
+        },
+        description: "Give a user the Hypesquad role.",
+        fullDescription: "This is used to give users who are members of Hypesquad the Hypesquad role."
+    });
+
     bot.register("reactions", (msg, args) => {
         bot.reactions = [];
         if (args.length == 0) return 'Reset the reactions!';
