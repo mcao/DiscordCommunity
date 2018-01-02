@@ -315,7 +315,7 @@ module.exports = (bot) => {
         }
 
         function getAmount() {
-            setTimeout(amountBoolean(), 60000)
+            return setTimeout(amountBoolean(), 60000)
         }
 
         if (argsArray[0] === "start") {
