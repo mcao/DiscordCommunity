@@ -99,7 +99,7 @@ module.exports = (bot) => {
             }
         }
         else {
-            return "Please provide a valid user <:bexn:393137089631354880>"
+            return "Please provide a valid user <:bexn:393137089631354880>";
         }
     }, 
     {
