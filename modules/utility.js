@@ -15,8 +15,9 @@ module.exports = (bot) => {
     });
 
     bot.register("nitro", (msg, args) => {
-        if (args[0].length == 18) {
-            var userID = args[0];
+        args = args.join(' ');
+        if (args.length == 18) {
+            var userID = args;
             var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf('392169841554882570') > -1) {
                 member.removeRole('392169841554882570', 'User is not nitro');
@@ -39,7 +40,8 @@ module.exports = (bot) => {
                 return `Gave ${member.username}#${member.discriminator} Nitro <:bexy:393137089622966272>`;
             }
         }
-        else if (!args[0]) {
+        
+        else if (!args) {
             var member = msg.member;
             if (member.roles.indexOf('392169841554882570') > -1) {
                 member.removeRole('392169841554882570', 'User is not Nitro');
