@@ -166,6 +166,7 @@ module.exports = (bot) => {
     bot.register("nitrousers", (msg, args) => {
         var usernumber = 0;
         var nitro_users = msg.channel.guild.members.filter(m => m.avatarURL.includes('.gif')).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169841554882570') < 0).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169937755439106') < 0).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169947511390210') < 0);
+        if (nitro_users.length == 0) return bot.createMessage(msg.channel.id, "Cannot find any potential nitro users without the role.");
         var chunked = bot.chunkArray(nitro_users, 10) // split nitro users into groups of ten
         chunked.forEach((users) => {
             
