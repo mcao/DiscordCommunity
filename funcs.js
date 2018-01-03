@@ -2,6 +2,8 @@ module.exports = (bot) => {
     const fs = require("fs");
     bot.config = require("./config.json")
 
+    bot.cooldowns = new Set();
+
     bot.register = function (name, command, options) {
         if (bot.commands[name]) {
             bot.log(`Reloading command: ${name}`)

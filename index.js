@@ -68,7 +68,13 @@ bot.on("messageCreate", function (msg) {
         });
     }
     if (!msg.author.bot && msg.channel.guild.id == '358528040617377792') {
-        bot.incrementMessage(msg)
+        if (!bot.cooldowns.has(msg.author.id)) {
+            bot.cooldowns.add(msg.author.id)
+            bot.incrementMessage(msg)
+            setTimeout(() => {
+                bot.cooldowns.remove(msg.author.id);
+            }, 10 * 1000)
+        }
     }
     if (msg.channel.id == "397522914955755531" && msg.author.id == "392445621165883392") {
         bot.createMessage(msg.channel.id, "Automatic Code Update Initiated.").then(e => {
