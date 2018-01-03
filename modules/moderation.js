@@ -63,6 +63,7 @@ module.exports = (bot) => {
         if (msg.mentions[0]) {
             user = msg.mentions[0].id;
         }
+        if (bot.users.get(user).bot) return 'Bots can\'t have warnings!';
         bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
         bot.users.get(user).getDMChannel().then(c => c.createMessage(`You have been warned in **${msg.channel.guild.name}** for the following reason: **${reason}**.`));
         
@@ -116,12 +117,12 @@ module.exports = (bot) => {
         if (!args[0]) return "Please provide a user.";
         if (user.length == 18) {
             bot.profiles[user].warnings = [];
-            return "Warning reset! <:bexy:393137089622966272>";
+            return "Warnings reset! <:bexy:393137089622966272>";
         } else {
             if (msg.mentions[0]) {
                 user = msg.mentions[0].id;
                 bot.profiles[user].warnings = [];
-                return "Warning reset! <:bexy:393137089622966272>";
+                return "Warnings reset! <:bexy:393137089622966272>";
             } else {
                 return "Invalid user!";
             }
