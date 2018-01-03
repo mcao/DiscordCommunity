@@ -4,9 +4,11 @@ module.exports = (bot) => {
         args = args.join(" ");
         if (args.length == 0) return "Please provide a user.";
         if (args.length == 18) {
+            if (bot.users.get(args).bot) return "Bots don't have warnings! <:bexn:393137089631354880>";
             user = msg.channel.guild.members.get(args);
         }
         if (msg.mentions[0]) {
+            if (msg.mentions[0].bot) return "Bots don't have warnings! <:bexn:393137089631354880>";
             user = msg.mentions[0];
         }
         var embedy = {
@@ -24,8 +26,8 @@ module.exports = (bot) => {
             }
         };
 
-        if (bot.profiles[user.id].warnings.length == 0) return "This user doesn't have any warnings!";
-
+        if (bot.profiles[user.id].warnings.length == 0) return "This user doesn't have any warnings! <:bexn:393137089631354880>";
+ 
         var moderator;
         var reason;
         var channel;
@@ -63,7 +65,7 @@ module.exports = (bot) => {
         if (msg.mentions[0]) {
             user = msg.mentions[0].id;
         }
-        if (bot.users.get(user).bot) return 'Bots can\'t have warnings!';
+        if (bot.users.get(user).bot) return 'Bots can\'t have warnings! <:bexn:393137089631354880>';
         bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
         bot.users.get(user).getDMChannel().then(c => c.createMessage(`You have been warned in **${msg.channel.guild.name}** for the following reason: **${reason}**.`));
         
@@ -116,15 +118,19 @@ module.exports = (bot) => {
         var user = args[0];
         if (!args[0]) return "Please provide a user.";
         if (user.length == 18) {
+            if (bot.users.get(user).bot) return "Bots don't have warnings! <:bexn:393137089631354880>";
+            if (bot.profiles[user].warnings.length == 0) return "This user doesn't have any warnings! <:bexn:393137089631354880>";
             bot.profiles[user].warnings = [];
             return "Warnings reset! <:bexy:393137089622966272>";
         } else {
             if (msg.mentions[0]) {
+                if (msg.mentions[0].bot) return "Bots don't have warnings! <:bexn:393137089631354880>";
                 user = msg.mentions[0].id;
+                if (bot.profiles[user].warnings.length == 0) return "This user doesn't have any warnings! <:bexn:393137089631354880>"
                 bot.profiles[user].warnings = [];
                 return "Warnings reset! <:bexy:393137089622966272>";
             } else {
-                return "Invalid user!";
+                return "Invalid user! <:bexn:393137089631354880>";
             }
         }
     }, {
@@ -139,8 +145,8 @@ module.exports = (bot) => {
 
     bot.register("reset", (msg, args) => {
         var user = msg.mentions[0].id;
-        if (args.length === 0) return bot.createMessage(msg.channel.id, 'Please provide a user.');
-        if (msg.mentions[0].bot) return bot.createMessage(msg.channel.id, 'Bots don\'t have ranks!');
+        if (args.length === 0) return bot.createMessage(msg.channel.id, 'Please provide a user. <:bexn:393137089631354880>');
+        if (msg.mentions[0].bot) return bot.createMessage(msg.channel.id, 'Bots don\'t have ranks! <:bexn:393137089631354880>');
         if (!msg.mentions[0] && args.length !== 18) return bot.createMessage(msg.channel.id, 'Invalid user.')
         if (args.length === 18 && typeof args === 'number') user = args;
         const levelRoles = ['393606932608450561', '393606931014746113', '393606929068589057', '393606926467989507', '393606924433752064'];
