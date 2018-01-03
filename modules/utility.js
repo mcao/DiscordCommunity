@@ -163,6 +163,36 @@ module.exports = (bot) => {
         fullDescription: "Easier & quicker to add reactions."
     });
 
+    bot.register("nitrousers", (msg, args) => {
+        var usernumber = 0;
+        var nitro_users = msg.channel.guild.members.filter(m => m.avatarURL.includes('.gif')).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169841554882570') < 0).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169937755439106') < 0)
+        var chunked = bot.chunkArray(nitro_users, 10) // split nitro users into groups of ten
+        chunked.forEach((users) => {
+            usernumber=+1;
+            
+            var embedy = {
+                title: `List of potential nitro users`,
+                color: 0x71368a,
+                author: {
+                    name: "Discord Community",
+                    icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+                },
+                timestamp: new Date(),
+                fields: [
+
+                ],
+            }
+            nitro_users.map(u => embedy.fields.push({name: `User #${usernumber}:`,value: `<@${u.id}>`}));
+            bot.createMessage(msg.channel.id, {embed: embedy})
+        })
+    }, {
+        requirements: {
+            roleIDs: ['392157971507052554', '392150288729112587']
+        },
+        description: "Check potential nitro users who dont have the role.",
+        fullDescription: "Check potential nitro users who don't have the nitro role, used by mods."
+    });
+
     bot.register("eval", (msg, args) => {
         var code = args.join(" ");
         try {
