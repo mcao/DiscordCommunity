@@ -54,7 +54,7 @@ module.exports = (bot) => {
         let leaderboard = bot.getLeaderboard();
         let users = leaderboard[0];
         let messageCounts = leaderboard[1];
-        users.splice(20);
+        var non_leaderboard = users.splice(20);
         users.forEach((v) => {
             bot.addGuildMemberRole('358528040617377792', v.toString(), '393606924433752064', 'User reached top 20');
         });
@@ -62,16 +62,12 @@ module.exports = (bot) => {
         let d = bot.guilds.find((v) => {
             return v.id == '358528040617377792'
         });
-        let users_again = leaderboard[0];
         let members = d.members.map((v) => {
             return v;
         });
 
-        let not_top_twenty = users_again.splice(20);
-        members.forEach((v) => {
-            if(not_top_twenty.indexOf(v.id) != -1){
-            bot.removeGuildMemberRole('358528040617377792', v.id.toString(), '393606924433752064', 'User fell out of top twenty');
-            }
+        non_leaderboard.forEach((v) => {
+                bot.removeGuildMemberRole('358528040617377792', v.toString(), '393606924433752064', 'User fell out of top twenty');
         })
     }
 
