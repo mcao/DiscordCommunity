@@ -16,7 +16,7 @@ module.exports = (bot) => {
 
     bot.register("nitro", (msg, args) => {
         args = args.join(' ');
-        if (args.length == 18) {
+        if (args.length == 18 || args.length == 17) {
             var userID = args;
             var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf('392169841554882570') > -1) {
@@ -58,7 +58,7 @@ module.exports = (bot) => {
 
     bot.register("partner", (msg, args) => {
         args = args.join(' ');
-        if (args.length == 18) {
+        if (args.length == 18 || args.length == 17) {
             var userID = args;
             var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf('392169937755439106') > -1) {
@@ -100,7 +100,7 @@ module.exports = (bot) => {
 
     bot.register("hypesquad", (msg, args) => {
         args = args.join(' ');
-        if (args.length == 18) {
+        if (args.length == 18 || args.length == 17) {
             var userID = args;
             var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf('392169890955395078') > -1) {
