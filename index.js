@@ -72,7 +72,7 @@ bot.on("messageCreate", function (msg) {
             bot.cooldowns.add(msg.author.id)
             bot.incrementMessage(msg)
             setTimeout(() => {
-                bot.cooldowns.remove(msg.author.id);
+                bot.cooldowns.delete(msg.author.id);
             }, 10 * 1000)
         }
     }
