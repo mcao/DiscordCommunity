@@ -164,11 +164,12 @@ module.exports = (bot) => {
     });
 
     bot.register("nitrousers", (msg, args) => {
-        var usernumber = 0;
+        var numberr = [0];
+        var usernumber = numberr[0];
         var nitro_users = msg.channel.guild.members.filter(m => m.avatarURL.includes('.gif')).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169841554882570') < 0).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169937755439106') < 0)
         var chunked = bot.chunkArray(nitro_users, 10) // split nitro users into groups of ten
         chunked.forEach((users) => {
-            usernumber=+1;
+            numberr[0] = numberr[0] + 1;
             
             var embedy = {
                 title: `List of potential nitro users`,
@@ -182,7 +183,7 @@ module.exports = (bot) => {
 
                 ],
             }
-            nitro_users.map(u => embedy.fields.push({name: `User #${usernumber}:`,value: `<@${u.id}>`}));
+            nitro_users.map(u => embedy.fields.push({name: `User #${usernumber[0]}:`,value: `<@${u.id}>`}));
             bot.createMessage(msg.channel.id, {embed: embedy})
         })
     }, {
