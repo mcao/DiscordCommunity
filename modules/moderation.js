@@ -58,6 +58,14 @@ module.exports = (bot) => {
         var reason = args.slice(1).join(" ");
         var user = args[0];
         if (!args[0]) return "Please provide a user.";
+        if (user.length == 18) {
+            if (bot.users.get(user).bot) return 'Bots can\'t have warnings! <:bexn:393137089631354880>';
+            user = user
+        }
+        if (msg.mentions[0]) {
+            if (msg.mentions[0].bot) return 'Bots can\'t have warnings! <:bexn:393137089631354880>';
+            user = msg.mentions[0].id;
+        }
         if (!reason) return "Please provide a reason.";
         if (user.length == 18) {
             user = user
@@ -65,7 +73,6 @@ module.exports = (bot) => {
         if (msg.mentions[0]) {
             user = msg.mentions[0].id;
         }
-        if (bot.users.get(user).bot) return 'Bots can\'t have warnings! <:bexn:393137089631354880>';
         bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
         bot.users.get(user).getDMChannel().then(c => c.createMessage(`You have been warned in **${msg.channel.guild.name}** for the following reason: **${reason}**.`));
         
