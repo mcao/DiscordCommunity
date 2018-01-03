@@ -168,7 +168,6 @@ module.exports = (bot) => {
         var nitro_users = msg.channel.guild.members.filter(m => m.avatarURL.includes('.gif')).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169841554882570') < 0).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169937755439106') < 0)
         var chunked = bot.chunkArray(nitro_users, 10) // split nitro users into groups of ten
         chunked.forEach((users) => {
-            usernumber = usernumber + 1;
             
             var embedy = {
                 title: `List of potential nitro users`,
@@ -181,8 +180,11 @@ module.exports = (bot) => {
                 fields: [
 
                 ],
+                footer: {
+                    text: `Note: This is not 100% accurate. Length: ${nitro_users.length} users`
+                }
             }
-            nitro_users.map(u => embedy.fields.push({name: `User #${usernumber}:`,value: `<@${u.id}>`}));
+            nitro_users.map(u => embedy.fields.push({name: `Potentially nitro:`,value: `<@${u.id}>`}));
             bot.createMessage(msg.channel.id, {embed: embedy})
         })
     }, {
