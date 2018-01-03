@@ -2,6 +2,8 @@ module.exports = (bot) => {
     const fs = require("fs");
     bot.config = require("./config.json")
 
+    bot.cooldowns = new Set();
+
     bot.register = function (name, command, options) {
         if (bot.commands[name]) {
             bot.log(`Reloading command: ${name}`)
@@ -15,8 +17,22 @@ module.exports = (bot) => {
 
     bot.reactions = [];
 
-    bot.warn = function(userid, modid, reason, channelid) {
-        bot.profiles[userid].warnings.push({"user": userid, "mod": modid, "reason": reason, "channel": channelid})
+    bot.chunkArray = function(myArray, chunk_size) {
+        var index = 0;
+        var arrayLength = myArray.length;
+        var tempArray = [];
+        
+        for (index = 0; index < arrayLength; index += chunk_size) {
+            myChunk = myArray.slice(index, index+chunk_size);
+            // Do something if you want with the group
+            tempArray.push(myChunk);
+        }
+    
+        return tempArray;
+    }
+    
+    bot.warn = function (userid, modid, reason, channelid) {
+        bot.profiles[userid].warnings.push({ "user": userid, "mod": modid, "reason": reason, "channel": channelid })
     }
 
     bot.twentyFourHourTimer = function (msg) {
@@ -65,9 +81,9 @@ module.exports = (bot) => {
         let members = d.members.map((v) => {
             return v;
         });
-
         non_leaderboard.forEach((v) => {
                 bot.removeGuildMemberRole('358528040617377792', v.toString(), '393606924433752064', 'User fell out of top twenty');
+
         })
     }
 
@@ -126,7 +142,7 @@ module.exports = (bot) => {
             m = new Date().getMonth() + 1,
             y = new Date().getFullYear();
         fs.writeFileSync(`profiles-${d}-${m}-${y}.json`, JSON.stringify(profiles, null, 3))
-        bot.log("[PROFILE] Profiles successfully backed up!")
+        bot.log("[PROFILES] Profiles successfully backed up!")
         return "Profiles successfully backed up!"
     }
 

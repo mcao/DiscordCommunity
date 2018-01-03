@@ -1,4 +1,3 @@
-
 var ranks = require('./ranklist.json')
 
 module.exports = (bot) => {
@@ -13,14 +12,10 @@ module.exports = (bot) => {
             }
         }
         return m;
-    },
-        {
-            description: "Outputs a list of ranks for the server.",
-            fullDescription: "This command is used to return a list of the server's ranks.",
-            requirements: {
-                roleIDs: ['392169263982444546', '392157677184221185', '392150288729112587']
-            }
-        });
+    }, {
+        description: "Outputs a list of ranks for the server.",
+        fullDescription: "This command is used to return a list of the server's ranks."
+    });
 
     bot.register("leaderboard", (msg, args) => {
         var start = 0,
@@ -39,75 +34,73 @@ module.exports = (bot) => {
         str += "\`\`\`"
 
         return str
-    },
-        {
-	    aliases: ["lb"],
-            reactionButtons: [
-                {
-                    emoji: "◀",
-                    type: "edit",
-                    response: (msg, args) => {
-			if(msg.reactions["◀"].count == 1){
-                                return msg.content
-                        }
-                        msg.getReaction("◀").then((users) => { users.forEach((v) => { if(v.id != bot.user.id){ msg.removeReaction("◀", v.id)}})});
-                        var i = (msg.content.substring(msg.content.indexOf("Page") + 5, msg.content.indexOf("Page") + 6) * 1)
-                        if (i - 1 < 1) return null;
-                        var start = ((i - 2) * 20);
-                        var end = start + 20;
-                        var leaderboard = bot.getLeaderboard();
-                        var userIDs = leaderboard[0];
-                        var messageCount = leaderboard[1];
-                        var str = `\`\`\`Leaderboard for ${msg.channel.guild.name} | Page ${i - 1}`
-                        while (start < end && userIDs[start]) {
-                            if (bot.users.get(userIDs[start]))
-                                var user = bot.users.get(userIDs[start]).username
-                            else
-                                var user = "Unknown"
-                            str += `\n#${start + 1}: ${user} - ${messageCount[start]} messages`
-                            start++;
-                        }
-                        str += `\`\`\``
-                        return str;
+    }, {
+        aliases: ["lb"],
+        reactionButtons: [{
+                emoji: "◀",
+                type: "edit",
+                response: (msg, args) => {
+                    if (msg.reactions["◀"].count == 1) {
+                        return msg.content
                     }
-                },
-                {
-                    emoji: "🔵",
-                    type: "cancel"
-                },
-                {
-                    emoji: "▶",
-                    type: "edit",
-                    response: (msg, args) => {
-			if(msg.reactions["▶"].count == 1){
-				return msg.content
-			}
-			msg.getReaction("▶").then((users) => { users.forEach((v) => { if(v.id != bot.user.id){ msg.removeReaction("▶", v.id)}})});
-                        var i = (msg.content.substring(msg.content.indexOf("Page") + 5, msg.content.indexOf("Page") + 6) * 1)
-                        var start = i * 20;
-                        var end = start + 20;
-                        var leaderboard = bot.getLeaderboard();
-                        var userIDs = leaderboard[0];
-                        var messageCount = leaderboard[1];
-                        var str = `\`\`\`Leaderboard for ${msg.channel.guild.name} | Page ${i + 1}`
-                        while (start < end && userIDs[start]) {
-                            if (bot.users.get(userIDs[start]))
-                                var user = bot.users.get(userIDs[start]).username
-                            else
-                                var user = "Unknown"
-                            str += `\n#${start + 1}: ${user} - ${messageCount[start]} messages`
-                            start++;
-                        }
-                        str += `\`\`\``
-                        return str;
+                    msg.getReaction("◀").then((users) => { users.forEach((v) => { if (v.id != bot.user.id) { msg.removeReaction("◀", v.id) } }) });
+                    var i = (msg.content.substring(msg.content.indexOf("Page") + 5, msg.content.indexOf("Page") + 6) * 1)
+                    if (i - 1 < 1) return null;
+                    var start = ((i - 2) * 20);
+                    var end = start + 20;
+                    var leaderboard = bot.getLeaderboard();
+                    var userIDs = leaderboard[0];
+                    var messageCount = leaderboard[1];
+                    var str = `\`\`\`Leaderboard for ${msg.channel.guild.name} | Page ${i - 1}`
+                    while (start < end && userIDs[start]) {
+                        if (bot.users.get(userIDs[start]))
+                            var user = bot.users.get(userIDs[start]).username
+                        else
+                            var user = "Unknown"
+                        str += `\n#${start + 1}: ${user} - ${messageCount[start]} messages`
+                        start++;
                     }
+                    str += `\`\`\``
+                    return str;
                 }
-            ],
-            reactionButtonTimeout: 30000,
-            description: "Shows the leaderboard.",
-            fullDescription: "Shows the top 10 users with the most message count.",
-        });
-        
+            },
+            {
+                emoji: "🔵",
+                type: "cancel"
+            },
+            {
+                emoji: "▶",
+                type: "edit",
+                response: (msg, args) => {
+                    if (msg.reactions["▶"].count == 1) {
+                        return msg.content
+                    }
+                    msg.getReaction("▶").then((users) => { users.forEach((v) => { if (v.id != bot.user.id) { msg.removeReaction("▶", v.id) } }) });
+                    var i = (msg.content.substring(msg.content.indexOf("Page") + 5, msg.content.indexOf("Page") + 6) * 1)
+                    var start = i * 20;
+                    var end = start + 20;
+                    var leaderboard = bot.getLeaderboard();
+                    var userIDs = leaderboard[0];
+                    var messageCount = leaderboard[1];
+                    var str = `\`\`\`Leaderboard for ${msg.channel.guild.name} | Page ${i + 1}`
+                    while (start < end && userIDs[start]) {
+                        if (bot.users.get(userIDs[start]))
+                            var user = bot.users.get(userIDs[start]).username
+                        else
+                            var user = "Unknown"
+                        str += `\n#${start + 1}: ${user} - ${messageCount[start]} messages`
+                        start++;
+                    }
+                    str += `\`\`\``
+                    return str;
+                }
+            }
+        ],
+        reactionButtonTimeout: 30000,
+        description: "Shows the leaderboard.",
+        fullDescription: "Shows the top 10 users with the most message count."
+    });
+
     bot.register("rank", (msg, args) => {
         if (msg.mentions[0] && msg.mentions[0].username || args.length == 18 || args.length == 17) {
             if (args.length == 18 && msg.channel.guild.members.get(args).bot) return "Bots don't have ranks!";
@@ -128,33 +121,33 @@ module.exports = (bot) => {
                 else
                     var rank = "None"
 
-                
-		bot.createMessage(msg.channel.id, {
-			embed: {
-				title: `${user.username}#${user.discriminator}`,
-				author: {
-					name: "Discord Community",
-					icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
-				},
-				fields: [
-					{
-						name: "Message count",
-						value: `${bot.profiles[id].messageCount}`,
-						inline: true
-					},
-					{
-						name: "Highest rank",
-						value: `${rank}`,
-						inline: true
-					}
-				],
-				thumbnail: {
-					url: user.avatarURL.replace("?size=128", "")
-				}
-			}
-		});
+
+                bot.createMessage(msg.channel.id, {
+                    embed: {
+                        title: `${user.username}#${user.discriminator}`,
+                        author: {
+                            name: "Discord Community",
+                            icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+                        },
+                        timestamp: new Date(),
+                        fields: [{
+                                name: "Message count",
+                                value: `${bot.profiles[id].messageCount}`,
+                                inline: true
+                            },
+                            {
+                                name: "Highest rank",
+                                value: `${rank}`,
+                                inline: true
+                            }
+                        ],
+                        thumbnail: {
+                            url: user.avatarURL.replace("?size=128", "")
+                        }
+                    }
+                });
             } else {
-                return "It looks like this person has no ranking yet :cry:"
+                return "It looks like this person has no ranking yet <:bexcry:397690294990143488>"
             }
         } else if (bot.profiles[msg.author.id]) {
             if (bot.profiles[msg.author.id]) {
@@ -171,8 +164,8 @@ module.exports = (bot) => {
                             name: "Discord Community",
                             icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
                         },
-                        fields: [
-                            {
+                        timestamp: new Date(),
+                        fields: [{
                                 name: "Message count",
                                 value: `${bot.profiles[user.id].messageCount}`,
                                 inline: true
@@ -189,15 +182,11 @@ module.exports = (bot) => {
                     }
                 });
             } else {
-                return "It looks like you have no ranking yet :cry:"
+                return "It looks like you have no ranking yet <:bexcry:397690294990143488>"
             }
         }
-    },
-        {
-            description: "Checks a user's rank on the server.",
-            fullDescription: "This command is used to check a user's rank.",
-            requirements: {
-                roleIDs: ['392169263982444546', '392157677184221185', '392150288729112587']
-            }
-        });
+    }, {
+        description: "Checks a user's rank on the server.",
+        fullDescription: "This command is used to check a user's rank."
+    });
 }

@@ -44,12 +44,12 @@ module.exports = (bot) => {
             embed: embedy
         });
     }, {
-        description: "Check a user's warnings.",
-        fullDescription: "Check the warnings for a given user.",
-        requirements: {
-            roleIDs: ['392425936366075905']
-        }
-    });
+            description: "Check a user's warnings.",
+            fullDescription: "Check the warnings for a given user.",
+            requirements: {
+                roleIDs: ['392425936366075905', '392150288729112587']
+            }
+        });
 
     bot.register("warn", (msg, args) => {
         if (args.length == 0) return "Please provide a user.";
@@ -80,7 +80,7 @@ module.exports = (bot) => {
                                         msg.channel.createMessage("Okay, user will not be put in detention")
                                         break;
                                     default:
-                                        // just nothing
+                                    // just nothing
                                 }
                                 reacted = true;
                                 bot._events.messageReactionAdd.splice(-1, 1);
@@ -90,28 +90,23 @@ module.exports = (bot) => {
                         setTimeout(() => {
                             if (reacted == false) {
                                 bot._events.messageReactionAdd.splice(-1, 1);
-                                msg.channel.createMessage("Reactions timed out, user not thrown in detention")
+                                msg.channel.createMessage("Reactions timed out, user not thrown in detention");
                             }
                         }, 15 * 1000)
                     })
                 })
             })
-
-            
-
         } else {
             return "Warning recorded <:bexy:393137089622966272>";
         }
-
-
     }, {
-        description: "Warns a user.",
-        fullDescription: "A command used to store a warning for a user who has violated a rule..",
-        requirements: {
-            roleIDs: ['392157971507052554', '392150288729112587'],
-            userIDs: bot.config.owners
-        }
-    });
+            description: "Warns a user.",
+            fullDescription: "A command used to store a warning for a user who has violated a rule..",
+            requirements: {
+                roleIDs: ['392157971507052554', '392150288729112587'],
+                userIDs: bot.config.owners
+            }
+        });
 
     bot.register("resetwarns", (msg, args) => {
         if (args.length == 0) return "Please provide a user.";
@@ -130,13 +125,14 @@ module.exports = (bot) => {
             }
         }
     }, {
-        description: "Reset warnings for a user.",
-        fullDescription: "Resets the warnings for a user.",
-        requirements: {
-            roleIDs: ['392157971507052554', '392150288729112587'],
-            userIDs: bot.config.owners
-        }
-    });
+            aliases: ["clearwarns", "clearwarnings", "resetwarnings"],
+            description: "Reset warnings for a user.",
+            fullDescription: "Resets the warnings for a user.",
+            requirements: {
+                roleIDs: ['392157971507052554', '392150288729112587'],
+                userIDs: bot.config.owners
+            }
+        });
 
     bot.register("reset", (msg, args) => {
         var user = msg.mentions[0].id;
@@ -153,10 +149,10 @@ module.exports = (bot) => {
         bot.resetMessages(user);
         return `Reset the level for <@${user}>.`
     }, {
-        description: "Resets a level.",
-        fullDescription: "Resets the message count for the given user.",
-        requirements: {
-            roleIDs: ['392157971507052554']
-        }
-    });
+            description: "Resets a level.",
+            fullDescription: "Resets the message count for the given user.",
+            requirements: {
+                roleIDs: ['392157971507052554', '392150288729112587']
+            }
+        });
 }
