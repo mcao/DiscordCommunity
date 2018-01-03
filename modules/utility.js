@@ -184,7 +184,7 @@ module.exports = (bot) => {
                     text: `Note: This is not 100% accurate. Length: ${nitro_users.length} users`
                 }
             }
-            nitro_users.map(u => embedy.fields.push({name: `Potentially nitro:`,value: `<@${u.id}>`}));
+            nitro_users.map(u => embedy.fields.push({name: `Potentially nitro:`,value: `<@${u.id}> - ${u.id}`}));
             bot.createMessage(msg.channel.id, {embed: embedy})
         })
     }, {
