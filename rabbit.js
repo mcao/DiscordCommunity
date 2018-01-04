@@ -30,7 +30,7 @@ class Rabbit {
                 userid: userid.toString(),
                 level: level,
             };
-            var exch = this.connection.exchange("amq.topic", (ex) => {
+            var exch = this.connection.exchange((ex) => {
                 ex.publish("discord_community", payload, {}, (err, msg) => {
                     if(err) return reject(msg);
 
@@ -50,6 +50,7 @@ class Rabbit {
                          //actually need this line but it makes it work so okay
             
             q.subscribe(callback); // Add users callback to subscriptions.
+            q.subscribe()
         });
     }
 }
