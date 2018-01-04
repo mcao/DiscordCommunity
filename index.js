@@ -144,7 +144,6 @@ bot.on("messageCreate", function(msg) {
                 bot.createMessage("392442695756546059", `<@171319044715053057>, the following changes were pushed by **${e.match(/.+\s-\s([\w\d-_]+)$/)[1] || "Unknown"}**. Please approve the changes and restart the bot.\n\`\`\`${evaled}\`\`\``)
             })
         }
-    }
 })
 
 bot.on("guildMemberAdd", function(guild, member) {
