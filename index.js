@@ -1,6 +1,9 @@
 const { CommandClient } = require("eris"),
     readdir = require("fs").readdir,
-    readFileSync = require("fs").readFileSync;
+    readFileSync = require("fs").readFileSync,
+    hastebin = require('hastebin-gen'),
+    HOME_GUILD = `358528040617377792`,
+    TEST_GUILD = `396914522801176577`;
 var bot = new CommandClient(require("./config.json").token, {}, require("./config.json").commandOpts);
 
 require('./funcs.js')(bot)
@@ -43,6 +46,59 @@ bot.on("ready", () => {
 });
 
 bot.on("messageCreate", function(msg) {
+    if (msg.channel.type == 1) {
+        var nextTicket = 0;
+        for (let key in bot.profiles) {
+            if (bot.tickets.hasOwnProperty(key)) size++;
+        }
+        nextTicket=+1;
+        var mailName = `${size}-${msg.author.username}`; // Channel name
+        var embedy = {
+            title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
+            description: `Ticket #${nextTicket}`,
+            author: {
+                name: "Discord Community",
+                icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+            },
+            thumbnail: {
+                url: msg.author.avatarURL.replace("?size=128", "")
+            },
+            color: 0x71368a,
+            fields: [
+                {
+
+                }
+            ],
+            footer: {
+                text: `Do "!claim ${nextTicket}" to claim this ticket.`
+            },
+            timestamp: new Date()
+        };
+        if (msg.content.length > 1024) { // If message is too big
+            hastebin(msg.content, "js").then(r => { // Hastebin it
+                var message = `The message was too long, it was sent to <${r}>`;
+                embedy.fields.push({name: 'Message:', value: message});
+            });
+        }
+        else {
+            embedy.fields.push({name: 'Message:', value: `${msg.content}`})
+        }
+        var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.username));
+        if (existingChan[0]) { // If there's already a channel for that user
+            return existingChan[0].createMessage({embed: embedy});
+        }
+        var channel = bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634');
+        edit({topic: `User ID: ${msg.author.id}`});
+
+        bot.tickets[nextTicket] = {
+                userID: msg.author.id,
+                channelID: channel.id,
+                taken: false,
+                finished: false
+        };
+        bot.createMessage('398565803613749259', {embed: modMessage});
+        channel.createMessage({embed: modMessage});
+    }
     const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
     const voteReactions = ['bexy:393137089622966272', 'bexn:393137089631354880'];
     const channels = ["392407095171088384", "392173071223750656", "392172869154635786", "392173094728630275"];
@@ -67,7 +123,7 @@ bot.on("messageCreate", function(msg) {
             msg.addReaction(vote);
         });
     }
-    if (!msg.author.bot && msg.channel.guild.id == '358528040617377792') {
+    if (!msg.author.bot && msg.channel.guild.id == HOME_GUILD) {
         if (!bot.cooldowns.has(msg.author.id)) {
             bot.cooldowns.add(msg.author.id)
             bot.incrementMessage(msg)
@@ -87,7 +143,7 @@ bot.on("messageCreate", function(msg) {
 })
 
 bot.on("guildMemberAdd", function(guild, member) {
-    if (guild.id == "358528040617377792") {
+    if (guild.id == HOME_GUILD) {
         bot.createMessage("392152516596465664", `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada:
 Please remember to read the <#392171939101409290> and post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>`)
         setTimeout(function() { member.addRole('392169263982444546', "Autorole") }, 300000);

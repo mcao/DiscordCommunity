@@ -151,6 +151,10 @@ module.exports = (bot) => {
         bot.createMessage(bot.config.logChannel, txt);
     }
 
+    bot.totalMail = 0;
+
+    bot.tickets = {};
+
     bot.timestamp = function () {
         var currentTime = new Date(),
             hours = currentTime.getHours(),
