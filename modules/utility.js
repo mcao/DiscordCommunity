@@ -1,7 +1,10 @@
 const readdir = require("fs").readdir,
     writeFile = require("fs").writeFileSync,
     util = require("util"),
-    hastebin = require('hastebin-gen');
+    hastebin = require('hastebin-gen'),
+    NITRO_ROLE = `392169841554882570`,
+    HYPESQUAD_ROLE = `392169890955395078`,
+    PARNTER_ROLE = `392169937755439106`;
 
 module.exports = (bot) => {
     bot.register("ping", (msg, args) => {
@@ -19,30 +22,30 @@ module.exports = (bot) => {
         if (args.length == 18 || args.length == 17) {
             var userID = args;
             var member = msg.channel.guild.members.get(userID);
-            if (member.roles.indexOf('392169841554882570') > -1) {
-                member.removeRole('392169841554882570', 'User is not nitro');
+            if (member.roles.indexOf(`${NITRO_ROLE}`) > -1) {
+                member.removeRole(`${NITRO_ROLE}`, 'User is not nitro');
                 return `Removed Nitro from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
             } else {
-                member.addRole("392169841554882570", "User is nitro");
+                member.addRole(`${NITRO_ROLE}`, "User is nitro");
                 return `Gave **${member.username}#${member.discriminator}** Nitro <:bexy:393137089622966272>`;
             }
         } else if (msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
             var userID = msg.mentions[0].id;
             var member = msg.channel.guild.members.get(userID);
-            if (member.roles.indexOf('392169841554882570') > -1) {
-                member.removeRole('392169841554882570', 'User is not nitro');
+            if (member.roles.indexOf(`${NITRO_ROLE}`) > -1) {
+                member.removeRole(`${NITRO_ROLE}`, 'User is not nitro');
                 return `Removed Nitro from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
             } else {
-                member.addRole("392169841554882570", "User is nitro");
+                member.addRole(`${NITRO_ROLE}`, "User is nitro");
                 return `Gave **${member.username}#${member.discriminator}** Nitro <:bexy:393137089622966272>`;
             }
         } else if (!args) {
             var member = msg.member;
-            if (member.roles.indexOf('392169841554882570') > -1) {
-                member.removeRole('392169841554882570', 'User is not Nitro');
+            if (member.roles.indexOf(`${NITRO_ROLE}`) > -1) {
+                member.removeRole(`${NITRO_ROLE}`, 'User is not Nitro');
                 return `Removed Nitro from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
             } else {
-                member.addRole("392169841554882570", "User is nitro");
+                member.addRole(`${NITRO_ROLE}`, "User is nitro");
                 return `Gave **${member.username}#${member.discriminator}** Nitro <:bexy:393137089622966272>`;
             }
         } else {
@@ -61,30 +64,30 @@ module.exports = (bot) => {
         if (args.length == 18 || args.length == 17) {
             var userID = args;
             var member = msg.channel.guild.members.get(userID);
-            if (member.roles.indexOf('392169937755439106') > -1) {
-                member.removeRole('392169937755439106', 'User is not a Discord Partner');
+            if (member.roles.indexOf(`${PARTNER_ROLE}`) > -1) {
+                member.removeRole(`${PARTNER_ROLE}`, 'User is not a Discord Partner');
                 return `Removed Discord Partner from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
             } else {
-                member.addRole("392169841554882570", "User is is a Discord Partner");
+                member.addRole(`${NITRO_ROLE}`, "User is is a Discord Partner");
                 return `Gave **${member.username}#${member.discriminator}** Discord Partner <:bexy:393137089622966272>`;
             }
         } else if (msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
             var userID = msg.mentions[0].id;
             var member = msg.channel.guild.members.get(userID);
-            if (member.roles.indexOf('392169937755439106') > -1) {
-                member.removeRole('392169937755439106', 'User is not Discord Partner');
+            if (member.roles.indexOf(`${PARTNER_ROLE}`) > -1) {
+                member.removeRole(`${PARTNER_ROLE}`, 'User is not Discord Partner');
                 return `Removed Discord Partner from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
             } else {
-                member.addRole("392169937755439106", "User is Discord Partner");
+                member.addRole(`${PARTNER_ROLE}`, "User is Discord Partner");
                 return `Gave **${member.username}#${member.discriminator}** Discord Partner <:bexy:393137089622966272>`;
             }
         } else if (!args) {
             var member = msg.member;
-            if (member.roles.indexOf('392169937755439106') > -1) {
-                member.removeRole('392169937755439106', 'User is not Discord Partner');
+            if (member.roles.indexOf(`${PARTNER_ROLE}`) > -1) {
+                member.removeRole(`${PARTNER_ROLE}`, 'User is not Discord Partner');
                 return `Removed Discord Partner from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
             } else {
-                member.addRole("392169937755439106", "User is Discord Partner");
+                member.addRole(`${PARTNER_ROLE}`, "User is Discord Partner");
                 return `Gave **${member.username}#${member.discriminator}** Discord Partner <:bexy:393137089622966272>`;
             }
         } else {
@@ -103,30 +106,30 @@ module.exports = (bot) => {
         if (args.length == 18 || args.length == 17) {
             var userID = args;
             var member = msg.channel.guild.members.get(userID);
-            if (member.roles.indexOf('392169890955395078') > -1) {
-                member.removeRole('392169890955395078', 'User is not a Hypesquad member');
+            if (member.roles.indexOf(`${HYPESQUAD_ROLE}`) > -1) {
+                member.removeRole(`${HYPESQUAD_ROLE}`, 'User is not a Hypesquad member');
                 return `Removed Hypesquad from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
             } else {
-                member.addRole("392169841554882570", "User is is a Hypesquad");
+                member.addRole(`${HYPESQUAD_ROLE}`, "User is is a Hypesquad");
                 return `Gave **${member.username}#${member.discriminator}** Hypesquad <:bexy:393137089622966272>`;
             }
         } else if (msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
             var userID = msg.mentions[0].id;
             var member = msg.channel.guild.members.get(userID);
-            if (member.roles.indexOf('392169890955395078') > -1) {
-                member.removeRole('392169890955395078', 'User is not Hypesquad');
+            if (member.roles.indexOf(`${HYPESQUAD_ROLE}`) > -1) {
+                member.removeRole(`${HYPESQUAD_ROLE}`, 'User is not Hypesquad');
                 return `Removed Hypesquad from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
             } else {
-                member.addRole("392169890955395078", "User is Hypesquad");
+                member.addRole(`${HYPESQUAD_ROLE}`, "User is Hypesquad");
                 return `Gave **${member.username}#${member.discriminator}** Hypesquad <:bexy:393137089622966272>`;
             }
         } else if (!args) {
             var member = msg.member;
-            if (member.roles.indexOf('392169890955395078') > -1) {
-                member.removeRole('392169890955395078', 'User is not Hypesquad');
+            if (member.roles.indexOf(`${HYPESQUAD_ROLE}`) > -1) {
+                member.removeRole(`${HYPESQUAD_ROLE}`, 'User is not Hypesquad');
                 return `Removed Hypesquad from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
             } else {
-                member.addRole("392169890955395078", "User is Hypesquad");
+                member.addRole(`${HYPESQUAD_ROLE}`, "User is Hypesquad");
                 return `Gave **${member.username}#${member.discriminator}** Hypesquad <:bexy:393137089622966272>`;
             }
         } else {
@@ -165,7 +168,7 @@ module.exports = (bot) => {
 
     bot.register("nitrousers", (msg, args) => {
         var usernumber = 0;
-        var nitro_users = msg.channel.guild.members.filter(m => m.avatarURL.includes('.gif')).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169841554882570') < 0).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169937755439106') < 0).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169947511390210') < 0);
+        var nitro_users = msg.channel.guild.members.filter(m => m.avatarURL.includes('.gif')).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf(`${NITRO_ROLE}`) < 0).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf(`${PARTNER_ROLE}`) < 0).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169947511390210') < 0);
         if (nitro_users.length == 0) return bot.createMessage(msg.channel.id, "Cannot find any potential nitro users without the role.");
         var chunked = bot.chunkArray(nitro_users, 10) // split nitro users into groups of ten
         chunked.forEach((users) => {
