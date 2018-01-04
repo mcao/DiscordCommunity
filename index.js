@@ -42,14 +42,14 @@ bot.on("ready", () => {
     };
 });
 
-bot.on("messageCreate", function (msg) {
+bot.on("messageCreate", function(msg) {
     const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
     const voteReactions = ['bexy:393137089622966272', 'bexn:393137089631354880'];
     const channels = ["392407095171088384", "392173071223750656", "392172869154635786", "392173094728630275"];
 
     if (msg.channel.id == '392407095171088384') {
         if (bot.reactions.length == 0) return;
-        bot.reactions.forEach(function (reaction) {
+        bot.reactions.forEach(function(reaction) {
             msg.addReaction(reaction);
         });
     }
@@ -63,7 +63,7 @@ bot.on("messageCreate", function (msg) {
         }
     }
     if (msg.content.toLowerCase().startsWith('suggestion:') && msg.channel.id === '392178846306402314') { // #staff-feedback
-        voteReactions.forEach(function (vote) {
+        voteReactions.forEach(function(vote) {
             msg.addReaction(vote);
         });
     }
@@ -77,24 +77,24 @@ bot.on("messageCreate", function (msg) {
         }
     }
     if (msg.channel.id == "397522914955755531" && msg.author.id == "392445621165883392") {
-        bot.createMessage(msg.channel.id, "Automatic Code Update Initiated.").then(e => {
+        bot.createMessage("392442695756546059", "Automatic Code Update Initiated.").then(e => {
             var evaled = require("child_process").execSync('git pull').toString()
-            bot.createMessage(msg.channel.id, "Automatic Code Update Successful.")
+            bot.createMessage("392442695756546059", "Automatic Code Update Successful.")
             var e = msg.embeds[0].description.toString()
-            bot.createMessage(msg.channel.id, `<@171319044715053057>, the following changes were pushed by **${e.match(/.+\s-\s([\w\d-_]+)$/)[1] || "Unknown"}**. Please approve the changes and restart the bot.\n\`\`\`${evaled}\`\`\``)
+            bot.createMessage("392442695756546059", `<@171319044715053057>, the following changes were pushed by **${e.match(/.+\s-\s([\w\d-_]+)$/)[1] || "Unknown"}**. Please approve the changes and restart the bot.\n\`\`\`${evaled}\`\`\``)
         })
     }
 })
 
-bot.on("guildMemberAdd", function (guild, member) {
+bot.on("guildMemberAdd", function(guild, member) {
     if (guild.id == "358528040617377792") {
         bot.createMessage("392152516596465664", `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada:
 Please remember to read the <#392171939101409290> and post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>`)
-        setTimeout(function () { member.addRole('392169263982444546', "Autorole") }, 300000);
+        setTimeout(function() { member.addRole('392169263982444546', "Autorole") }, 300000);
     }
 })
 
-bot.on("guildBanAdd", function (guild, user) {
+bot.on("guildBanAdd", function(guild, user) {
     const guildList = bot.config.guilds;
 
     for (var i = 0; i < guildList.length; i++) {
@@ -117,7 +117,7 @@ bot.on("guildBanAdd", function (guild, user) {
     }
 });
 
-bot.on("guildBanRemove", function (guild, user) {
+bot.on("guildBanRemove", function(guild, user) {
     const guildList = bot.config.guilds;
 
     for (var i = 0; i < guildList.length; i++) {
