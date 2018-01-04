@@ -45,7 +45,7 @@ class Rabbit {
             q.bind("#"); // Can't remember why I 
                          //actually need this line but it makes it work so okay
             
-            q.subscribe(callback); // Add users callback to subscriptions.
+            q.subscribe((m) => {console.log(m); callback(m)}); // Add users callback to subscriptions.
         });
     }
 }
