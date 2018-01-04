@@ -49,3 +49,4 @@ class Rabbit {
         });
     }
 }
+module.exports = Rabbit;
