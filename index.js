@@ -47,7 +47,7 @@ bot.on("ready", () => {
 
 bot.on("messageCreate", function(msg) {
     if (msg.channel.type == 1) {
-        bot.createMessage(msg.author.id, 'hey dude im not working rn go away');
+        msg.author.getDMChannel().then(c => c.createMessage('not working'));
     } else {
         const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
         const voteReactions = ['bexy:393137089622966272', 'bexn:393137089631354880'];
