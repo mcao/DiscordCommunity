@@ -337,7 +337,7 @@ module.exports = (bot) => {
         } // subtracts five from the number given as time in minutes
 
         function countdownFunc() {
-            setTimeout(countingDown(), 60000);
+            setTimeout(countingDown, 60000);
         } // loops countingDown() to run every minute
 
         function countdownMessage() {
@@ -345,12 +345,12 @@ module.exports = (bot) => {
             bot.createMessage("392173094728630275", msgSent).then((it) => msgSent = it);
         }
 
-        function editMsg() {
+        function editMsg(msgSent) {
             msgSent.edit("**" + eventDescription + "**\nstarting in **" + countdownTime + " minutes!**").then((it) => msgSent = it);
         } // edits the sent message conform the altered countdownTime variable
 
         function sendEdit() {
-            setTimeout(editMsg(), 60000);
+            setTimeout(editMsg, 60000);
         } // loops the above function every minute
 
         function stopCountdown() {
@@ -363,7 +363,7 @@ module.exports = (bot) => {
         }
 
         function getAmount() {
-            setTimeout(function() { amountBoolean(); }, 60000)
+            setTimeout(function() { amountBoolean; }, 60000)
         }
 
         if (argsArray[0] === "start") {
