@@ -88,7 +88,7 @@ bot.on("messageCreate", function(msg) {
             return existingChan[0].createMessage({embed: embedy});
         }
         var channel = bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634');
-        edit({topic: `User ID: ${msg.author.id}`});
+        channel.edit({topic: `User ID: ${msg.author.id}`});
 
         bot.tickets[nextTicket] = {
                 userID: msg.author.id,
