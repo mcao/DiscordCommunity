@@ -47,46 +47,6 @@ bot.on("ready", () => {
 
 bot.on("messageCreate", function(msg) {
     if (msg.channel.type == 1) {
-        var nextTicket = 0;
-        for (let key in bot.profiles) {
-            if (bot.tickets.hasOwnProperty(key)) size++;
-        }
-        nextTicket=+1;
-        var mailName = `${nextTicket}-${msg.author.username}`; // Channel name
-        var embedy = {
-            title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
-            description: `Ticket #${nextTicket}`,
-            author: {
-                name: "Discord Community",
-                icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
-            },
-            thumbnail: {
-                url: msg.author.avatarURL.replace("?size=128", "")
-            },
-            color: 0x71368a,
-            fields: [
-                {
-
-                }
-            ],
-            footer: {
-                text: `Do "!claim ${nextTicket}" to claim this ticket.`
-            },
-            timestamp: new Date()
-        };
-        if (msg.content.length > 1024) { // If message is too big
-            hastebin(msg.content, "js").then(r => { // Hastebin it
-                var message = `The message was too long, it was sent to <${r}>`;
-                embedy.fields.push({name: 'Message:', value: message});
-            });
-        }
-        else {
-            embedy.fields.push({name: 'Message:', value: `${msg.content}`})
-        }
-        var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.username));
-        if (existingChan[0]) { // If there's already a channel for that user
-            return existingChan[0].createMessage({embed: embedy});
-        }
         bot.createMessage(msg.channel.id, 'hey dude im not working rn go away');
     }
     const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
