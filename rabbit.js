@@ -30,12 +30,9 @@ class Rabbit {
                 userid: userid.toString(),
                 level: level,
             };
-            var exch = this.connection.exchange((ex) => {
-                ex.publish("discord_community", payload, {}, (err, msg) => {
-                    if(err) return reject(msg);
-
-                    resolve(msg);
-                });
+            this.connection.exchange("amq.topic", {name: "topic"}, (ex) => {
+                ex.publish("discord_community", payload, {}, () => {});
+                resolve()
             });
         });
     }
