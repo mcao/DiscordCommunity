@@ -24,7 +24,7 @@ class Rabbit {
      * @param {Number} level The new level of the user
      */
     levelUp(userid, level){
-        return new Promise((resolve, reject) => {
+        
             let payload = {
                 type: "level_up",
                 userid: userid.toString(),
@@ -34,7 +34,7 @@ class Rabbit {
                 ex.publish("discord_community", payload, {}, () => {});
                 resolve()
             });
-        });
+       
     }
 
     /**
@@ -47,7 +47,7 @@ class Rabbit {
                          //actually need this line but it makes it work so okay
             
             q.subscribe(callback); // Add users callback to subscriptions.
-            q.subscribe()
+            
         });
     }
 }
