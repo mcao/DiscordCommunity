@@ -4,7 +4,7 @@ const readdir = require("fs").readdir,
     hastebin = require('hastebin-gen'),
     NITRO_ROLE = `392169841554882570`,
     HYPESQUAD_ROLE = `392169890955395078`,
-    PARNTER_ROLE = `392169937755439106`;
+    PARTNER_ROLE = `392169937755439106`;
 
 module.exports = (bot) => {
     bot.register("ping", (msg, args) => {
@@ -172,7 +172,7 @@ module.exports = (bot) => {
         if (nitro_users.length == 0) return bot.createMessage(msg.channel.id, "Cannot find any potential nitro users without the role.");
         var chunked = bot.chunkArray(nitro_users, 10) // split nitro users into groups of ten
         chunked.forEach((users) => {
-            
+
             var embedy = {
                 title: `List of potential nitro users`,
                 color: 0x71368a,
@@ -188,8 +188,8 @@ module.exports = (bot) => {
                     text: `Note: This is not 100% accurate. Length: ${nitro_users.length} users`
                 }
             }
-            nitro_users.map(u => embedy.fields.push({name: `Potentially nitro:`,value: `<@${u.id}> - ${u.id}`}));
-            bot.createMessage(msg.channel.id, {embed: embedy})
+            nitro_users.map(u => embedy.fields.push({ name: `Potentially nitro:`, value: `<@${u.id}> - ${u.id}` }));
+            bot.createMessage(msg.channel.id, { embed: embedy })
         })
     }, {
         requirements: {
