@@ -47,6 +47,7 @@ bot.on("ready", () => {
 
 bot.on("messageCreate", function(msg) {
     if (msg.channel.type == 1) {
+<<<<<<< Updated upstream
         msg.author.getDMChannel().then(c => c.createMessage('not working'));
     } else {
         const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
@@ -59,6 +60,74 @@ bot.on("messageCreate", function(msg) {
                 msg.addReaction(reaction);
             });
         }
+=======
+        var nextTicket = 0;
+        for (let key in bot.profiles) {
+            if (bot.tickets.hasOwnProperty(key)) size++;
+        }
+        nextTicket=+1;
+        var mailName = `${nextTicket}-${msg.author.username}`; // Channel name
+        var embedy = {
+            title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
+            description: `Ticket #${nextTicket}`,
+            author: {
+                name: "Discord Community",
+                icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+            },
+            thumbnail: {
+                url: msg.author.avatarURL.replace("?size=128", "")
+            },
+            color: 0x71368a,
+            fields: [
+                {
+
+                }
+            ],
+            footer: {
+                text: `Do "!claim ${nextTicket}" to claim this ticket.`
+            },
+            timestamp: new Date()
+        };
+        if (msg.content.length > 1024) { // If message is too big
+            hastebin(msg.content, "js").then(r => { // Hastebin it
+                var message = `The message was too long, it was sent to <${r}>`;
+                embedy.fields.push({name: 'Message:', value: message});
+            });
+        }
+        else {
+            embedy.fields.push({name: 'Message:', value: `${msg.content}`})
+        }
+        var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.username));
+        if (existingChan[0]) { // If there's already a channel for that user
+            return existingChan[0].createMessage({embed: embedy});
+        }
+        bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
+            channel.edit({topic: `User ID: ${msg.author.id}`});
+            var channelID;
+            msg.author.getDMChannel().then(channel => {
+                channelID = channel.id;
+            });
+            bot.tickets[nextTicket] = {
+                userID: msg.author.id,
+                channelID: channeID,
+                taken: false,
+                finished: false
+            };
+            bot.createMessage('398565803613749259', {embed: modMessage});
+            channel.createMessage({embed: modMessage});
+        });    
+    }
+    const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
+    const voteReactions = ['bexy:393137089622966272', 'bexn:393137089631354880'];
+    const channels = ["392407095171088384", "392173071223750656", "392172869154635786", "392173094728630275"];
+
+    if (msg.channel.id == '392407095171088384') {
+        if (bot.reactions.length == 0) return;
+        bot.reactions.forEach(function(reaction) {
+            msg.addReaction(reaction);
+        });
+    }
+>>>>>>> Stashed changes
 
         if (msg.channel.id == "392152654505050112") { // #introductions
             msg.addReaction('bexhey:390556541360799748');
