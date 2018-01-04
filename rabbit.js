@@ -12,6 +12,9 @@ class Rabbit {
             login: this.username,
             password: require(path.join(__dirname, "config.json")).rabbitmq_password
         });
+        this.connection.on("ready", () => {
+            console.log("RabbitMQ Connected");
+        });
     }
 
 
@@ -29,7 +32,7 @@ class Rabbit {
             };
             var exch = this.connection.exchange("amq.topic");
             exch.publish("discord_community", payload);
-            resolve()
+            resolve();
         });
     }
 
@@ -42,7 +45,7 @@ class Rabbit {
             q.bind("#"); // Can't remember why I 
                          //actually need this line but it makes it work so okay
             
-            q.subscribe((m) => {callback(m)}); // Add users callback to subscriptions.
+            q.subscribe(callback); // Add users callback to subscriptions.
         });
     }
 }
