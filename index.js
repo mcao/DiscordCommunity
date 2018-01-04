@@ -89,12 +89,6 @@ bot.on("messageCreate", function(msg) {
         }
         bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
             channel.edit({topic: `User ID: ${msg.author.id}`});
-            bot.tickets[nextTicket] = {
-                userID: msg.author.id,
-                channelID: channel.id,
-                taken: false,
-                finished: false
-            };
             bot.createMessage('398565803613749259', {embed: modMessage});
             channel.createMessage({embed: modMessage});
         });    
