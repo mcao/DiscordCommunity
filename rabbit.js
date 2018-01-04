@@ -28,11 +28,8 @@ class Rabbit {
                 level: level,
             };
             var exch = this.connection.exchange("amq.topic");
-            exch.publish("discord_community", payload, (err, msg) => {
-                if(err) return reject();
-
-                resolve(msg);
-            });
+            exch.publish("discord_community", payload);
+            resolve()
         });
     }
 
@@ -45,7 +42,7 @@ class Rabbit {
             q.bind("#"); // Can't remember why I 
                          //actually need this line but it makes it work so okay
             
-            q.subscribe((m) => {console.log(m); callback(m)}); // Add users callback to subscriptions.
+            q.subscribe((m) => {callback(m)}); // Add users callback to subscriptions.
         });
     }
 }
