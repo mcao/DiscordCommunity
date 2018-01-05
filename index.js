@@ -45,47 +45,47 @@ bot.on("ready", () => {
     };
 });
 
-bot.on("messageCreate", function(msg) {
+bot.on("messageCreate", function (msg) {
     // const yesno = ['bexy:393137089622966272', 'bexn:393137089631354880'];
     // if (msg.channel.type == 1) {
     //     let responses = msg.channel.awaitMessages(m => m.content === "yes");
     //     if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
-        // if (msg.content.toLowerCase().startsWith('feedback')) {
-        //     var embedy = {
-        //         title: `New anonymous feedback!`,
-        //         author: {
-        //             name: "Discord Community",
-        //             icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
-        //         },
-        //         thumbnail: {
-        //             url: bot.user.avatarURL
-        //         },
-        //         color: 0x71368a,
-        //         fields: [
+    // if (msg.content.toLowerCase().startsWith('feedback')) {
+    //     var embedy = {
+    //         title: `New anonymous feedback!`,
+    //         author: {
+    //             name: "Discord Community",
+    //             icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+    //         },
+    //         thumbnail: {
+    //             url: bot.user.avatarURL
+    //         },
+    //         color: 0x71368a,
+    //         fields: [
 
-        //         ],
-        //         timestamp: new Date()
-        //     };
-        //     if (msg.content.length > 1024) { // If message is too big
-        //         hastebin(msg.content, "txt").then(r => { // Hastebin it
-        //             var message = `The message was too long, it was sent to <${r}>`;
-        //             embedy.fields.push({name: 'Message:', value: message});
-        //             bot.createMessage('392442695756546059', {embed: embedy});
-        //         });
-        //     }
-        //     else {
-        //         embedy.fields.push({name: 'Feedback message:', value: `${msg.content}`});
-        //         bot.createMessage('392442695756546059', {embed: embedy}).then(m => yesno.forEach(function(vote) {m.addReaction(vote)}));
-        //     }
-        //     msg.author.getDMChannel().then(c => c.createMessage('<:bexy:393137089622966272> Thanks for sending your feedback in! We promise to keep your information private.'));
-        // }
+    //         ],
+    //         timestamp: new Date()
+    //     };
+    //     if (msg.content.length > 1024) { // If message is too big
+    //         hastebin(msg.content, "txt").then(r => { // Hastebin it
+    //             var message = `The message was too long, it was sent to <${r}>`;
+    //             embedy.fields.push({name: 'Message:', value: message});
+    //             bot.createMessage('392442695756546059', {embed: embedy});
+    //         });
+    //     }
+    //     else {
+    //         embedy.fields.push({name: 'Feedback message:', value: `${msg.content}`});
+    //         bot.createMessage('392442695756546059', {embed: embedy}).then(m => yesno.forEach(function(vote) {m.addReaction(vote)}));
+    //     }
+    //     msg.author.getDMChannel().then(c => c.createMessage('<:bexy:393137089622966272> Thanks for sending your feedback in! We promise to keep your information private.'));
     // }
-    /*if (msg.channel.type == 1) {
+    // }
+    if (msg.channel.type == 1) {
         var nextTicket = 0;
         for (let key in bot.profiles) {
             if (bot.tickets.hasOwnProperty(key)) size++;
         }
-        nextTicket=+1;
+        nextTicket = +1;
         var mailName = `${nextTicket}-${msg.author.username}`; // Channel name
         var modMessage = {
             title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
@@ -109,18 +109,18 @@ bot.on("messageCreate", function(msg) {
         if (msg.content.length > 1024) { // If message is too big
             hastebin(msg.content, "txt").then(r => { // Hastebin it
                 var message = `The message was too long, it was sent to <${r}>`;
-                embedy.fields.push({name: 'Message:', value: message});
+                embedy.fields.push({ name: 'Message:', value: message });
             });
         }
         else {
-            embedy.fields.push({name: 'Message:', value: `${msg.content}`})
+            embedy.fields.push({ name: 'Message:', value: `${msg.content}` })
         }
         var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.username));
         if (existingChan[0]) { // If there's already a channel for that user
-            return existingChan[0].createMessage({embed: embedy});
+            return existingChan[0].createMessage({ embed: embedy });
         }
         bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
-            channel.edit({topic: `User ID: ${msg.author.id}`});
+            channel.edit({ topic: `User ID: ${msg.author.id}` });
             var channelID;
             msg.author.getDMChannel().then(channel => {
                 channelID = channel.id;
@@ -131,50 +131,51 @@ bot.on("messageCreate", function(msg) {
                 taken: false,
                 finished: false
             };
-            bot.createMessage('398565803613749259', {embed: modMessage});
-            channel.createMessage({embed: modMessage});
-        });    
-    }*/
-    const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
-    const voteReactions = ['bexy:393137089622966272', 'bexn:393137089631354880'];
-    const channels = ["392407095171088384", "392173071223750656", "392172869154635786", "392173094728630275"];
-
-    if (msg.channel.id == '392407095171088384') {
-        if (bot.reactions.length == 0) return;
-        bot.reactions.forEach(function (reaction) {
-            msg.addReaction(reaction);
+            bot.createMessage('398565803613749259', { embed: modMessage });
+            channel.createMessage({ embed: modMessage });
         });
-    }
+    } else {
+        const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
+        const voteReactions = ['bexy:393137089622966272', 'bexn:393137089631354880'];
+        const channels = ["392407095171088384", "392173071223750656", "392172869154635786", "392173094728630275"];
 
-    if (msg.channel.id == "392152654505050112") { // #introductions
-        msg.addReaction('bexhey:390556541360799748');
-    } else if (channels.indexOf(msg.channel.id) > -1) {
-        if (msg.content.toLowerCase().includes('poll')) return;
-        for (var reaction in reactions) {
-            msg.addReaction(reaction);
+        if (msg.channel.id == '392407095171088384') {
+            if (bot.reactions.length == 0) return;
+            bot.reactions.forEach(function (reaction) {
+                msg.addReaction(reaction);
+            });
         }
-    }
-    if (msg.content.toLowerCase().startsWith('suggestion:') && msg.channel.id === '392178846306402314') { // #staff-feedback
-        voteReactions.forEach(function (vote) {
-            msg.addReaction(vote);
-        });
-    }
-    if (!msg.author.bot && msg.channel.guild.id == HOME_GUILD) {
-        if (!bot.cooldowns.has(msg.author.id)) {
-            bot.cooldowns.add(msg.author.id)
-            bot.incrementMessage(msg)
-            setTimeout(() => {
-                bot.cooldowns.delete(msg.author.id);
-            }, 10 * 1000)
+
+        if (msg.channel.id == "392152654505050112") { // #introductions
+            msg.addReaction('bexhey:390556541360799748');
+        } else if (channels.indexOf(msg.channel.id) > -1) {
+            if (msg.content.toLowerCase().includes('poll')) return;
+            for (var reaction in reactions) {
+                msg.addReaction(reaction);
+            }
         }
-    }
-    if (msg.channel.id == "397522914955755531" && msg.author.id == "392445621165883392") {
-        bot.createMessage("392442695756546059", "Automatic Code Update Initiated.").then(e => { // #bot-development
-            var evaled = require("child_process").execSync('git pull').toString()
-            bot.createMessage("392442695756546059", "Automatic Code Update Successful.")
-            var e = msg.embeds[0].description.toString()
-            bot.createMessage("392442695756546059", `<@171319044715053057>, the following changes were pushed by **${e.match(/.+\s-\s([\w\d-_]+)$/)[1] || "Unknown"}**. Please approve the changes and restart the bot.\n\`\`\`${evaled}\`\`\``)
-        })
+        if (msg.content.toLowerCase().startsWith('suggestion:') && msg.channel.id === '392178846306402314') { // #staff-feedback
+            voteReactions.forEach(function (vote) {
+                msg.addReaction(vote);
+            });
+        }
+        if (!msg.author.bot && msg.channel.guild.id == HOME_GUILD) {
+            if (!bot.cooldowns.has(msg.author.id)) {
+                bot.cooldowns.add(msg.author.id)
+                bot.incrementMessage(msg)
+                setTimeout(() => {
+                    bot.cooldowns.delete(msg.author.id);
+                }, 10 * 1000)
+            }
+        }
+        if (msg.channel.id == "397522914955755531" && msg.author.id == "392445621165883392") {
+            bot.createMessage("392442695756546059", "Automatic Code Update Initiated.").then(e => { // #bot-development
+                var evaled = require("child_process").execSync('git pull').toString()
+                bot.createMessage("392442695756546059", "Automatic Code Update Successful.")
+                var e = msg.embeds[0].description.toString()
+                bot.createMessage("392442695756546059", `<@171319044715053057>, the following changes were pushed by **${e.match(/.+\s-\s([\w\d-_]+)$/)[1] || "Unknown"}**. Please approve the changes and restart the bot.\n\`\`\`${evaled}\`\`\``)
+            })
+        }
     }
 })
 
@@ -191,7 +192,7 @@ bot.on("guildBanAdd", function (guild, user) {
 
     guild.getAuditLogs(2, null, 22).then(logs => {
         if (logs.entries[0].user.id == bot.user.id) return;
-        
+
         // var embed = {
         //     "embed": {
         //         "color": 8919211,
