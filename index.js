@@ -45,7 +45,7 @@ bot.on("ready", () => {
     };
 });
 
-bot.on("messageCreate", function(msg) {
+bot.on("messageCreate", function (msg) {
     /*if (msg.channel.type == 1) {
         var nextTicket = 0;
         for (let key in bot.profiles) {
@@ -109,71 +109,105 @@ bot.on("messageCreate", function(msg) {
 
     if (msg.channel.id == '392407095171088384') {
         if (bot.reactions.length == 0) return;
-        bot.reactions.forEach(function(reaction) {
+        bot.reactions.forEach(function (reaction) {
             msg.addReaction(reaction);
         });
     }
 
-        if (msg.channel.id == "392152654505050112") { // #introductions
-            msg.addReaction('bexhey:390556541360799748');
-        } else if (channels.indexOf(msg.channel.id) > -1) {
-            if (msg.content.toLowerCase().includes('poll')) return;
-            for (var reaction in reactions) {
-                msg.addReaction(reaction);
-            }
+    if (msg.channel.id == "392152654505050112") { // #introductions
+        msg.addReaction('bexhey:390556541360799748');
+    } else if (channels.indexOf(msg.channel.id) > -1) {
+        if (msg.content.toLowerCase().includes('poll')) return;
+        for (var reaction in reactions) {
+            msg.addReaction(reaction);
         }
-        if (msg.content.toLowerCase().startsWith('suggestion:') && msg.channel.id === '392178846306402314') { // #staff-feedback
-            voteReactions.forEach(function(vote) {
-                msg.addReaction(vote);
-            });
+    }
+    if (msg.content.toLowerCase().startsWith('suggestion:') && msg.channel.id === '392178846306402314') { // #staff-feedback
+        voteReactions.forEach(function (vote) {
+            msg.addReaction(vote);
+        });
+    }
+    if (!msg.author.bot && msg.channel.guild.id == HOME_GUILD) {
+        if (!bot.cooldowns.has(msg.author.id)) {
+            bot.cooldowns.add(msg.author.id)
+            bot.incrementMessage(msg)
+            setTimeout(() => {
+                bot.cooldowns.delete(msg.author.id);
+            }, 10 * 1000)
         }
-        if (!msg.author.bot && msg.channel.guild.id == HOME_GUILD) {
-            if (!bot.cooldowns.has(msg.author.id)) {
-                bot.cooldowns.add(msg.author.id)
-                bot.incrementMessage(msg)
-                setTimeout(() => {
-                    bot.cooldowns.delete(msg.author.id);
-                }, 10 * 1000)
-            }
-        }
-        if (msg.channel.id == "397522914955755531" && msg.author.id == "392445621165883392") {
-            bot.createMessage("392442695756546059", "Automatic Code Update Initiated.").then(e => { // #bot-development
-                var evaled = require("child_process").execSync('git pull').toString()
-                bot.createMessage("392442695756546059", "Automatic Code Update Successful.")
-                var e = msg.embeds[0].description.toString()
-                bot.createMessage("392442695756546059", `<@171319044715053057>, the following changes were pushed by **${e.match(/.+\s-\s([\w\d-_]+)$/)[1] || "Unknown"}**. Please approve the changes and restart the bot.\n\`\`\`${evaled}\`\`\``)
-            })
-        }
+    }
+    if (msg.channel.id == "397522914955755531" && msg.author.id == "392445621165883392") {
+        bot.createMessage("392442695756546059", "Automatic Code Update Initiated.").then(e => { // #bot-development
+            var evaled = require("child_process").execSync('git pull').toString()
+            bot.createMessage("392442695756546059", "Automatic Code Update Successful.")
+            var e = msg.embeds[0].description.toString()
+            bot.createMessage("392442695756546059", `<@171319044715053057>, the following changes were pushed by **${e.match(/.+\s-\s([\w\d-_]+)$/)[1] || "Unknown"}**. Please approve the changes and restart the bot.\n\`\`\`${evaled}\`\`\``)
+        })
+    }
 })
 
-bot.on("guildMemberAdd", function(guild, member) {
+bot.on("guildMemberAdd", function (guild, member) {
     if (guild.id == HOME_GUILD) {
         bot.createMessage("392152516596465664", `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada:
 Please remember to read the <#392171939101409290> and post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>`)
-        setTimeout(function() { member.addRole('392169263982444546', "Autorole") }, 300000);
+        setTimeout(function () { member.addRole('392169263982444546', "Autorole") }, 300000);
     }
 })
 
-bot.on("guildBanAdd", function(guild, user) {
+bot.on("guildBanAdd", function (guild, user) {
     const guildList = bot.config.guilds;
 
-    // 398936742532743188
-
-    for (var i = 0; i < guildList.length; i++) {
-        try {
-            const guild2 = bot.guilds.get(guildList[i])
-            if (guild2.id == guild.id) return;
-            guild.getBans(user.id).then(thisBans => {
-                bot.log(`Banning ${user.username} on ${guild2.name}!`)
-                guild2.banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name)
-            });
-        } catch (err) {
-            bot.getChannel("392897329721507850").createMessage(`Error: ${err.stack}`)
+    guild.getAuditLogs(2, null, 22).then(logs => {
+        if (logs.entries[0].user.id == bot.user.id) return;
+        
+        var embed = {
+            "embed": {
+                "color": 8919211,
+                "footer": {
+                    "icon_url": bot.users.get(logs.entries[0].user.id).avatarURL.replace("?size=128", ""),
+                    "text": "Banned by " + logs.entries[0].user.username + "#" + logs.entries[0].user.discriminator + " | Banned User ID: " + user.id
+                },
+                "thumbnail": {
+                    "url": user.avatarURL.replace("?size=128", "")
+                },
+                "fields": [
+                    {
+                        "name": "User Banned",
+                        "value": user.username + "#" + user.discriminator,
+                        "inline": true
+                    },
+                    {
+                        "name": "Banned in",
+                        "value": guild.name,
+                        "inline": true
+                    },
+                    {
+                        "name": "Ban Reason",
+                        "value": logs.entries[0].reason || "Not Specified",
+                        "inline": true
+                    }
+                ]
+            }
         }
-    }
+
+        bot.channels.get("398936742532743188").createMessage(embed)
+
+        for (var i = 0; i < guildList.length; i++) {
+            try {
+                const guild2 = bot.guilds.get(guildList[i])
+                if (guild2.id == guild.id) return;
+                guild.getBans(user.id).then(thisBans => {
+                    bot.log(`Banning ${user.username} on ${guild2.name}!`)
+                    guild2.banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name)
+                });
+            } catch (err) {
+                bot.getChannel("392897329721507850").createMessage(`Error: ${err.stack}`)
+            }
+        }
+    });
 });
 
-bot.on("guildBanRemove", function(guild, user) {
+bot.on("guildBanRemove", function (guild, user) {
     const guildList = bot.config.guilds;
 
     for (var i = 0; i < guildList.length; i++) {

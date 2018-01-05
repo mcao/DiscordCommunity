@@ -27,7 +27,7 @@ module.exports = (bot) => {
         };
 
         if (bot.profiles[user.id].warnings.length == 0) return "This user doesn't have any warnings! <:bexn:393137089631354880>";
- 
+
         var moderator;
         var reason;
         var channel;
@@ -75,7 +75,7 @@ module.exports = (bot) => {
         }
         bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
         bot.users.get(user).getDMChannel().then(c => c.createMessage(`You have been warned in **${msg.channel.guild.name}** for the following reason: **${reason}**.`));
-        
+
         if (bot.profiles[user].warnings.length == 4) {
             msg.channel.createMessage("This user has a total of 4 warns. Would you like to throw them in detention? [yes/no]").then((m) => {
                 m.addReaction("bexn:393137089631354880").then(() => {
