@@ -126,10 +126,12 @@ module.exports = (bot) => {
             "392157677184221185", // Hub staff from Discord Community
             "392150288729112587", // Admin from Discord Community
             "392425936366075905", // Community Staff from Discord Community
+            "392161607976878092", // Global Mod from Discord Community
             // Break
             "323271893186510849", // Hub Staff from Discord Hub
             "223661000929443840", // Support Team from Discord Hub
             "387862020063494145", // Management from Discord Hub
+            "323271790291845120", // Global Moderator from Discord Hub
             // Break
             "392471690170335232", // Admin from ProCord
             "392471717978701825", // Management from ProCord
