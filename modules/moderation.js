@@ -146,7 +146,7 @@ module.exports = (bot) => {
             }
             let is_staff = false;
             user.roles.forEach((e) => {
-                if (STAFF_ROLE_IDS.indexOf(e.id)){
+                if (STAFF_ROLE_IDS.indexOf(e.id) != -1){
                     is_staff = true;
                 }
             });
