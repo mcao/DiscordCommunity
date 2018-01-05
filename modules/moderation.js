@@ -142,7 +142,7 @@ module.exports = (bot) => {
             if(user.length == 18 || user.length == 17){
                 user = msg.channel.guild.members.get(user);
             }else{
-                user = msg.channel.guild.members.get(msg.mentions[0])
+                user = msg.channel.guild.members.get(msg.mentions[0].id)
             }
             let is_staff = false;
             user.roles.forEach((e) => {
@@ -158,9 +158,9 @@ module.exports = (bot) => {
         }else{
             var user = args[0];
             if(user.length == 18 || user.length == 17){
-                user = msg.guild.members.get(user);
+                user = msg.channel.guild.members.get(user);
             }else{
-                user = msg.channel.guild.members.get(msg.mentions[0])
+                user = msg.channel.guild.members.get(msg.mentions[0].id)
             }
             let is_staff = false;
             user.roles.forEach((e) => {
