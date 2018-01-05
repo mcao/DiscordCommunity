@@ -152,6 +152,7 @@ module.exports = (bot) => {
             bot.getChannel("398936792910397451").send({
                 embed: {}
             });
+            user.createMessage(`Okay! That user has been reported! Thank you for making ${msg.guild.name} a better place!`);
         }else{
             var user = args[0];
             if(user.length == 18 || user.length == 17){
@@ -172,7 +173,9 @@ module.exports = (bot) => {
                     embed: {}
                 });
             }
+            user.createMessage(`Okay! That user has been reported! Thank you for making ${msg.guild.name} a better place!`);
         }
+            msg.delete()
     });
 
     bot.register("resetwarns", (msg, args) => {
