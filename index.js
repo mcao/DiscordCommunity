@@ -91,22 +91,18 @@ Please remember to read the <#392171939101409290> and post something in <#392152
 bot.on("guildBanAdd", function (guild, user) {
     const guildList = bot.config.guilds;
 
+    // 398936742532743188
+
     for (var i = 0; i < guildList.length; i++) {
         try {
             const guild2 = bot.guilds.get(guildList[i])
-            guild2.getBans().then(thatBans => {
-                for (var j = 0; j < thatBans.length; j++) {
-                    if (thatBans[j].user.id == user.id) {
-                        return;
-                    }
-                }
-                guild.getBans(user.id).then(thisBans => {
-                    bot.log(`Banning ${user.username} on ${guild2.name}!`)
-                    guild2.banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name + " for " + thisBans[0].reason)
-                });
-            })
+            if (guild2.id == guild.id) return;
+            guild.getBans(user.id).then(thisBans => {
+                bot.log(`Banning ${user.username} on ${guild2.name}!`)
+                guild2.banMember(user.id, 0, "Automated Ban Sync - User banned on " + guild.name)
+            });
         } catch (err) {
-            bot.getChannel("389588585889660928").createMessage(`Error: ${err}`)
+            bot.getChannel("392897329721507850").createMessage(`Error: ${err.stack}`)
         }
     }
 });
