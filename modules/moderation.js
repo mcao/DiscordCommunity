@@ -140,9 +140,9 @@ module.exports = (bot) => {
             // Handle staff report
             var user = args[1];
             if(user.length == 18 || user.length == 17){
-                user = msg.guild.members.get(user);
+                user = msg.channel.guild.members.get(user);
             }else{
-                user = msg.mentions[0]
+                user = msg.mentions[0];
             }
             let is_staff = false;
             user.roles.forEach((e) => {
