@@ -223,7 +223,7 @@ bot.on("guildBanAdd", function (guild, user) {
                 ]
             }
         }
-        bot.channels.get("398936742532743188").createMessage(embed)
+        bot.getChannel("398936742532743188").createMessage(embed)
 
         for (var i = 0; i < guildList.length; i++) {
             try {
