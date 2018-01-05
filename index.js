@@ -4,7 +4,9 @@ const { CommandClient } = require("eris-additions")(require("eris")),
     hastebin = require('hastebin-gen'),
     HOME_GUILD = `358528040617377792`,
     TEST_GUILD = `396914522801176577`;
-var bot = new CommandClient(require("./config.json").token, {}, require("./config.json").commandOpts);
+var bot = new CommandClient(require("./config.json").token, {
+    disableEvents: ['PRESENCE_UPDATE']
+}, require("./config.json").commandOpts);
 
 require('./funcs.js')(bot)
 
