@@ -123,14 +123,13 @@ bot.on("messageCreate", function (msg) {
             channel.edit({ topic: `User ID: ${msg.author.id}` });
             var channelID;
             msg.author.getDMChannel().then(channel => {
-                channelID = channel.id;
+                bot.tickets[nextTicket] = {
+                    userID: msg.author.id,
+                    channelID: channel.id,
+                    taken: false,
+                    finished: false
+                };
             });
-            bot.tickets[nextTicket] = {
-                userID: msg.author.id,
-                channelID: channeID,
-                taken: false,
-                finished: false
-            };
             bot.createMessage('398565803613749259', { embed: embedy });
             channel.createMessage({ embed: embedy });
         });
