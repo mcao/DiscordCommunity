@@ -45,9 +45,6 @@ bot.on("ready", () => {
     };
 });
 
-<<<<<<< HEAD
-bot.on("messageCreate", function (msg) {
-=======
 bot.on("messageCreate", function(msg) {
     if (msg.channel.type == 1) {
         if (msg.content.toLowerCase().startsWith('feedback:')) {
@@ -80,7 +77,6 @@ bot.on("messageCreate", function(msg) {
             bot.createMessage(msg.channel.id, '<:bexy:393137089622966272> Thanks for sending your feedback in! We promise to keep your information private.')
         }
     }
->>>>>>> 3f0088430afa7402f427469746c4b19d853aa797
     /*if (msg.channel.type == 1) {
         var nextTicket = 0;
         for (let key in bot.profiles) {
