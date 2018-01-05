@@ -122,6 +122,9 @@ module.exports = (bot) => {
 
     bot.register("report", (msg, args) => {
         if (args.length == 0) return "Usage: `!report [staff] @User#1234 <Reason...>`";
+        if(msg.channel.type == 1){
+            msg.channel.guild = bot.guilds.get('223291032446566402');
+        }
         var STAFF_ROLE_IDS = [
             "392157677184221185", // Hub staff from Discord Community
             "392150288729112587", // Admin from Discord Community
