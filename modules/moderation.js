@@ -151,9 +151,44 @@ module.exports = (bot) => {
                 }
             });
             if(!is_staff) return "That user is not a staff member so can not be reported using the staff option!";
+            let r = []
+            let staff_roles = user.roles.forEach((e) => {
+                    if(STAFF_ROLE_IDS.indexOf(e.id) != -1){
+                        r.push(e.name)
+                    }
+            })
             bot.getChannel("398936792910397451").createMessage({
-                embed: {}
-            });
+                "embed": {
+                  "color": 2719211,
+                  "footer": {
+                    "icon_url": msg.author.avatarURL,
+                    "text": `Reported by ${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`
+                  },
+              
+                  "fields": [
+                    {
+                      "name": "Reported Staff",
+                      "value": `${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`,
+                      "inline": true
+                    },
+                    {
+                      "name": "Reported in",
+                      "value": msg.channel.guild.name,
+                      "inline": true
+                    },
+                    {
+                      "name": "Reason for being reported",
+                      "value": args.splice(1).join(" "),
+                      "inline": false
+                    },
+                    {
+                      "name": "Current Staff Positions",
+                      "value": r.join(", "),
+                      "inline": false
+                    }
+                  ]
+                }
+              });
             msg.author.getDMChannel().then((channel) => channel.createMessage(`Okay! That user has been reported! Thank you for making ${msg.channel.guild.name} a better place!`));
         }else{
             var user = args[0];
