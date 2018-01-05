@@ -271,6 +271,10 @@ module.exports = (bot) => {
             msg.author.getDMChannel().then((channel) => channel.createMessage(`Okay! That user has been reported! Thank you for making ${msg.channel.guild.name} a better place!`))
         }
         msg.delete()
+    }, {
+        requirements: {
+            roleIDs: []
+        }
     });
 
     bot.register("resetwarns", (msg, args) => {
