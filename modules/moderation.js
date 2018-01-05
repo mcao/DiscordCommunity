@@ -146,14 +146,14 @@ module.exports = (bot) => {
             }
             let is_staff = false;
             user.roles.forEach((e) => {
-                if (STAFF_ROLE_IDS.indexOf(e.id) != -1) {
+                if (STAFF_ROLE_IDS.indexOf(e) != -1) {
                     is_staff = true;
                 }
             });
             if (!is_staff) return "That user is not a staff member so can not be reported using the staff option!";
             let r = []
             let staff_roles = user.roles.forEach((e) => {
-                if (STAFF_ROLE_IDS.indexOf(e.id) != -1) {
+                if (STAFF_ROLE_IDS.indexOf(e) != -1) {
                     r.push(e.name)
                 }
             })
@@ -198,14 +198,14 @@ module.exports = (bot) => {
             }
             let is_staff = false;
             user.roles.forEach((e) => {
-                if (STAFF_ROLE_IDS.indexOf(e.id) != -1) {
+                if (STAFF_ROLE_IDS.indexOf(e) != -1) {
                     is_staff = true;
                 }
             });
             if (is_staff) {
                 let r = []
                 let staff_roles = user.roles.forEach((e) => {
-                    if (STAFF_ROLE_IDS.indexOf(e.id) != -1) {
+                    if (STAFF_ROLE_IDS.indexOf(e) != -1) {
                         r.push(e.name)
                     }
                 })
@@ -219,7 +219,7 @@ module.exports = (bot) => {
 
                         "fields": [{
                                 "name": "Reported Staff",
-                                "value": `${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`,
+                                "value": `${user.user.username}#${user.user.discriminator} (${user.user.id})`,
                                 "inline": true
                             },
                             {
@@ -251,7 +251,7 @@ module.exports = (bot) => {
 
                         "fields": [{
                                 "name": "Reported User",
-                                "value": `${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`,
+                                "value": `${user.user.username}#${user.user.discriminator} (${user.user.id})`,
                                 "inline": true
                             },
                             {
