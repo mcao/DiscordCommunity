@@ -1,4 +1,4 @@
-const { CommandClient } = require("eris"),
+const { CommandClient } = require("eris-additions")(require("eris")),
     readdir = require("fs").readdir,
     readFileSync = require("fs").readFileSync,
     hastebin = require('hastebin-gen'),
