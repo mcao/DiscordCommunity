@@ -87,7 +87,7 @@ bot.on("messageCreate", function (msg) {
         }
         nextTicket = +1;
         var mailName = `${nextTicket}-${msg.author.username}`; // Channel name
-        var modMessage = {
+        var embedy = {
             title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
             description: `Ticket #${nextTicket}`,
             author: {
@@ -131,8 +131,8 @@ bot.on("messageCreate", function (msg) {
                 taken: false,
                 finished: false
             };
-            bot.createMessage('398565803613749259', { embed: modMessage });
-            channel.createMessage({ embed: modMessage });
+            bot.createMessage('398565803613749259', { embed: embedy });
+            channel.createMessage({ embed: embedy });
         });
     } else {
         const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
