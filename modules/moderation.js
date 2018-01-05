@@ -164,14 +164,49 @@ module.exports = (bot) => {
             }
             let is_staff = false;
             user.roles.forEach((e) => {
-                if (STAFF_ROLE_IDS.indexOf(e.id)){
+                if (STAFF_ROLE_IDS.indexOf(e.id) != -1){
                     is_staff = true;
                 }
             });
             if(is_staff){
+                let r = []
+                let staff_roles = user.roles.forEach((e) => {
+                    if(STAFF_ROLE_IDS.indexOf(e.id) != -1){
+                        r.push(e.name)
+                    }
+                })
                 bot.getChannel("398936792910397451").createMessage({
-                    embed: {}
-                });
+                    "embed": {
+                      "color": 2719211,
+                      "footer": {
+                        "icon_url": msg.author.avatarURL,
+                        "text": `Reported by ${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`
+                      },
+                  
+                      "fields": [
+                        {
+                          "name": "Reported Staff",
+                          "value": `${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`,
+                          "inline": true
+                        },
+                        {
+                          "name": "Reported in",
+                          "value": msg.channel.guild.name,
+                          "inline": true
+                        },
+                        {
+                          "name": "Reason for being reported",
+                          "value": args.splice(1).join(" "),
+                          "inline": false
+                        },
+                        {
+                          "name": "Current Staff Positions",
+                          "value": r.join(", "),
+                          "inline": false
+                        }
+                      ]
+                    }
+                  });
             }else{
                 bot.getChannel("398936792910397451").createMessage({
                     "embed": {
@@ -194,7 +229,7 @@ module.exports = (bot) => {
                         },
                         {
                           "name": "Reason for being reported",
-                          "value": args.split(" ").splice(1).join(" "),
+                          "value": args.splice(1).join(" "),
                           "inline": false
                         }
                       ]
