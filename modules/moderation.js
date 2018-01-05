@@ -273,7 +273,7 @@ module.exports = (bot) => {
         msg.delete()
     }, {
         requirements: {
-            roleIDs: []
+            roleIDs: null
         }
     });
 
