@@ -48,35 +48,37 @@ bot.on("ready", () => {
 bot.on("messageCreate", function(msg) {
     const yesno = ['bexy:393137089622966272', 'bexn:393137089631354880'];
     if (msg.channel.type == 1) {
-        if (msg.content.toLowerCase().startsWith('feedback')) {
-            var embedy = {
-                title: `New anonymous feedback!`,
-                author: {
-                    name: "Discord Community",
-                    icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
-                },
-                thumbnail: {
-                    url: bot.user.avatarURL
-                },
-                color: 0x71368a,
-                fields: [
+        let responses = msg.channel.awaitMessages(m => m.content === "yes");
+        if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
+        // if (msg.content.toLowerCase().startsWith('feedback')) {
+        //     var embedy = {
+        //         title: `New anonymous feedback!`,
+        //         author: {
+        //             name: "Discord Community",
+        //             icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+        //         },
+        //         thumbnail: {
+        //             url: bot.user.avatarURL
+        //         },
+        //         color: 0x71368a,
+        //         fields: [
 
-                ],
-                timestamp: new Date()
-            };
-            if (msg.content.length > 1024) { // If message is too big
-                hastebin(msg.content, "txt").then(r => { // Hastebin it
-                    var message = `The message was too long, it was sent to <${r}>`;
-                    embedy.fields.push({name: 'Message:', value: message});
-                    bot.createMessage('392442695756546059', {embed: embedy});
-                });
-            }
-            else {
-                embedy.fields.push({name: 'Feedback message:', value: `${msg.content}`});
-                bot.createMessage('392442695756546059', {embed: embedy}).then(m => yesno.forEach(function(vote) {m.addReaction(vote)}));
-            }
-            msg.author.getDMChannel().then(c => c.createMessage('<:bexy:393137089622966272> Thanks for sending your feedback in! We promise to keep your information private.'));
-        }
+        //         ],
+        //         timestamp: new Date()
+        //     };
+        //     if (msg.content.length > 1024) { // If message is too big
+        //         hastebin(msg.content, "txt").then(r => { // Hastebin it
+        //             var message = `The message was too long, it was sent to <${r}>`;
+        //             embedy.fields.push({name: 'Message:', value: message});
+        //             bot.createMessage('392442695756546059', {embed: embedy});
+        //         });
+        //     }
+        //     else {
+        //         embedy.fields.push({name: 'Feedback message:', value: `${msg.content}`});
+        //         bot.createMessage('392442695756546059', {embed: embedy}).then(m => yesno.forEach(function(vote) {m.addReaction(vote)}));
+        //     }
+        //     msg.author.getDMChannel().then(c => c.createMessage('<:bexy:393137089622966272> Thanks for sending your feedback in! We promise to keep your information private.'));
+        // }
     }
     /*if (msg.channel.type == 1) {
         var nextTicket = 0;
