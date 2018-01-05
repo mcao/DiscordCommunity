@@ -88,7 +88,7 @@ bot.on("messageCreate", function (msg) {
             if (bot.tickets.hasOwnProperty(key)) size++;
         }
         nextTicket = +1;
-        var mailName = `${nextTicket}-${msg.author.username}`; // Channel name
+        var mailName = `${nextTicket}-${msg.author.id}`; // Channel name
         var embedy = {
             title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
             description: `Ticket #${nextTicket}`,
@@ -125,14 +125,13 @@ bot.on("messageCreate", function (msg) {
             channel.edit({ topic: `User ID: ${msg.author.id}` });
             var channelID;
             msg.author.getDMChannel().then(channel => {
-                channelID = channel.id;
+                bot.tickets[nextTicket] = {
+                    userID: msg.author.id,
+                    channelID: channel.id,
+                    taken: false,
+                    finished: false
+                };
             });
-            bot.tickets[nextTicket] = {
-                userID: msg.author.id,
-                channelID: channeID,
-                taken: false,
-                finished: false
-            };
             bot.createMessage('398565803613749259', { embed: embedy });
             channel.createMessage({ embed: embedy });
         });
