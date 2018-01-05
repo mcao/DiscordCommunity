@@ -194,36 +194,36 @@ bot.on("guildBanAdd", function (guild, user) {
     guild.getAuditLogs(2, null, 22).then(logs => {
         if (logs.entries[0].user.id == bot.user.id) return;
 
-        // var embed = {
-        //     "embed": {
-        //         "color": 8919211,
-        //         "footer": {
-        //             "icon_url": bot.users.get(logs.entries[0].user.id).avatarURL.replace("?size=128", ""),
-        //             "text": "Banned by " + logs.entries[0].user.username + "#" + logs.entries[0].user.discriminator + " | Banned User ID: " + user.id
-        //         },
-        //         "thumbnail": {
-        //             "url": user.avatarURL.replace("?size=128", "")
-        //         },
-        //         "fields": [
-        //             {
-        //                 "name": "User Banned",
-        //                 "value": user.username + "#" + user.discriminator,
-        //                 "inline": true
-        //             },
-        //             {
-        //                 "name": "Banned in",
-        //                 "value": guild.name,
-        //                 "inline": true
-        //             },
-        //             {
-        //                 "name": "Ban Reason",
-        //                 "value": logs.entries[0].reason || "Not Specified",
-        //                 "inline": true
-        //             }
-        //         ]
-        //     }
-        // }
-        // bot.channels.get("398936742532743188").createMessage(embed)
+        var embed = {
+            "embed": {
+                "color": 8919211,
+                "footer": {
+                    "icon_url": bot.users.get(logs.entries[0].user.id).avatarURL.replace("?size=128", ""),
+                    "text": "Banned by " + logs.entries[0].user.username + "#" + logs.entries[0].user.discriminator + " | Banned User ID: " + user.id
+                },
+                "thumbnail": {
+                    "url": user.avatarURL.replace("?size=128", "")
+                },
+                "fields": [
+                    {
+                        "name": "User Banned",
+                        "value": user.username + "#" + user.discriminator,
+                        "inline": true
+                    },
+                    {
+                        "name": "Banned in",
+                        "value": guild.name,
+                        "inline": true
+                    },
+                    {
+                        "name": "Ban Reason",
+                        "value": logs.entries[0].reason || "Not Specified",
+                        "inline": true
+                    }
+                ]
+            }
+        }
+        bot.channels.get("398936742532743188").createMessage(embed)
 
         for (var i = 0; i < guildList.length; i++) {
             try {
@@ -246,14 +246,9 @@ bot.on("guildBanRemove", function (guild, user) {
     for (var i = 0; i < guildList.length; i++) {
         try {
             const guild2 = bot.guilds.get(guildList[i])
-            guild2.getBans().then(thatBans => {
-                for (var j = 0; j < thatBans.length; j++) {
-                    if (thatBans[j].user.id == user.id) {
-                        bot.log(`Unbanning ${user.username} on ${guild2.name}!`)
-                        guild2.unbanMember(user.id, 0, "Automated Unban Sync - User unbanned on " + guild.name)
-                    }
-                }
-            })
+            if (guild2.id == guild.id) return;
+            bot.log(`Unbanning ${user.username} on ${guild2.name}!`)
+            guild2.unbanMember(user.id, 0, "Automated Unban Sync - User unbanned on " + guild.name)
         } catch (err) {
             bot.getChannel("389588585889660928").createMessage(`Error: ${err}`)
         }
