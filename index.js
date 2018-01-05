@@ -46,8 +46,9 @@ bot.on("ready", () => {
 });
 
 bot.on("messageCreate", function(msg) {
+    const yesno = ['bexy:393137089622966272', 'bexn:393137089631354880'];
     if (msg.channel.type == 1) {
-        if (msg.content.toLowerCase().startsWith('feedback:')) {
+        if (msg.content.toLowerCase().startsWith('feedback')) {
             var embedy = {
                 title: `New anonymous feedback!`,
                 author: {
@@ -64,17 +65,17 @@ bot.on("messageCreate", function(msg) {
                 timestamp: new Date()
             };
             if (msg.content.length > 1024) { // If message is too big
-                hastebin(msg.content, "js").then(r => { // Hastebin it
+                hastebin(msg.content, "txt").then(r => { // Hastebin it
                     var message = `The message was too long, it was sent to <${r}>`;
                     embedy.fields.push({name: 'Message:', value: message});
                     bot.createMessage('392442695756546059', {embed: embedy});
                 });
             }
             else {
-                embedy.fields.push({name: 'Feedback message:', value: `${msg.content}`})
-                bot.createMessage('392442695756546059', {embed: embedy});
+                embedy.fields.push({name: 'Feedback message:', value: `${msg.content}`});
+                bot.createMessage('392442695756546059', {embed: embedy}).then(m => yesno.forEach(function(vote) {m.addReaction(vote)}));
             }
-            bot.createMessage(msg.channel.id, '<:bexy:393137089622966272> Thanks for sending your feedback in! We promise to keep your information private.')
+            msg.author.getDMChannel().then(c => c.createMessage('<:bexy:393137089622966272> Thanks for sending your feedback in! We promise to keep your information private.'));
         }
     }
     /*if (msg.channel.type == 1) {
@@ -104,7 +105,7 @@ bot.on("messageCreate", function(msg) {
             timestamp: new Date()
         };
         if (msg.content.length > 1024) { // If message is too big
-            hastebin(msg.content, "js").then(r => { // Hastebin it
+            hastebin(msg.content, "txt").then(r => { // Hastebin it
                 var message = `The message was too long, it was sent to <${r}>`;
                 embedy.fields.push({name: 'Message:', value: message});
             });
