@@ -86,7 +86,7 @@ bot.on("messageCreate", function (msg) {
             if (bot.tickets.hasOwnProperty(key)) size++;
         }
         nextTicket = +1;
-        var mailName = `${nextTicket}-${msg.author.username}`; // Channel name
+        var mailName = `${nextTicket}-${msg.author.id}`; // Channel name
         var embedy = {
             title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
             description: `Ticket #${nextTicket}`,
