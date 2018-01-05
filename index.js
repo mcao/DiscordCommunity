@@ -46,10 +46,10 @@ bot.on("ready", () => {
 });
 
 bot.on("messageCreate", function(msg) {
-    const yesno = ['bexy:393137089622966272', 'bexn:393137089631354880'];
-    if (msg.channel.type == 1) {
-        let responses = msg.channel.awaitMessages(m => m.content === "yes");
-        if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
+    // const yesno = ['bexy:393137089622966272', 'bexn:393137089631354880'];
+    // if (msg.channel.type == 1) {
+    //     let responses = msg.channel.awaitMessages(m => m.content === "yes");
+    //     if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
         // if (msg.content.toLowerCase().startsWith('feedback')) {
         //     var embedy = {
         //         title: `New anonymous feedback!`,
@@ -79,7 +79,7 @@ bot.on("messageCreate", function(msg) {
         //     }
         //     msg.author.getDMChannel().then(c => c.createMessage('<:bexy:393137089622966272> Thanks for sending your feedback in! We promise to keep your information private.'));
         // }
-    }
+    // }
     /*if (msg.channel.type == 1) {
         var nextTicket = 0;
         for (let key in bot.profiles) {
@@ -192,37 +192,36 @@ bot.on("guildBanAdd", function (guild, user) {
     guild.getAuditLogs(2, null, 22).then(logs => {
         if (logs.entries[0].user.id == bot.user.id) return;
         
-        var embed = {
-            "embed": {
-                "color": 8919211,
-                "footer": {
-                    "icon_url": bot.users.get(logs.entries[0].user.id).avatarURL.replace("?size=128", ""),
-                    "text": "Banned by " + logs.entries[0].user.username + "#" + logs.entries[0].user.discriminator + " | Banned User ID: " + user.id
-                },
-                "thumbnail": {
-                    "url": user.avatarURL.replace("?size=128", "")
-                },
-                "fields": [
-                    {
-                        "name": "User Banned",
-                        "value": user.username + "#" + user.discriminator,
-                        "inline": true
-                    },
-                    {
-                        "name": "Banned in",
-                        "value": guild.name,
-                        "inline": true
-                    },
-                    {
-                        "name": "Ban Reason",
-                        "value": logs.entries[0].reason || "Not Specified",
-                        "inline": true
-                    }
-                ]
-            }
-        }
-
-        bot.channels.get("398936742532743188").createMessage(embed)
+        // var embed = {
+        //     "embed": {
+        //         "color": 8919211,
+        //         "footer": {
+        //             "icon_url": bot.users.get(logs.entries[0].user.id).avatarURL.replace("?size=128", ""),
+        //             "text": "Banned by " + logs.entries[0].user.username + "#" + logs.entries[0].user.discriminator + " | Banned User ID: " + user.id
+        //         },
+        //         "thumbnail": {
+        //             "url": user.avatarURL.replace("?size=128", "")
+        //         },
+        //         "fields": [
+        //             {
+        //                 "name": "User Banned",
+        //                 "value": user.username + "#" + user.discriminator,
+        //                 "inline": true
+        //             },
+        //             {
+        //                 "name": "Banned in",
+        //                 "value": guild.name,
+        //                 "inline": true
+        //             },
+        //             {
+        //                 "name": "Ban Reason",
+        //                 "value": logs.entries[0].reason || "Not Specified",
+        //                 "inline": true
+        //             }
+        //         ]
+        //     }
+        // }
+        // bot.channels.get("398936742532743188").createMessage(embed)
 
         for (var i = 0; i < guildList.length; i++) {
             try {
