@@ -2,6 +2,8 @@ module.exports = (bot) => {
     const fs = require("fs");
     bot.config = require("./config.json")
 
+    bot.cooldowns = new Set();
+
     bot.register = function (name, command, options) {
         if (bot.commands[name]) {
             bot.log(`Reloading command: ${name}`)
@@ -15,6 +17,20 @@ module.exports = (bot) => {
 
     bot.reactions = [];
 
+    bot.chunkArray = function(myArray, chunk_size) {
+        var index = 0;
+        var arrayLength = myArray.length;
+        var tempArray = [];
+        
+        for (index = 0; index < arrayLength; index += chunk_size) {
+            myChunk = myArray.slice(index, index+chunk_size);
+            // Do something if you want with the group
+            tempArray.push(myChunk);
+        }
+    
+        return tempArray;
+    }
+    
     bot.warn = function (userid, modid, reason, channelid) {
         bot.profiles[userid].warnings.push({ "user": userid, "mod": modid, "reason": reason, "channel": channelid })
     }
@@ -54,7 +70,7 @@ module.exports = (bot) => {
         let leaderboard = bot.getLeaderboard();
         let users = leaderboard[0];
         let messageCounts = leaderboard[1];
-        users.splice(20);
+        var non_leaderboard = users.splice(20);
         users.forEach((v) => {
             bot.addGuildMemberRole('358528040617377792', v.toString(), '393606924433752064', 'User reached top 20');
         });
@@ -62,16 +78,12 @@ module.exports = (bot) => {
         let d = bot.guilds.find((v) => {
             return v.id == '358528040617377792'
         });
-        let users_again = leaderboard[0];
         let members = d.members.map((v) => {
             return v;
         });
+        non_leaderboard.forEach((v) => {
+                bot.removeGuildMemberRole('358528040617377792', v.toString(), '393606924433752064', 'User fell out of top twenty');
 
-        let not_top_twenty = users_again.splice(20);
-        members.forEach((v) => {
-            if (not_top_twenty.indexOf(v.id) != -1) {
-                bot.removeGuildMemberRole('358528040617377792', v.id.toString(), '393606924433752064', 'User fell out of top twenty');
-            }
         })
     }
 
@@ -138,6 +150,10 @@ module.exports = (bot) => {
         console.log(this.timestamp() + "  [LOG]  | " + txt)
         bot.createMessage(bot.config.logChannel, txt);
     }
+
+    bot.totalMail = 0;
+
+    bot.tickets = {};
 
     bot.timestamp = function () {
         var currentTime = new Date(),
