@@ -154,7 +154,7 @@ module.exports = (bot) => {
             let r = []
             let staff_roles = user.roles.forEach((e) => {
                 if (STAFF_ROLE_IDS.indexOf(e) != -1) {
-                    r.push(e.name)
+                    r.push(msg.channel.guild.roles.get(e).name)
                 }
             })
             bot.getChannel("398936792910397451").createMessage({
@@ -206,7 +206,7 @@ module.exports = (bot) => {
                 let r = []
                 let staff_roles = user.roles.forEach((e) => {
                     if (STAFF_ROLE_IDS.indexOf(e) != -1) {
-                        r.push(e.name)
+                        r.push(msg.channel.guild.roles.get(e).name)
                     }
                 })
                 bot.getChannel("398936792910397451").createMessage({
