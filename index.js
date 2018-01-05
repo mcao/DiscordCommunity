@@ -258,4 +258,12 @@ bot.on("guildBanRemove", function (guild, user) {
     }
 });
 
+process.on("uncaughtException", (err) => {
+    console.error(err.stack)
+});
+
+process.on("unhandledRejection", (err) => {
+    console.error(err.stack)
+})
+
 bot.connect();
