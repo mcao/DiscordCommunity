@@ -142,7 +142,7 @@ module.exports = (bot) => {
             if(user.length == 18 || user.length == 17){
                 user = msg.channel.guild.members.get(user);
             }else{
-                user = msg.mentions[0];
+                user = msg.channel.guild.members.get(msg.mentions[0])
             }
             let is_staff = false;
             user.roles.forEach((e) => {
@@ -160,7 +160,7 @@ module.exports = (bot) => {
             if(user.length == 18 || user.length == 17){
                 user = msg.guild.members.get(user);
             }else{
-                user = msg.mentions[0]
+                user = msg.channel.guild.members.get(msg.mentions[0])
             }
             let is_staff = false;
             user.roles.forEach((e) => {
@@ -177,7 +177,7 @@ module.exports = (bot) => {
                     embed: {}
                 });
             }
-            user.createMessage(`Okay! That user has been reported! Thank you for making ${msg.guild.name} a better place!`);
+            user.createMessage(`Okay! That user has been reported! Thank you for making ${msg.channel.guild.name} a better place!`);
         }
             msg.delete()
     });
