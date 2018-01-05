@@ -46,12 +46,12 @@ module.exports = (bot) => {
             embed: embedy
         });
     }, {
-            description: "Check a user's warnings.",
-            fullDescription: "Check the warnings for a given user.",
-            requirements: {
-                roleIDs: ['392425936366075905', '392150288729112587']
-            }
-        });
+        description: "Check a user's warnings.",
+        fullDescription: "Check the warnings for a given user.",
+        requirements: {
+            roleIDs: ['392425936366075905', '392150288729112587']
+        }
+    });
 
     bot.register("warn", (msg, args) => {
         if (args.length == 0) return "Please provide a user.";
@@ -92,7 +92,7 @@ module.exports = (bot) => {
                                         msg.channel.createMessage("Okay, user will not be put in detention")
                                         break;
                                     default:
-                                    // just nothing
+                                        // just nothing
                                 }
                                 reacted = true;
                                 bot._events.messageReactionAdd.splice(-1, 1);
@@ -112,14 +112,14 @@ module.exports = (bot) => {
             return "Warning recorded <:bexy:393137089622966272>";
         }
     }, {
-            description: "Warns a user.",
-            fullDescription: "A command used to store a warning for a user who has violated a rule..",
-            requirements: {
-                roleIDs: ['392157971507052554', '392150288729112587'],
-                userIDs: bot.config.owners
-            }
-        });
-    
+        description: "Warns a user.",
+        fullDescription: "A command used to store a warning for a user who has violated a rule..",
+        requirements: {
+            roleIDs: ['392157971507052554', '392150288729112587'],
+            userIDs: bot.config.owners
+        }
+    });
+
     bot.register("report", (msg, args) => {
         if (args.length == 0) return "Usage: `!report [staff] @User#1234 <Reason...>`";
         var STAFF_ROLE_IDS = [
@@ -136,144 +136,141 @@ module.exports = (bot) => {
             "397507548896428034", // ProCord Staff from ProCord
             "292435797162852352", // Hub Staff from ProCord
         ];
-        if(args[0] == "staff"){
+        if (args[0] == "staff") {
             // Handle staff report
             var user = args[1];
-            if(user.length == 18 || user.length == 17){
+            if (user.length == 18 || user.length == 17) {
                 user = msg.channel.guild.members.get(user);
-            }else{
+            } else {
                 user = msg.channel.guild.members.get(msg.mentions[0].id)
             }
             let is_staff = false;
             user.roles.forEach((e) => {
-                if (STAFF_ROLE_IDS.indexOf(e.id) != -1){
+                if (STAFF_ROLE_IDS.indexOf(e.id) != -1) {
                     is_staff = true;
                 }
             });
-            if(!is_staff) return "That user is not a staff member so can not be reported using the staff option!";
+            if (!is_staff) return "That user is not a staff member so can not be reported using the staff option!";
             let r = []
             let staff_roles = user.roles.forEach((e) => {
-                    if(STAFF_ROLE_IDS.indexOf(e.id) != -1){
-                        r.push(e.name)
-                    }
+                if (STAFF_ROLE_IDS.indexOf(e.id) != -1) {
+                    r.push(e.name)
+                }
             })
             bot.getChannel("398936792910397451").createMessage({
                 "embed": {
-                  "color": 2719211,
-                  "footer": {
-                    "icon_url": msg.author.avatarURL,
-                    "text": `Reported by ${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`
-                  },
-              
-                  "fields": [
-                    {
-                      "name": "Reported Staff",
-                      "value": `${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`,
-                      "inline": true
+                    "color": 2719211,
+                    "footer": {
+                        "icon_url": msg.author.avatarURL,
+                        "text": `Reported by ${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`
                     },
-                    {
-                      "name": "Reported in",
-                      "value": msg.channel.guild.name,
-                      "inline": true
-                    },
-                    {
-                      "name": "Reason for being reported",
-                      "value": args.splice(1).join(" "),
-                      "inline": false
-                    },
-                    {
-                      "name": "Current Staff Positions",
-                      "value": r.join(", "),
-                      "inline": false
-                    }
-                  ]
+
+                    "fields": [{
+                            "name": "Reported Staff",
+                            "value": `${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`,
+                            "inline": true
+                        },
+                        {
+                            "name": "Reported in",
+                            "value": msg.channel.guild.name,
+                            "inline": true
+                        },
+                        {
+                            "name": "Reason for being reported",
+                            "value": args.splice(1).join(" "),
+                            "inline": false
+                        },
+                        {
+                            "name": "Current Staff Positions",
+                            "value": r.join(", "),
+                            "inline": false
+                        }
+                    ]
                 }
-              });
+            });
             msg.author.getDMChannel().then((channel) => channel.createMessage(`Okay! That user has been reported! Thank you for making ${msg.channel.guild.name} a better place!`));
-        }else{
+        } else {
             var user = args[0];
-            if(user.length == 18 || user.length == 17){
+            if (user.length == 18 || user.length == 17) {
                 user = msg.channel.guild.members.get(user);
-            }else{
+            } else {
                 user = msg.channel.guild.members.get(msg.mentions[0].id)
             }
             let is_staff = false;
             user.roles.forEach((e) => {
-                if (STAFF_ROLE_IDS.indexOf(e.id) != -1){
+                if (STAFF_ROLE_IDS.indexOf(e.id) != -1) {
                     is_staff = true;
                 }
             });
-            if(is_staff){
+            if (is_staff) {
                 let r = []
                 let staff_roles = user.roles.forEach((e) => {
-                    if(STAFF_ROLE_IDS.indexOf(e.id) != -1){
+                    if (STAFF_ROLE_IDS.indexOf(e.id) != -1) {
                         r.push(e.name)
                     }
                 })
                 bot.getChannel("398936792910397451").createMessage({
                     "embed": {
-                      "color": 2719211,
-                      "footer": {
-                        "icon_url": msg.author.avatarURL,
-                        "text": `Reported by ${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`
-                      },
-                  
-                      "fields": [
-                        {
-                          "name": "Reported Staff",
-                          "value": `${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`,
-                          "inline": true
+                        "color": 2719211,
+                        "footer": {
+                            "icon_url": msg.author.avatarURL,
+                            "text": `Reported by ${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`
                         },
-                        {
-                          "name": "Reported in",
-                          "value": msg.channel.guild.name,
-                          "inline": true
-                        },
-                        {
-                          "name": "Reason for being reported",
-                          "value": args.splice(1).join(" "),
-                          "inline": false
-                        },
-                        {
-                          "name": "Current Staff Positions",
-                          "value": r.join(", "),
-                          "inline": false
-                        }
-                      ]
+
+                        "fields": [{
+                                "name": "Reported Staff",
+                                "value": `${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`,
+                                "inline": true
+                            },
+                            {
+                                "name": "Reported in",
+                                "value": msg.channel.guild.name,
+                                "inline": true
+                            },
+                            {
+                                "name": "Reason for being reported",
+                                "value": args.splice(1).join(" "),
+                                "inline": false
+                            },
+                            {
+                                "name": "Current Staff Positions",
+                                "value": r.join(", "),
+                                "inline": false
+                            }
+                        ]
                     }
-                  });
-            }else{
+                });
+            } else {
                 bot.getChannel("398936792910397451").createMessage({
                     "embed": {
-                      "color": 2919211,
-                      "footer": {
-                        "icon_url": msg.author.avatarURL,
-                        "text": `Reported by ${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`
-                      },
-                  
-                      "fields": [
-                        {
-                          "name": "Reported User",
-                          "value": `${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`,
-                          "inline": true
+                        "color": 2919211,
+                        "footer": {
+                            "icon_url": msg.author.avatarURL,
+                            "text": `Reported by ${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`
                         },
-                        {
-                          "name": "Reported in",
-                          "value": msg.channel.guild.name,
-                          "inline": true
-                        },
-                        {
-                          "name": "Reason for being reported",
-                          "value": args.splice(1).join(" "),
-                          "inline": false
-                        }
-                      ]
+
+                        "fields": [{
+                                "name": "Reported User",
+                                "value": `${msg.author.username}#${msg.author.discriminator} (${msg.author.id})`,
+                                "inline": true
+                            },
+                            {
+                                "name": "Reported in",
+                                "value": msg.channel.guild.name,
+                                "inline": true
+                            },
+                            {
+                                "name": "Reason for being reported",
+                                "value": args.splice(1).join(" "),
+                                "inline": false
+                            }
+                        ]
                     }
-                  });
+                });
             }
             msg.author.getDMChannel().then((channel) => channel.createMessage(`Okay! That user has been reported! Thank you for making ${msg.channel.guild.name} a better place!`))
         }
-            msg.delete()
+        msg.delete()
     });
 
     bot.register("resetwarns", (msg, args) => {
@@ -297,14 +294,14 @@ module.exports = (bot) => {
             }
         }
     }, {
-            aliases: ["clearwarns", "clearwarnings", "resetwarnings"],
-            description: "Reset warnings for a user.",
-            fullDescription: "Resets the warnings for a user.",
-            requirements: {
-                roleIDs: ['392157971507052554', '392150288729112587'],
-                userIDs: bot.config.owners
-            }
-        });
+        aliases: ["clearwarns", "clearwarnings", "resetwarnings"],
+        description: "Reset warnings for a user.",
+        fullDescription: "Resets the warnings for a user.",
+        requirements: {
+            roleIDs: ['392157971507052554', '392150288729112587'],
+            userIDs: bot.config.owners
+        }
+    });
 
     bot.register("reset", (msg, args) => {
         var user = msg.mentions[0].id;
@@ -321,10 +318,10 @@ module.exports = (bot) => {
         bot.resetMessages(user);
         return `Reset the level for <@${user}>.`
     }, {
-            description: "Resets a level.",
-            fullDescription: "Resets the message count for the given user.",
-            requirements: {
-                roleIDs: ['392157971507052554', '392150288729112587']
-            }
-        });
+        description: "Resets a level.",
+        fullDescription: "Resets the message count for the given user.",
+        requirements: {
+            roleIDs: ['392157971507052554', '392150288729112587']
+        }
+    });
 }
