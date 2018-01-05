@@ -151,7 +151,7 @@ module.exports = (bot) => {
                 }
             });
             if(!is_staff) return "That user is not a staff member so can not be reported using the staff option!";
-            bot.getChannel("398936792910397451").send({
+            bot.getChannel("398936792910397451").createMessage({
                 embed: {}
             });
             user.createMessage(`Okay! That user has been reported! Thank you for making ${msg.guild.name} a better place!`);
@@ -169,11 +169,11 @@ module.exports = (bot) => {
                 }
             });
             if(is_staff){
-                bot.getChannel("398936792910397451").send({
+                bot.getChannel("398936792910397451").createMessage({
                     embed: {}
                 });
             }else{
-                bot.getChannel("398936792910397451").send({
+                bot.getChannel("398936792910397451").createMessage({
                     embed: {}
                 });
             }
