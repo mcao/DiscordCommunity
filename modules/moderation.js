@@ -119,6 +119,68 @@ module.exports = (bot) => {
                 userIDs: bot.config.owners
             }
         });
+    
+    bot.register("report", (msg, args) => {
+        if (args.length == 0) return "Usage: `!report [staff] @User#1234 <Reason...>`";
+        var STAFF_ROLE_IDS = [
+            "392157677184221185", // Hub staff from Discord Community
+            "392150288729112587", // Admin from Discord Community
+            "392425936366075905", // Community Staff from Discord Community
+            // Break
+            "323271893186510849", // Hub Staff from Discord Hub
+            "223661000929443840", // Support Team from Discord Hub
+            "387862020063494145", // Management from Discord Hub
+            // Break
+            "392471690170335232", // Admin from ProCord
+            "392471717978701825", // Management from ProCord
+            "397507548896428034", // ProCord Staff from ProCord
+            "292435797162852352", // Hub Staff from ProCord
+        ];
+        if(args[0] == "staff"){
+            // Handle staff report
+            var user = args[1];
+            if(user.length == 18 || user.length == 17){
+                user = msg.channel.guild.members.get(user);
+            }else{
+                user = msg.channel.guild.members.get(msg.mentions[0])
+            }
+            let is_staff = false;
+            user.roles.forEach((e) => {
+                if (STAFF_ROLE_IDS.indexOf(e.id)){
+                    is_staff = true;
+                }
+            });
+            if(!is_staff) return "That user is not a staff member so can not be reported using the staff option!";
+            bot.getChannel("398936792910397451").createMessage({
+                embed: {}
+            });
+            user.createMessage(`Okay! That user has been reported! Thank you for making ${msg.channel.guild.name} a better place!`);
+        }else{
+            var user = args[0];
+            if(user.length == 18 || user.length == 17){
+                user = msg.guild.members.get(user);
+            }else{
+                user = msg.channel.guild.members.get(msg.mentions[0])
+            }
+            let is_staff = false;
+            user.roles.forEach((e) => {
+                if (STAFF_ROLE_IDS.indexOf(e.id)){
+                    is_staff = true;
+                }
+            });
+            if(is_staff){
+                bot.getChannel("398936792910397451").createMessage({
+                    embed: {}
+                });
+            }else{
+                bot.getChannel("398936792910397451").createMessage({
+                    embed: {}
+                });
+            }
+            user.createMessage(`Okay! That user has been reported! Thank you for making ${msg.channel.guild.name} a better place!`);
+        }
+            msg.delete()
+    });
 
     bot.register("resetwarns", (msg, args) => {
         if (args.length == 0) return "Please provide a user.";

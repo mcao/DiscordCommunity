@@ -45,7 +45,42 @@ bot.on("ready", () => {
     };
 });
 
+<<<<<<< HEAD
 bot.on("messageCreate", function (msg) {
+=======
+bot.on("messageCreate", function(msg) {
+    if (msg.channel.type == 1) {
+        if (msg.content.toLowerCase().startsWith('feedback:')) {
+            var embedy = {
+                title: `New anonymous feedback!`,
+                author: {
+                    name: "Discord Community",
+                    icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+                },
+                thumbnail: {
+                    url: bot.user.avatarURL
+                },
+                color: 0x71368a,
+                fields: [
+
+                ],
+                timestamp: new Date()
+            };
+            if (msg.content.length > 1024) { // If message is too big
+                hastebin(msg.content, "js").then(r => { // Hastebin it
+                    var message = `The message was too long, it was sent to <${r}>`;
+                    embedy.fields.push({name: 'Message:', value: message});
+                    bot.createMessage('392442695756546059', {embed: embedy});
+                });
+            }
+            else {
+                embedy.fields.push({name: 'Feedback message:', value: `${msg.content}`})
+                bot.createMessage('392442695756546059', {embed: embedy});
+            }
+            bot.createMessage(msg.channel.id, '<:bexy:393137089622966272> Thanks for sending your feedback in! We promise to keep your information private.')
+        }
+    }
+>>>>>>> 3f0088430afa7402f427469746c4b19d853aa797
     /*if (msg.channel.type == 1) {
         var nextTicket = 0;
         for (let key in bot.profiles) {
@@ -65,9 +100,7 @@ bot.on("messageCreate", function (msg) {
             },
             color: 0x71368a,
             fields: [
-                {
 
-                }
             ],
             footer: {
                 text: `Do "!claim ${nextTicket}" to claim this ticket.`
