@@ -63,7 +63,56 @@ bot.on("messageCreate", function (msg) {
         var detailedResponse;
         msg.author.getDMChannel().then(c => c.createMessage('Hi, thanks for contacting me! Would you like to submit some anonymous \`feedback\`, a \`suggestion\`, or \`message\` the mods?'));
         msg.channel.awaitMessages(m => m.content.toLowerCase() === "suggestion" && m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
-            msg.channel.createMessage('hey nice suggestion dude')
+            if (responses.length) {
+                msg.channel.createMessage('<:bexy:393137089622966272> Alright, what\'s the topc/subject of your suggestion? **Note:** This is not anonymous.');
+                msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 10000}).then((responses) => {
+                    if(responses.length) {
+                        if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
+                        subject = responses[0].content;
+                        msg.channel.createMessage('<:bexy:393137089622966272> Sweet! Now, please describe your suggestion and be as detailed as possible.');
+                        msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase()  == 'cancel' && m.content.length > 10, {maxMatches: 1, time: 300000}).then((responses) => {
+                            if (responses.length) {
+                                if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.');
+                                msg.channel.createMessage('<:bexy:393137089622966272> Thank you so much for submitting your suggestion, we always appreciate suggestions to improve the community!');
+                                var embedy = {
+                                    title: `New suggestion by ${msg.author.username}#${msg.author.discriminator}`,
+                                    thumbnail: {
+                                        url: `${msg.author.avatarURL.replace('?size=124', '')}`
+                                    },
+                                    color: 0x71368a,
+                                    fields: [
+                                        {
+                                            name: `Subject/topic:`,
+                                            value: `${subject}`
+                                        },
+                                    ],
+                                    timestamp: new Date()
+                                };
+                                if (detailedResponse.length > 1024) { // If message is too big
+                                    hastebin(detailedResponse, "txt").then(r => { // Hastebin it
+                                        var message = `The message was too long, it was sent to <${r}>`;
+                                        embedy.fields.push({
+                                            name: 'Suggestion:',
+                                            value: message
+                                        });
+                                        bot.createMessage('392442695756546059', {embed: embedy});
+                                    });
+                                }
+                                else {
+                                    embedy.fields.push({
+                                        name: 'Suggestion:',
+                                        value: detailedResponse
+                                    });
+                                    bot.createMessage('392442695756546059', {embed: embedy});
+                                }
+                            }
+                            else {
+                                if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> An error has occured. Either you have timed out or the response is below 10 characters long. Please start over again.');
+                            }
+                        });
+                    }   
+                });
+            }
         });
         msg.channel.awaitMessages(m => m.content.toLowerCase() === "feedback" && m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
             if(responses.length) {
@@ -87,10 +136,6 @@ bot.on("messageCreate", function (msg) {
                                             name: `Subject/topic:`,
                                             value: `${subject}`
                                         },
-                                        {
-                                            name: `Feedback:`,
-                                            value: `${detailedResponse}`
-                                        }
                                     ],
                                     timestamp: new Date()
                                 };
