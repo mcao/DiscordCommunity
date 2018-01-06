@@ -76,7 +76,62 @@ bot.on("messageCreate", function (msg) {
                             if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
                             msg.channel.createMessage('<:bexy:393137089622966272> Thanks! We will get back to you as soon as possible.');
                             detailedResponse = responses[0].content;
-                            bot.createMessage('392442695756546059', `topci: ${subject}\nmail: ${detailedResponse}`);
+                            bot.createMessage('392442695756546059', `check devs server, new modmail arrived`);
+                            var nextTicket = 0;
+                            for (let key in bot.profiles) {
+                                if (bot.tickets.hasOwnProperty(key)) size++;
+                            }
+                            nextTicket = +1;
+                            var mailName = `${nextTicket}-${msg.author.id}`; // Channel name
+                            var embedy = {
+                                title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
+                                description: `Ticket #${nextTicket}`,
+                                author: {
+                                    name: "Discord Community",
+                                    icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+                                },
+                                thumbnail: {
+                                    url: msg.author.avatarURL.replace("?size=128", "")
+                                },
+                                color: 0x71368a,
+                                fields: [
+                                    {
+                                        name: `Subject/topic:`,
+                                        value: `${subject}`
+                                    },
+                                ],
+                                footer: {
+                                    text: `Do "!claim ${nextTicket}" to claim this ticket.`
+                                },
+                                timestamp: new Date()
+                            };
+                            if (msg.content.length > 1024) { // If message is too big
+                                hastebin(detailedResponse, "txt").then(r => { // Hastebin it
+                                    var message = `The message was too long, it was sent to <${r}>`;
+                                    embedy.fields.push({ name: 'Message:', value: message });
+                                });
+                            }
+                            else {
+                                embedy.fields.push({ name: 'Message:', value: `${detailedResponse}` })
+                            }
+                            var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.username));
+                            if (existingChan[0]) { // If there's already a channel for that user
+                                return existingChan[0].createMessage({ embed: embedy });
+                            }
+                            bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
+                                channel.edit({ topic: `User: ${msg.author.username}#${msg.author.discriminator}` });
+                                var channelID;
+                                msg.author.getDMChannel().then(channel => {
+                                    bot.tickets[nextTicket] = {
+                                        userID: msg.author.id,
+                                        channelID: channel.id,
+                                        taken: false,
+                                        finished: false
+                                    };
+                                });
+                                bot.createMessage('398565803613749259', { embed: embedy });
+                                channel.createMessage({ embed: embedy });
+                            });
                         }
                         else {
                             return msg.channel.createMessage('<:bexn:393137089631354880> An error has occured. Either you have timed out or the response is below 10 characters long. Please start over again.');
@@ -198,96 +253,7 @@ bot.on("messageCreate", function (msg) {
     }
 
 
-        if (msg.content.toLowerCase().startsWith('feedback: ')) {
-            if (args.length < 20) return bot.createMessage('Please provide a response longer than 20 characters.');
-            var embedy = {
-                title: `New anonymous feedback!`,
-                author: {
-                    name: "Discord Community",
-                    icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
-                },
-                color: 0x71368a,
-                fields: [
-
-                ],
-                timestamp: new Date()
-            };
-            if (msg.content.length > 1024) { // If message is too big
-                hastebin(msg.content, "txt").then(r => { // Hastebin it
-                    var message = `The message was too long, it was sent to <${r}>`;
-                    embedy.fields.push({
-                        name: 'Message:',
-                        value: message
-                    });
-                    bot.createMessage('392442695756546059', {
-                        embed: embedy
-                    });
-                });
-            } else {
-                embedy.fields.push({
-                    name: 'Feedback message:',
-                    value: `${msg.content}`
-                });
-                bot.createMessage('392442695756546059', {
-                    embed: embedy
-                }).then(m => yesno.forEach(function (vote) {
-                    m.addReaction(vote)
-                }));
-            }
-            msg.author.getDMChannel().then(c => c.createMessage('<:bexy:393137089622966272> Thanks for sending your feedback in! We promise to keep your information private.'));
-        }
-        // var nextTicket = 0;
-        // for (let key in bot.profiles) {
-        //     if (bot.tickets.hasOwnProperty(key)) size++;
-        // }
-        // nextTicket = +1;
-        // var mailName = `${nextTicket}-${msg.author.id}`; // Channel name
-        // var embedy = {
-        //     title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
-        //     description: `Ticket #${nextTicket}`,
-        //     author: {
-        //         name: "Discord Community",
-        //         icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
-        //     },
-        //     thumbnail: {
-        //         url: msg.author.avatarURL.replace("?size=128", "")
-        //     },
-        //     color: 0x71368a,
-        //     fields: [
-
-        //     ],
-        //     footer: {
-        //         text: `Do "!claim ${nextTicket}" to claim this ticket.`
-        //     },
-        //     timestamp: new Date()
-        // };
-        // if (msg.content.length > 1024) { // If message is too big
-        //     hastebin(msg.content, "txt").then(r => { // Hastebin it
-        //         var message = `The message was too long, it was sent to <${r}>`;
-        //         embedy.fields.push({ name: 'Message:', value: message });
-        //     });
-        // }
-        // else {
-        //     embedy.fields.push({ name: 'Message:', value: `${msg.content}` })
-        // }
-        // var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.username));
-        // if (existingChan[0]) { // If there's already a channel for that user
-        //     return existingChan[0].createMessage({ embed: embedy });
-        // }
-        // bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
-        //     channel.edit({ topic: `User ID: ${msg.author.id}` });
-        //     var channelID;
-        //     msg.author.getDMChannel().then(channel => {
-        //         bot.tickets[nextTicket] = {
-        //             userID: msg.author.id,
-        //             channelID: channel.id,
-        //             taken: false,
-        //             finished: false
-        //         };
-        //     });
-        //     bot.createMessage('398565803613749259', { embed: embedy });
-        //     channel.createMessage({ embed: embedy });
-        // });
+        
     } else if (msg.channel.type == 0) {
         const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
         const voteReactions = ['bexy:393137089622966272', 'bexn:393137089631354880'];
