@@ -80,8 +80,7 @@ bot.on("messageCreate", function (msg) {
                     }
                 })
             } else {
-                if (msg.author.feedback) return;
-                msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 1")
+               // lol ok
             }
         })
         
