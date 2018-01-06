@@ -22,7 +22,7 @@ module.exports = (bot) => {
     bot.register("clever", (msg, args) => {
         args = args.join(' ');
         if (args.toLowerCase().includes('ur stupid')) {
-            msg.channel.createMessage(`No, I\'m not <@${msg.author.id}>. BUT YOU ARE YOU FUCKER`);
+            return msg.channel.createMessage(`No, I\'m not <@${msg.author.id}>. BUT YOU ARE YOU FUCKER`);
         }
         clev.query(args)
             .then(function (response) {
