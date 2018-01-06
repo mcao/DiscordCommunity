@@ -62,6 +62,9 @@ bot.on("messageCreate", function (msg) {
         var subject;
         var detailedResponse;
         msg.author.getDMChannel().then(c => c.createMessage('Hi, thanks for contacting me! Would you like to submit some anonymous \`feedback\`, a \`suggestion\`, or \`message\` the mods?'));
+        msg.channel.awaitMessages(m => m.content.toLowerCase() === "suggestion" && m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
+            msg.channel.createMessage('hey nice suggestion dude')
+        });
         msg.channel.awaitMessages(m => m.content.toLowerCase() === "feedback" && m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
             if(responses.length) {
                 msg.channel.createMessage("<:bexy:393137089622966272> Nice, let's submit some feedback or a nice suggestion! First, what is the subject/topic gonna be?") 
