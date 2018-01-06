@@ -57,9 +57,9 @@ bot.on("messageCreate", function (msg) {
         msg.author.getDMChannel().then(c => c.createMessage('say yes'));
         msg.channel.awaitMessages(m => m.content === "yes", {maxMatches: 1, time: 10000}).then((responses) => {
             if(responses.length) { 
-                msg.channel.sendMessage("hi lol") 
+                msg.channel.createMessage("hi lol") 
             } else {
-                msg.channel.sendMessage("lol u didn't say yes")
+                msg.channel.createMessage("lol u didn't say yes")
             }
         })
         
