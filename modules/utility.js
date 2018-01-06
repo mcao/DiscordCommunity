@@ -22,10 +22,12 @@ module.exports = (bot) => {
     });
     bot.register("clever", (msg, args) => {
         args = args.join(' ');
+        bot.create(function (err, session) {
         cbot.ask(args, function (err, response) {
-            if (err) return bot.createMessage(msg.channel.id, `An error has occured.`) && console.log(err);
+            if (err) return console.log(err);
             bot.createMessage(msg.channel.id, `**Discord Hub:** ${response}`)
           });
+        });
     }, {
         description: "Talk to the bot!",
         fullDescription: "Speak with Discord Hub when you're feeling **very** lonely."
