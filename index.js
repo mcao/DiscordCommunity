@@ -54,7 +54,7 @@ bot.on("messageCreate", function (msg) {
     //if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
         msg.author.getDMChannel().then(c => c.createMessage('say yes'));
-        let responses = msg.channel.awaitMessages(m => m.content === "yes");
+        let responses = await msg.channel.awaitMessages(m => m.content === "yes");
         hastebin(responses, "txt").then(r => { // Hastebin it
             msg.author.getDMChannel().then(c => c.createMessage(r));
         });
