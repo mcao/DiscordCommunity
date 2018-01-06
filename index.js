@@ -58,7 +58,7 @@ bot.on("messageCreate", function (msg) {
     // if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
         msg.author.feedback = false;
-        if(msg.content.toLowerCase().startsWith("start" || "begin")) {
+        if(msg.content.toLowerCase().startsWith("start") || msg.content.toLowerCase().startsWith("begin")) {
         var subject;
         var detailedResponse;
         msg.author.getDMChannel().then(c => c.createMessage('Hi, thanks for contacting me! Would you like to submit some anonymous \`feedback\`, a \`suggestion\`, or \`message\` the mods?'));
