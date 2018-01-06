@@ -55,7 +55,9 @@ bot.on("messageCreate", function (msg) {
     if (msg.channel.type == 1) {
         msg.author.getDMChannel().then(c => c.createMessage('say yes'));
         let responses = msg.channel.awaitMessages(m => m.content === "yes");
-        msg.author.getDMChannel().then(c => c.createMessage(responses));
+        hastebin(responses, "txt").then(r => { // Hastebin it
+            msg.author.getDMChannel().then(c => c.createMessage(r));
+        });
         if(responses.length) bot.createMessage(msg.channel.id, "you said yes");
         if (msg.content.toLowerCase().startsWith('feedback')) {
             if (args.length < 20) return bot.createMessage('Please provide a response longer than 20 characters.');
