@@ -74,6 +74,7 @@ bot.on("messageCreate", function (msg) {
                             if (responses.length) {
                                 if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.');
                                 msg.channel.createMessage('<:bexy:393137089622966272> Thank you so much for submitting your suggestion, we always appreciate suggestions to improve the community!');
+                                detailedResponse = responses[0].content;
                                 var embedy = {
                                     title: `New suggestion by ${msg.author.username}#${msg.author.discriminator}`,
                                     thumbnail: {
