@@ -60,9 +60,6 @@ bot.on("messageCreate", function (msg) {
                     name: "Discord Community",
                     icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
                 },
-                thumbnail: {
-                    url: bot.user.avatarURL
-                },
                 color: 0x71368a,
                 fields: [
         
