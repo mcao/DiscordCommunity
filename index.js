@@ -51,7 +51,7 @@ bot.on("messageCreate", async function (msg) {
     const yesno = ['bexy:393137089622966272', 'bexn:393137089631354880'];
     // if (msg.channel.type == 1) {
     // let responses = msg.channel.awaitMessages(m => m.content === "yes");
-    //if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
+    // if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
         msg.author.getDMChannel().then(c => c.createMessage('say yes'));
         let responses = await msg.channel.awaitMessages(m => m.content === "yes");
