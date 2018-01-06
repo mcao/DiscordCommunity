@@ -23,8 +23,9 @@ module.exports = (bot) => {
     bot.register("clever", (msg, args) => {
         args = args.join(' ');
         cbot.ask(args, function (err, response) {
+            if (err) return bot.createMessage(msg.channel.id, `An error has occured.`) && console.log(err);
             bot.createMessage(msg.channel.id, `**Discord Hub:** ${response}`)
-          });// s
+          });
     }, {
         description: "Talk to the bot!",
         fullDescription: "Speak with Discord Hub when you're feeling **very** lonely."
