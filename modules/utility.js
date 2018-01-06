@@ -19,8 +19,8 @@ module.exports = (bot) => {
     });
     bot.register("clever", (msg, args) => {
         args = args.join(' ');
-        request.get('http://www.cleverbot.com/getreply?key=CC68v6dd86WetHxwJN-KOjqsMxg&input=Hello&cs=76nxdxIJ02AAA&callback=ProcessReply')
-        .end(function(res) {
+        request.get('http://www.cleverbot.com/getreply?key=CC68v6dd86WetHxwJN-KOjqsMxg&input=Hello&cs=76nxdxIJ02AAA&callback=JSON')
+        .end(function(err, res) {
             var parsedJson = JSON.parse(res.text);
             console.log(parsedJson);
             console.log('HI JOSEPH: ' + parsedJson.output)
