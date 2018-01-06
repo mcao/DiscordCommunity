@@ -64,7 +64,7 @@ bot.on("messageCreate", function (msg) {
                         msg.channel.awaitMessages(m => m.author.id == msg.author.id, {maxMatches: 1, time: 300000}).then((responses) => {
                             if(responses.length) {
                                 msg.channel.createMessage("<:bexy:393137089622966272> Thank you so much for your feedback! We promise to keep this anonymous.")
-                                bot.feedback = true;
+                                msg.feedback = true
                             }
                             else {
                                 msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 3");
@@ -75,7 +75,7 @@ bot.on("messageCreate", function (msg) {
                     }
                 })
             } else {
-                if (bot.feedback) return;
+                if (msg.feedback) return
                 msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 1")
             }
         })
