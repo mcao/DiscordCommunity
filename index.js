@@ -69,9 +69,6 @@ bot.on("messageCreate", function (msg) {
                     msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
                         if(responses.length) {
                             if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
-                            subject = responses[0].content;
-                            msg.channel.createMessage('<:bexy:393137089622966272> Great! Now, please type your mail and be as detailed as possible.');
-                            msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase()  == 'cancel' && m.content.length > 10, {maxMatches: 1, time: 300000}).then((responses) => {
                             msg.channel.createMessage('<:bexy:393137089622966272> Thanks! We will get back to you as soon as possible.');
                             detailedResponse = responses[0].content;
                             bot.createMessage('392442695756546059', `check devs server, new modmail arrived`);
@@ -134,7 +131,7 @@ bot.on("messageCreate", function (msg) {
                     }
                 });
             }
-        });
+        }
         msg.channel.awaitMessages(m => m.content.toLowerCase() === "suggestion" && m.author.id == msg.author.id, {maxMatches: 1, time: 30000}).then((responses) => {
             if (responses.length) {
                 msg.channel.createMessage('<:bexy:393137089622966272> Alright, what\'s the topc/subject of your suggestion? **Note:** This is not anonymous.');
