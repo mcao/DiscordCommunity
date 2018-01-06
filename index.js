@@ -55,6 +55,7 @@ bot.on("messageCreate", function (msg) {
     if (msg.channel.type == 1) {
         if (msg.content.toLowerCase().startsWith('feedback')) {
             var args = msg.content.toLowerCase().replace('feedback:', '');
+            if (args.length < 20) return bot.createMessage('Please provide a response longer than 20 characters.');
             var embedy = {
                 title: `New anonymous feedback!`,
                 author: {
