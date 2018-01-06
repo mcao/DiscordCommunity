@@ -1,4 +1,6 @@
-const { CommandClient } = require("eris-additions")(require("eris")),
+const {
+    CommandClient
+} = require("eris-additions")(require("eris")),
     readdir = require("fs").readdir,
     readFileSync = require("fs").readFileSync,
     hastebin = require('hastebin-gen'),
@@ -13,7 +15,9 @@ require('./funcs.js')(bot)
 bot.on("ready", () => {
     bot.log(`Logged in as ${bot.user.username}#${bot.user.discriminator}!`);
 
-    bot.editStatus({ name: `${bot.config.game} | ${bot.config.commandOpts.prefix[0]}help` })
+    bot.editStatus({
+        name: `${bot.config.game} | ${bot.config.commandOpts.prefix[0]}help`
+    })
 
     readdir('./modules/', (err, files) => {
         bot.log(`Loading ${files.length} modules!`);
@@ -53,49 +57,47 @@ bot.on("messageCreate", function (msg) {
     // let responses = msg.channel.awaitMessages(m => m.content === "yes");
     // if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
-<<<<<<< Updated upstream
-        let feedback = false;
-=======
-        bot.author.feedback = false;
->>>>>>> Stashed changes
-        if(msg.content.toLowerCase().startsWith("hi")){
-        msg.author.getDMChannel().then(c => c.createMessage('Hi, thanks for contacting me! Would you like to submit some anonymous \`feedback\`, a \`suggestion\`, or \`message\` the mods?'));
-        msg.channel.awaitMessages(m => m.content === "feedback" && m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
-            if(responses.length) {
-                msg.channel.createMessage("<:bexy:393137089622966272> Nice, let's submit some feedback or a nice suggestion! First, what is the subject/topic gonna be?") 
-                msg.channel.awaitMessages(m => m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
-                    if(responses.length) {
-                        msg.channel.createMessage("<:bexy:393137089622966272> Awesome! Please describe as detailed as you can on how we can realize this suggestion or implement the feedback!");
-                        msg.channel.awaitMessages(m => m.author.id == msg.author.id, {maxMatches: 1, time: 300000}).then((responses) => {
-                            if(responses.length) {
-                                msg.channel.createMessage("<:bexy:393137089622966272> Thank you so much for your feedback! We promise to keep this anonymous.")
-<<<<<<< Updated upstream
-                                feedback = true
-=======
-                                msg.author.feedback = true;
->>>>>>> Stashed changes
-                            }
-                            else {
-                                msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 3");
-                            }
-                        });
-                    } else {
-                        msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 2")
-                    }
-                })
-            } else {
-<<<<<<< Updated upstream
-                if (feedback) return
-=======
-                if (msg.author.feedback) return;
->>>>>>> Stashed changes
-                msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 1")
-            }
-        })
-        
-    }
+        msg.author.feedback = false;
+        if (msg.content.toLowerCase().startsWith("hi")) {
+            msg.author.getDMChannel().then(c => c.createMessage('Hi, thanks for contacting me! Would you like to submit some anonymous \`feedback\`, a \`suggestion\`, or \`message\` the mods?'));
+            msg.channel.awaitMessages(m => m.content === "feedback" && m.author.id == msg.author.id, {
+                maxMatches: 1,
+                time: 10000
+            }).then((responses) => {
+                if (responses.length) {
+                    msg.channel.createMessage("<:bexy:393137089622966272> Nice, let's submit some feedback or a nice suggestion! First, what is the subject/topic gonna be?")
+                    msg.channel.awaitMessages(m => m.author.id == msg.author.id, {
+                        maxMatches: 1,
+                        time: 10000
+                    }).then((responses) => {
+                        if (responses.length) {
+                            msg.channel.createMessage("<:bexy:393137089622966272> Awesome! Please describe as detailed as you can on how we can realize this suggestion or implement the feedback!");
+                            msg.channel.awaitMessages(m => m.author.id == msg.author.id, {
+                                maxMatches: 1,
+                                time: 300000
+                            }).then((responses) => {
+                                if (responses.length) {
+                                    msg.channel.createMessage("<:bexy:393137089622966272> Thank you so much for your feedback! We promise to keep this anonymous.")
 
-       
+
+                                    msg.author.feedback = true;
+                                } else {
+                                    msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 3");
+                                }
+                            });
+                        } else {
+                            msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 2")
+                        }
+                    })
+                } else {
+                    if (msg.author.feedback) return;
+                    msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 1")
+                }
+            })
+
+        }
+
+
         if (msg.content.toLowerCase().startsWith('feedback: ')) {
             if (args.length < 20) return bot.createMessage('Please provide a response longer than 20 characters.');
             var embedy = {
@@ -106,23 +108,34 @@ bot.on("messageCreate", function (msg) {
                 },
                 color: 0x71368a,
                 fields: [
-        
+
                 ],
                 timestamp: new Date()
-                };
-                if (msg.content.length > 1024) { // If message is too big
-                    hastebin(msg.content, "txt").then(r => { // Hastebin it
-                        var message = `The message was too long, it was sent to <${r}>`;
-                        embedy.fields.push({name: 'Message:', value: message});
-                        bot.createMessage('392442695756546059', {embed: embedy});
+            };
+            if (msg.content.length > 1024) { // If message is too big
+                hastebin(msg.content, "txt").then(r => { // Hastebin it
+                    var message = `The message was too long, it was sent to <${r}>`;
+                    embedy.fields.push({
+                        name: 'Message:',
+                        value: message
                     });
-                }
-                else {
-                    embedy.fields.push({name: 'Feedback message:', value: `${msg.content}`});
-                    bot.createMessage('392442695756546059', {embed: embedy}).then(m => yesno.forEach(function(vote) {m.addReaction(vote)}));
-                }
-                msg.author.getDMChannel().then(c => c.createMessage('<:bexy:393137089622966272> Thanks for sending your feedback in! We promise to keep your information private.'));
+                    bot.createMessage('392442695756546059', {
+                        embed: embedy
+                    });
+                });
+            } else {
+                embedy.fields.push({
+                    name: 'Feedback message:',
+                    value: `${msg.content}`
+                });
+                bot.createMessage('392442695756546059', {
+                    embed: embedy
+                }).then(m => yesno.forEach(function (vote) {
+                    m.addReaction(vote)
+                }));
             }
+            msg.author.getDMChannel().then(c => c.createMessage('<:bexy:393137089622966272> Thanks for sending your feedback in! We promise to keep your information private.'));
+        }
         // var nextTicket = 0;
         // for (let key in bot.profiles) {
         //     if (bot.tickets.hasOwnProperty(key)) size++;
@@ -224,7 +237,9 @@ bot.on("guildMemberAdd", function (guild, member) {
     if (guild.id == HOME_GUILD) {
         bot.createMessage("392152516596465664", `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada:
 Please remember to read the <#392171939101409290> and post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>`)
-        setTimeout(function () { member.addRole('392169263982444546', "Autorole") }, 300000);
+        setTimeout(function () {
+            member.addRole('392169263982444546', "Autorole")
+        }, 300000);
     }
 })
 
@@ -244,8 +259,7 @@ bot.on("guildBanAdd", function (guild, user) {
                 "thumbnail": {
                     "url": user.avatarURL.replace("?size=128", "")
                 },
-                "fields": [
-                    {
+                "fields": [{
                         "name": "User Banned",
                         "value": user.username + "#" + user.discriminator,
                         "inline": true
