@@ -153,6 +153,17 @@ module.exports = (bot) => {
 
     bot.totalMail = 0;
 
+    bot.newTicket = function(user, channel, claimedBy) {
+        var nextTicket = Object.keys(bot.tickets).length + 1;
+        bot.tickets[nextTicket] = {
+            userID: user,
+            channelID: channel,
+            takenBy: null,
+            taken: false,
+            finished: false
+        }
+    }
+
     bot.tickets = {};
 
     bot.timestamp = function () {

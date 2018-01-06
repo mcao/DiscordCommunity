@@ -77,12 +77,7 @@ bot.on("messageCreate", function (msg) {
                             msg.channel.createMessage('<:bexy:393137089622966272> Thanks! We will get back to you as soon as possible.');
                             detailedResponse = responses[0].content;
                             bot.createMessage('392442695756546059', `check devs server, new modmail arrived`);
-                            var nextTicket = 0;
-                            for (let key in bot.tickets) {
-                                if (bot.tickets.hasOwnProperty(key)) size++;
-                            }
-                            nextTicket = +1;
-                            var mailName = `${nextTicket}-${msg.author.id}`; // Channel name
+                            
                             var embedy = {
                                 title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
                                 description: `Ticket #${nextTicket}`,
@@ -114,21 +109,15 @@ bot.on("messageCreate", function (msg) {
                             else {
                                 embedy.fields.push({ name: 'Message:', value: `${detailedResponse}` })
                             }
-                            var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.username));
+                            var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
                             if (existingChan[0]) { // If there's already a channel for that user
                                 return existingChan[0].createMessage({ embed: embedy });
                             }
+                            bot.newTicket(msg.user.id, msg.channel.id, null);
+                            var mailName = `${Object.keys(bot.tickets).length}-${msg.author.id}`; // Channel name
                             bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
                                 channel.edit({ topic: `User: ${msg.author.username}#${msg.author.discriminator}` });
                                 var channelID;
-                                msg.author.getDMChannel().then(channel => {
-                                    bot.tickets[nextTicket] = {
-                                        userID: msg.author.id,
-                                        channelID: channel.id,
-                                        taken: false,
-                                        finished: false
-                                    };
-                                });
                                 bot.createMessage('398565803613749259', { embed: embedy });
                                 channel.createMessage({ embed: embedy });
                             });
