@@ -5,8 +5,7 @@ const readdir = require("fs").readdir,
     NITRO_ROLE = `392169841554882570`,
     HYPESQUAD_ROLE = `392169890955395078`,
     PARTNER_ROLE = `392169937755439106`,
-    cleverbot = require("cleverbot.io"),
-    cbot = new cleverbot("2SdhrLJP6NuXAsEM", "q2DN9aQMWiSxm4WBcLbTV1kYNT8o2eiO");
+    request = require('superagent');
 
 module.exports = (bot) => {
     bot.register("ping", (msg, args) => {
@@ -19,14 +18,12 @@ module.exports = (bot) => {
         fullDescription: "This command is used to check the bot's latency, or if it's up."
     });
     bot.register("clever", (msg, args) => {
-        const SESSION_NAME = 'hi';
-        cbot.setNick(SESSION_NAME);
         args = args.join(' ');
-        cbot.create(function (err, SESSION_NAME) {
-            cbot.ask(args, function (err, res) {
-                if (err) return console.log(err);
-                bot.createMessage(msg.channel.id, `**Discord Hub:** ${response}`);
-            });
+        request.get('http://www.cleverbot.com/getreply&cs=76nxdxIJ02AAA&callback=ProcessReply')
+        .set({'key': 'CC68v6dd86WetHxwJN-KOjqsMxg'})
+        .query({'input': args})
+        .end(function(res) {
+            console.log(res);
         });
     }, {
         description: "Talk to the bot!",
