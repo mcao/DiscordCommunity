@@ -58,20 +58,22 @@ bot.on("messageCreate", function (msg) {
     // if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
         msg.author.feedback = false;
-        if(msg.content.toLowerCase().startsWith("hi")) {
+        if(msg.content.toLowerCase().startsWith("start" || "begin")) {
         var subject;
         var detailedResponse;
         msg.author.getDMChannel().then(c => c.createMessage('Hi, thanks for contacting me! Would you like to submit some anonymous \`feedback\`, a \`suggestion\`, or \`message\` the mods?'));
-        msg.channel.awaitMessages(m => m.content === "feedback" && m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
+        msg.channel.awaitMessages(m => m.content.toLowerCase() === "feedback" && m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
             if(responses.length) {
                 msg.channel.createMessage("<:bexy:393137089622966272> Nice, let's submit some feedback or a nice suggestion! First, what is the subject/topic gonna be?") 
-                msg.channel.awaitMessages(m => m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
+                msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 10000}).then((responses) => {
                     if(responses.length) {
+                        if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
                         subject = responses[0].content;
                         msg.channel.createMessage("<:bexy:393137089622966272> Awesome! Please describe as detailed as you can on how we can realize this suggestion or implement the feedback!");
-                        msg.channel.awaitMessages(m => m.author.id == msg.author.id, {maxMatches: 1, time: 300000}).then((responses) => {
+                        msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 300000}).then((responses) => {
                             detailedResponse = responses[0].content;
                             if(responses.length) {
+                                if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
                                 msg.channel.createMessage("<:bexy:393137089622966272> Thank you so much for your feedback! We promise to keep this anonymous.")
                                 msg.author.feedback = true;
                                 var embedy = {
