@@ -47,18 +47,23 @@ bot.on("ready", () => {
     };
 });
 
-bot.on("messageCreate", async function (msg) {
+bot.on("messageCreate", function (msg) {
     const yesno = ['bexy:393137089622966272', 'bexn:393137089631354880'];
     // if (msg.channel.type == 1) {
     // let responses = msg.channel.awaitMessages(m => m.content === "yes");
     // if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
         msg.author.getDMChannel().then(c => c.createMessage('say yes'));
-        let responses = await msg.channel.awaitMessages(m => m.content === "yes");
-        if(responses.length) msg.channel.createMessage("you said yes");
+        let responses = msg.channel.awaitMessages(m => m.content === "yes", {maxMatches: 1, time: 10000}).then((responses) => {
+            if(responses.length) { 
+                msg.channel.sendMessage("hi lol") 
+            } else {
+                msg.channel.sendMessage("lol u didn't say hi")
+            }
+        });
+        
 
-        else message.channel.createMessage("You didn't say yes :(");
-        if(responses.length) bot.createMessage(msg.channel.id, "you said yes");
+       
         if (msg.content.toLowerCase().startsWith('feedback')) {
             if (args.length < 20) return bot.createMessage('Please provide a response longer than 20 characters.');
             var embedy = {
