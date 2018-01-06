@@ -53,11 +53,7 @@ bot.on("messageCreate", function (msg) {
     // let responses = msg.channel.awaitMessages(m => m.content === "yes");
     // if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
-<<<<<<< Updated upstream
-        let feedback = false;
-=======
-        bot.author.feedback = false;
->>>>>>> Stashed changes
+        msg.author.feedback = false;
         if(msg.content.toLowerCase().startsWith("hi")){
         msg.author.getDMChannel().then(c => c.createMessage('Hi, thanks for contacting me! Would you like to submit some anonymous \`feedback\`, a \`suggestion\`, or \`message\` the mods?'));
         msg.channel.awaitMessages(m => m.content === "feedback" && m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
@@ -69,11 +65,7 @@ bot.on("messageCreate", function (msg) {
                         msg.channel.awaitMessages(m => m.author.id == msg.author.id, {maxMatches: 1, time: 300000}).then((responses) => {
                             if(responses.length) {
                                 msg.channel.createMessage("<:bexy:393137089622966272> Thank you so much for your feedback! We promise to keep this anonymous.")
-<<<<<<< Updated upstream
-                                feedback = true
-=======
                                 msg.author.feedback = true;
->>>>>>> Stashed changes
                             }
                             else {
                                 msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 3");
@@ -84,11 +76,7 @@ bot.on("messageCreate", function (msg) {
                     }
                 })
             } else {
-<<<<<<< Updated upstream
-                if (feedback) return
-=======
                 if (msg.author.feedback) return;
->>>>>>> Stashed changes
                 msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 1")
             }
         })
