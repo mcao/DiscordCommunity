@@ -5,8 +5,10 @@ const readdir = require("fs").readdir,
     NITRO_ROLE = `392169841554882570`,
     HYPESQUAD_ROLE = `392169890955395078`,
     PARTNER_ROLE = `392169937755439106`,
-    request = require('superagent');
-
+    request = require('cleverbot');
+    let clev = new Cleverbot({
+        key: 'CC68v6dd86WetHxwJN-KOjqsMxg'
+      });
 module.exports = (bot) => {
     bot.register("ping", (msg, args) => {
         var start = new Date(msg.timestamp).getTime();
@@ -19,11 +21,12 @@ module.exports = (bot) => {
     });
     bot.register("clever", (msg, args) => {
         args = args.join(' ');
-        require('unirest').get("http://www.cleverbot.com/getreply?key=CC68v6dd86WetHxwJN-KOjqsMxg&input=Hello&cs=76nxdxIJ02AAA&callback=JSON")
-        .end(function(res) {
-            var body = res.body
-            var response = JSON.parse(body.substring(5, body.length - 4))
-            msg.channel.createMessage(`**Cleverbot:** ${response.output}`);
+        if (args.toLowerCase().includes('ur stupid')) {
+            msg.channel.createMessage(`No, I\'m not <@${msg.author.id}>. BUT YOU ARE YOU FUCKER`);
+        }
+        clev.query(args)
+            .then(function (response) {
+            msg.channel.createMessage(response.output); 
         });
     }, {
         description: "Talk to the bot!",
