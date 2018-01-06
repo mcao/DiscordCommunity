@@ -53,13 +53,28 @@ bot.on("messageCreate", function (msg) {
     // let responses = msg.channel.awaitMessages(m => m.content === "yes");
     // if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
-        if(msg.content.toLowerCase().startsWith("test")){
-        msg.author.getDMChannel().then(c => c.createMessage('say yes'));
-        msg.channel.awaitMessages(m => m.content === "yes", {maxMatches: 1, time: 10000}).then((responses) => {
-            if(responses.length) { 
-                msg.channel.createMessage("hi lol") 
+        if(msg.content.toLowerCase().startsWith("hi")){
+        msg.author.getDMChannel().then(c => c.createMessage('Hi, thanks for contacting me! Would you like to submit some anonymous \`feedback\`, a \`suggestion\`, or \`message\` the mods?'));
+        msg.channel.awaitMessages(m => m.content === "feedback", {maxMatches: 1, time: 10000}).then((responses) => {
+            if(responses.length) {
+                msg.channel.createMessage("<:bexy:393137089622966272> Nice, let's submit some feedback or a nice suggestion! First, what is the subject/topic gonna be?") 
+                msg.channel.awaitMessages(m => m.content.length > 1, {maxMatches: 1, time: 10000}).then((responses) => {
+                    if(responses.length) {
+                        msg.channel.createMessage("<:bexy:393137089622966272> Awesome! Please describe as detailed as you can on how we can realize this suggestion or implement the feedback!");
+                        msg.channel.awaitMessages(m => m.content.length > 1, {maxMatches: 1, time: 300000}).then((responses) => {
+                            if(responses.length) {
+                                msg.channel.createMessage("<:bexy:393137089622966272> Thank you so much for your feedback! We promise to keep this anonymous.")
+                            }
+                            else {
+                                msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. ");
+                            }
+                        });
+                    } else {
+                        msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again.")
+                    }
+                })
             } else {
-                msg.channel.createMessage("lol u didn't say yes")
+                msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again.")
             }
         })
         
