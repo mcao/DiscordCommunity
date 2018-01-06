@@ -22,10 +22,9 @@ module.exports = (bot) => {
     });
     bot.register("clever", (msg, args) => {
         args = args.join(' ');
-        bot.ask(args, function (err, response) {
+        cbot.ask(args, function (err, response) {
             bot.createMessage(msg.channel.id, `**Discord Hub:** ${response}`)
           });
-        
     }, {
         description: "Talk to the bot!",
         fullDescription: "Speak with Discord Hub when you're feeling **very** lonely."
