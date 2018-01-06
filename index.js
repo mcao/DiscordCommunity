@@ -72,6 +72,78 @@ bot.on("messageCreate", function (msg) {
                             subject = responses[0].content;
                             msg.channel.createMessage('<:bexy:393137089622966272> Great! Now, please type your mail and be as detailed as possible.');
                             msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase()  == 'cancel' && m.content.length > 10, {maxMatches: 1, time: 300000}).then((responses) => {
+                            msg.channel.createMessage('<:bexy:393137089622966272> Thanks! We will get back to you as soon as possible.');
+                            detailedResponse = responses[0].content;
+                            bot.createMessage('392442695756546059', `check devs server, new modmail arrived`);
+                            var nextTicket;
+                            var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
+                            if (existingChan[0]) { // If there's already a channel for that user
+                                nextTicket = nextTicket.replace(`-${msg.author.id}`, ``);
+                            }
+                            else {
+                                nextTicket = Object.keys(bot.tickets).length + 1;
+                            }
+                            var embedy = {
+                                title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
+                                description: `Ticket #${nextTicket}`,
+                                author: {
+                                    name: "Discord Community",
+                                    icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+                                },
+                                thumbnail: {
+                                    url: msg.author.avatarURL.replace("?size=128", "")
+                                },
+                                color: 0x71368a,
+                                fields: [
+                                    {
+                                        name: `Subject/topic:`,
+                                        value: `${subject}`
+                                    },
+                                ],
+                                footer: {
+                                    text: `Do "!claim ${nextTicket}" to claim this ticket.`
+                                },
+                                timestamp: new Date()
+                            };
+                            if (msg.content.length > 1024) { // If message is too big
+                                hastebin(detailedResponse, "txt").then(r => { // Hastebin it
+                                    var message = `The message was too long, it was sent to <${r}>`;
+                                    embedy.fields.push({ name: 'Message:', value: message });
+                                });
+                            }
+                            else {
+                                embedy.fields.push({ name: 'Message:', value: `${detailedResponse}` })
+                            }
+                            var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
+                            if (existingChan[0]) { // If there's already a channel for that user
+                                return existingChan[0].createMessage({ embed: embedy });
+                            }
+                            bot.newTicket(msg.user.id, msg.channel.id, null);
+                            var mailName = `${Object.keys(bot.tickets).length}-${msg.author.id}`; // Channel name
+                            bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
+                                channel.edit({ topic: `User: ${msg.author.username}#${msg.author.discriminator}` });
+                                var channelID;
+                                bot.createMessage('398565803613749259', { embed: embedy });
+                                channel.createMessage({ embed: embedy });
+                            });
+                        }
+                        else {
+                            return msg.channel.createMessage('<:bexn:393137089631354880> An error has occured. Either you have timed out or the response is below 10 characters long. Please start over again.');
+                        }
+                    });
+                    }
+                });
+            }
+        });
+        msg.channel.awaitMessages(m => m.content.toLowerCase() === "suggestion" && m.author.id == msg.author.id, {maxMatches: 1, time: 30000}).then((responses) => {
+            if (responses.length) {
+                msg.channel.createMessage('<:bexy:393137089622966272> Alright, what\'s the topc/subject of your suggestion? **Note:** This is not anonymous.');
+                msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
+                    if(responses.length) {
+                        if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
+                        subject = responses[0].content;
+                        msg.channel.createMessage('<:bexy:393137089622966272> Sweet! Now, please describe your suggestion and be as detailed as possible.');
+                        msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase()  == 'cancel' && m.content.length > 10, {maxMatches: 1, time: 300000}).then((responses) => {
                             if (responses.length) {
                                 if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
                                 msg.channel.createMessage('<:bexy:393137089622966272> Thanks! We will get back to you as soon as possible.');
