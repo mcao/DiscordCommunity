@@ -78,7 +78,7 @@ bot.on("messageCreate", function (msg) {
                                 var embedy = {
                                     title: `New suggestion by ${msg.author.username}#${msg.author.discriminator}`,
                                     thumbnail: {
-                                        url: `${msg.author.avatarURL.replace('?size=124', '')}`
+                                        url: `${msg.author.avatarURL.replace('?size=128', '')}`
                                     },
                                     color: 0x71368a,
                                     fields: [
