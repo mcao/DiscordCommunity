@@ -5,7 +5,7 @@ const readdir = require("fs").readdir,
     NITRO_ROLE = `392169841554882570`,
     HYPESQUAD_ROLE = `392169890955395078`,
     PARTNER_ROLE = `392169937755439106`,
-    request = require('cleverbot');
+    Cleverbot = require('cleverbot');
     let clev = new Cleverbot({
         key: 'CC68v6dd86WetHxwJN-KOjqsMxg'
       });
@@ -26,8 +26,8 @@ module.exports = (bot) => {
         }
         clev.query(args)
             .then(function (response) {
-            msg.channel.createMessage(response.output); 
-        });
+                msg.channel.createMessage(response.output); 
+            });
     }, {
         description: "Talk to the bot!",
         fullDescription: "Speak with Discord Hub when you're feeling **very** lonely."
