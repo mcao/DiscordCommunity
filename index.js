@@ -47,7 +47,7 @@ bot.on("ready", () => {
     };
 });
 
-bot.on("messageCreate", function (msg) {
+bot.on("messageCreate", async function (msg) {
     const yesno = ['bexy:393137089622966272', 'bexn:393137089631354880'];
     // if (msg.channel.type == 1) {
     // let responses = msg.channel.awaitMessages(m => m.content === "yes");
