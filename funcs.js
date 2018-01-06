@@ -82,7 +82,7 @@ module.exports = (bot) => {
             return v;
         });
         non_leaderboard.forEach((v) => {
-                bot.removeGuildMemberRole('358528040617377792', v.toString(), '393606924433752064', 'User fell out of top twenty');
+                bot.removeGuildMemberRole('358528040617377792', v.toString(), '393606924433752064', 'User fell out of top twenty').then(() => {}).catch(() => {})
 
         })
     }
