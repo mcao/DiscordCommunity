@@ -95,7 +95,7 @@ module.exports = (bot) => {
                 if (bot.profiles[msg.author.id].messageCount > profiles[i].points &&
                     bot.profiles[msg.author.id].lastRankAssignment - 1 < i &&
                     profiles[i].points > -1) {
-                    var role = msg.channel.guild.roles.get(profiles[i].id)
+                    var role = msg.channel.guild.roles.get(profiles[i].id);
                     bot.createMessage(msg.channel.id, `Congratulations <@${msg.author.id}>, you have achieved **${role.name}**! 🎉🎉🎉`)
                     bot.profiles[msg.author.id].lastRankAssignment++;
                     msg.addReaction("🎉");
