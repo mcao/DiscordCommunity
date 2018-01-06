@@ -53,15 +53,17 @@ bot.on("messageCreate", function (msg) {
     // let responses = msg.channel.awaitMessages(m => m.content === "yes");
     // if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
+        if(msg.conent.toLowerCase.startsWith("test")){
         msg.author.getDMChannel().then(c => c.createMessage('say yes'));
-        let responses = msg.channel.awaitMessages(m => m.content === "yes", {maxMatches: 1, time: 10000}).then((responses) => {
+        msg.channel.awaitMessages(m => m.content === "yes", {maxMatches: 1, time: 10000}).then((responses) => {
             if(responses.length) { 
                 msg.channel.sendMessage("hi lol") 
             } else {
-                msg.channel.sendMessage("lol u didn't say hi")
+                msg.channel.sendMessage("lol u didn't say yes")
             }
-        });
+        })
         
+    }
 
        
         if (msg.content.toLowerCase().startsWith('feedback')) {
