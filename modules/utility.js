@@ -19,9 +19,9 @@ module.exports = (bot) => {
     });
     bot.register("clever", (msg, args) => {
         args = args.join(' ');
-        request.get('http://www.cleverbot.com/getreply&cs=76nxdxIJ02AAA&callback=ProcessReply')
+        request.get('https://www.cleverbot.com/getreply')
         .set({'key': 'CC68v6dd86WetHxwJN-KOjqsMxg'})
-        .query({'input': args})
+        .set({'input': args})
         .end(function(res) {
             console.log(res);
         });
