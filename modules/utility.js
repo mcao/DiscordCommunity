@@ -21,8 +21,9 @@ module.exports = (bot) => {
         args = args.join(' ');
         request.get('http://www.cleverbot.com/getreply?key=CC68v6dd86WetHxwJN-KOjqsMxg&input=Hello&cs=76nxdxIJ02AAA&callback=ProcessReply')
         .end(function(res) {
-            console.log(res);
-            console.log('HI JOSEPH: ' + res.output)
+            var parsedJson = JSON.parse(res.text);
+            console.log(parsedJson);
+            console.log('HI JOSEPH: ' + parsedJson.output)
         });
     }, {
         description: "Talk to the bot!",
