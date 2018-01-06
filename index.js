@@ -55,7 +55,7 @@ bot.on("messageCreate", async function (msg) {
     if (msg.channel.type == 1) {
         msg.author.getDMChannel().then(c => c.createMessage('say yes'));
         let responses = await msg.channel.awaitMessages(m => m.content === "yes");
-        if(responses.length) msg.channel.createMessage("you said yes ");
+        if(responses.length) msg.channel.createMessage("you said yes");
 
         else message.channel.createMessage("You didn't say yes :(");
         if(responses.length) bot.createMessage(msg.channel.id, "you said yes");

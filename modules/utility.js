@@ -4,8 +4,12 @@ const readdir = require("fs").readdir,
     hastebin = require('hastebin-gen'),
     NITRO_ROLE = `392169841554882570`,
     HYPESQUAD_ROLE = `392169890955395078`,
-    PARTNER_ROLE = `392169937755439106`;
+    PARTNER_ROLE = `392169937755439106`,
+    cleverbot = require("cleverbot.io"),
+    cbot = new cleverbot("2SdhrLJP6NuXAsEM", "q2DN9aQMWiSxm4WBcLbTV1kYNT8o2eiO");
+    cbot.create(function (err, session) {
 
+    });
 module.exports = (bot) => {
     bot.register("ping", (msg, args) => {
         var start = new Date(msg.timestamp).getTime();
@@ -15,6 +19,16 @@ module.exports = (bot) => {
     }, {
         description: "Pong!",
         fullDescription: "This command is used to check the bot's latency, or if it's up."
+    });
+    bot.register("clever", (msg, args) => {
+        args = args.join(' ');
+        bot.ask(args, function (err, response) {
+            bot.createMessage(msg.channel.id, `**Discord Hub:** ${response}`)
+          });
+        
+    }, {
+        description: "Talk to the bot!",
+        fullDescription: "Speak with Discord Hub when you're feeling **very** lonely."
     });
 
     bot.register("nitro", (msg, args) => {
