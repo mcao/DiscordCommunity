@@ -78,7 +78,7 @@ bot.on("messageCreate", function (msg) {
                             detailedResponse = responses[0].content;
                             bot.createMessage('392442695756546059', `check devs server, new modmail arrived`);
                             var nextTicket = 0;
-                            for (let key in bot.profiles) {
+                            for (let key in bot.tickets) {
                                 if (bot.tickets.hasOwnProperty(key)) size++;
                             }
                             nextTicket = +1;
