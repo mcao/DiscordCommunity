@@ -58,95 +58,35 @@ bot.on("messageCreate", function (msg) {
     // if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
         msg.author.feedback = false;
-        if(msg.content.toLowerCase().startsWith("start") || msg.content.toLowerCase().startsWith("begin")) {
-        var subject;
-        var detailedResponse;
-        msg.author.getDMChannel().then(c => c.createMessage('Hi, thanks for contacting me! Would you like to submit some anonymous \`feedback\`, a \`suggestion\`, or \`message\` the mods?'));
-        msg.channel.awaitMessages(m => m.content.toLowerCase() === "message" && m.author.id == msg.author.id, {maxMatches: 1, time: 30000}).then((responses) => {
-            if (responses) {
-                if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
-                msg.channel.createMessage('<:bexy:393137089622966272> Sure thing! What\'s the subject/topic of your mail?');
-                msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
-                    if(responses.length) {
-                        if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
-                        subject = responses[0].content;
-                        msg.channel.createMessage('<:bexy:393137089622966272> Great! Now, please type your mail and be as detailed as possible.');
-                        msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase()  == 'cancel' && m.content.length > 10, {maxMatches: 1, time: 300000}).then((responses) => {
-                        if (responses.length) {
+        if (msg.content.toLowerCase().startsWith("start") || msg.content.toLowerCase().startsWith("begin")) {
+            var subject;
+            var detailedResponse;
+            msg.author.getDMChannel().then(c => c.createMessage('Hi, thanks for contacting me! Would you like to submit some anonymous \`feedback\`, a \`suggestion\`, or \`message\` the mods?'));
+            msg.channel.awaitMessages(m => m.content.toLowerCase() === "message" && m.author.id == msg.author.id, {maxMatches: 1, time: 30000}).then((responses) => {
+                if (responses) {
+                    if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
+                    msg.channel.createMessage('<:bexy:393137089622966272> Sure thing! What\'s the subject/topic of your mail?');
+                    msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
+                        if(responses.length) {
                             if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
-                            msg.channel.createMessage('<:bexy:393137089622966272> Thanks! We will get back to you as soon as possible.');
-                            detailedResponse = responses[0].content;
-                            bot.createMessage('392442695756546059', `check devs server, new modmail arrived`);
-                            
-                            var embedy = {
-                                title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
-                                description: `Ticket #${nextTicket}`,
-                                author: {
-                                    name: "Discord Community",
-                                    icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
-                                },
-                                thumbnail: {
-                                    url: msg.author.avatarURL.replace("?size=128", "")
-                                },
-                                color: 0x71368a,
-                                fields: [
-                                    {
-                                        name: `Subject/topic:`,
-                                        value: `${subject}`
-                                    },
-                                ],
-                                footer: {
-                                    text: `Do "!claim ${nextTicket}" to claim this ticket.`
-                                },
-                                timestamp: new Date()
-                            };
-                            if (msg.content.length > 1024) { // If message is too big
-                                hastebin(detailedResponse, "txt").then(r => { // Hastebin it
-                                    var message = `The message was too long, it was sent to <${r}>`;
-                                    embedy.fields.push({ name: 'Message:', value: message });
-                                });
-                            }
-                            else {
-                                embedy.fields.push({ name: 'Message:', value: `${detailedResponse}` })
-                            }
-                            var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
-                            if (existingChan[0]) { // If there's already a channel for that user
-                                return existingChan[0].createMessage({ embed: embedy });
-                            }
-                            bot.newTicket(msg.user.id, msg.channel.id, null);
-                            var mailName = `${Object.keys(bot.tickets).length}-${msg.author.id}`; // Channel name
-                            bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
-                                channel.edit({ topic: `User: ${msg.author.username}#${msg.author.discriminator}` });
-                                var channelID;
-                                bot.createMessage('398565803613749259', { embed: embedy });
-                                channel.createMessage({ embed: embedy });
-                            });
-                        }
-                        else {
-                            return msg.channel.createMessage('<:bexn:393137089631354880> An error has occured. Either you have timed out or the response is below 10 characters long. Please start over again.');
-                        }
-                    });
-                    }
-                });
-            }
-        });
-        msg.channel.awaitMessages(m => m.content.toLowerCase() === "suggestion" && m.author.id == msg.author.id, {maxMatches: 1, time: 30000}).then((responses) => {
-            if (responses.length) {
-                msg.channel.createMessage('<:bexy:393137089622966272> Alright, what\'s the topc/subject of your suggestion? **Note:** This is not anonymous.');
-                msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
-                    if(responses.length) {
-                        if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
-                        subject = responses[0].content;
-                        msg.channel.createMessage('<:bexy:393137089622966272> Sweet! Now, please describe your suggestion and be as detailed as possible.');
-                        msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase()  == 'cancel' && m.content.length > 10, {maxMatches: 1, time: 300000}).then((responses) => {
+                            subject = responses[0].content;
+                            msg.channel.createMessage('<:bexy:393137089622966272> Great! Now, please type your mail and be as detailed as possible.');
+                            msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase()  == 'cancel' && m.content.length > 10, {maxMatches: 1, time: 300000}).then((responses) => {
                             if (responses.length) {
-                                if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.');
-                                msg.channel.createMessage('<:bexy:393137089622966272> Thank you so much for submitting your suggestion, we always appreciate suggestions to improve the community!');
+                                if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
+                                msg.channel.createMessage('<:bexy:393137089622966272> Thanks! We will get back to you as soon as possible.');
                                 detailedResponse = responses[0].content;
+                                bot.createMessage('392442695756546059', `check devs server, new modmail arrived`);
+                                
                                 var embedy = {
-                                    title: `New suggestion by ${msg.author.username}#${msg.author.discriminator}`,
+                                    title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
+                                    description: `Ticket #${nextTicket}`,
+                                    author: {
+                                        name: "Discord Community",
+                                        icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+                                    },
                                     thumbnail: {
-                                        url: `${msg.author.avatarURL.replace('?size=128', '')}`
+                                        url: msg.author.avatarURL.replace("?size=128", "")
                                     },
                                     color: 0x71368a,
                                     fields: [
@@ -155,91 +95,150 @@ bot.on("messageCreate", function (msg) {
                                             value: `${subject}`
                                         },
                                     ],
+                                    footer: {
+                                        text: `Do "!claim ${nextTicket}" to claim this ticket.`
+                                    },
                                     timestamp: new Date()
                                 };
-                                if (detailedResponse.length > 1024) { // If message is too big
+                                if (msg.content.length > 1024) { // If message is too big
                                     hastebin(detailedResponse, "txt").then(r => { // Hastebin it
                                         var message = `The message was too long, it was sent to <${r}>`;
-                                        embedy.fields.push({
-                                            name: 'Suggestion:',
-                                            value: message
-                                        });
-                                        bot.createMessage('392442695756546059', {embed: embedy});
+                                        embedy.fields.push({ name: 'Message:', value: message });
                                     });
                                 }
                                 else {
-                                    embedy.fields.push({
-                                        name: 'Suggestion:',
-                                        value: detailedResponse
-                                    });
-                                    bot.createMessage('392442695756546059', {embed: embedy});
+                                    embedy.fields.push({ name: 'Message:', value: `${detailedResponse}` })
                                 }
+                                var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
+                                if (existingChan[0]) { // If there's already a channel for that user
+                                    return existingChan[0].createMessage({ embed: embedy });
+                                }
+                                bot.newTicket(msg.user.id, msg.channel.id, null);
+                                var mailName = `${Object.keys(bot.tickets).length}-${msg.author.id}`; // Channel name
+                                bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
+                                    channel.edit({ topic: `User: ${msg.author.username}#${msg.author.discriminator}` });
+                                    var channelID;
+                                    bot.createMessage('398565803613749259', { embed: embedy });
+                                    channel.createMessage({ embed: embedy });
+                                });
                             }
                             else {
                                 return msg.channel.createMessage('<:bexn:393137089631354880> An error has occured. Either you have timed out or the response is below 10 characters long. Please start over again.');
                             }
                         });
-                    }   
-                });
-            }
-        });
-        msg.channel.awaitMessages(m => m.content.toLowerCase() === "feedback" && m.author.id == msg.author.id, {maxMatches: 1, time: 30000}).then((responses) => {
-            if(responses.length) {
-                msg.channel.createMessage("<:bexy:393137089622966272> Nice, let's submit some feedback or a nice suggestion! First, what is the subject/topic gonna be?") 
-                msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
-                    if(responses.length) {
-                        if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
-                        subject = responses[0].content;
-                        msg.channel.createMessage("<:bexy:393137089622966272> Awesome! Please describe as detailed as you can on how we can realize this suggestion or implement the feedback!");
-                        msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 300000}).then((responses) => {
-                            detailedResponse = responses[0].content;
-                            if(responses.length) {
-                                if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
-                                msg.channel.createMessage("<:bexy:393137089622966272> Thank you so much for your feedback! We promise to keep this anonymous.")
-                                msg.author.feedback = true;
-                                var embedy = {
-                                    title: `New anonymous feedback!`,
-                                    color: 0x71368a,
-                                    fields: [
-                                        {
-                                            name: `Subject/topic:`,
-                                            value: `${subject}`
+                        }
+                    });
+                }
+            });
+            msg.channel.awaitMessages(m => m.content.toLowerCase() === "suggestion" && m.author.id == msg.author.id, {maxMatches: 1, time: 30000}).then((responses) => {
+                if (responses.length) {
+                    msg.channel.createMessage('<:bexy:393137089622966272> Alright, what\'s the topc/subject of your suggestion? **Note:** This is not anonymous.');
+                    msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
+                        if(responses.length) {
+                            if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
+                            subject = responses[0].content;
+                            msg.channel.createMessage('<:bexy:393137089622966272> Sweet! Now, please describe your suggestion and be as detailed as possible.');
+                            msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase()  == 'cancel' && m.content.length > 10, {maxMatches: 1, time: 300000}).then((responses) => {
+                                if (responses.length) {
+                                    if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.');
+                                    msg.channel.createMessage('<:bexy:393137089622966272> Thank you so much for submitting your suggestion, we always appreciate suggestions to improve the community!');
+                                    detailedResponse = responses[0].content;
+                                    var embedy = {
+                                        title: `New suggestion by ${msg.author.username}#${msg.author.discriminator}`,
+                                        thumbnail: {
+                                            url: `${msg.author.avatarURL.replace('?size=128', '')}`
                                         },
-                                    ],
-                                    timestamp: new Date()
-                                };
-                                if (detailedResponse.length > 1024) { // If message is too big
-                                    hastebin(detailedResponse, "txt").then(r => { // Hastebin it
-                                        var message = `The message was too long, it was sent to <${r}>`;
+                                        color: 0x71368a,
+                                        fields: [
+                                            {
+                                                name: `Subject/topic:`,
+                                                value: `${subject}`
+                                            },
+                                        ],
+                                        timestamp: new Date()
+                                    };
+                                    if (detailedResponse.length > 1024) { // If message is too big
+                                        hastebin(detailedResponse, "txt").then(r => { // Hastebin it
+                                            var message = `The message was too long, it was sent to <${r}>`;
+                                            embedy.fields.push({
+                                                name: 'Suggestion:',
+                                                value: message
+                                            });
+                                            bot.createMessage('392442695756546059', {embed: embedy});
+                                        });
+                                    }
+                                    else {
                                         embedy.fields.push({
-                                            name: 'Feedback:',
-                                            value: message
+                                            name: 'Suggestion:',
+                                            value: detailedResponse
                                         });
                                         bot.createMessage('392442695756546059', {embed: embedy});
-                                    });
+                                    }
                                 }
                                 else {
-                                    embedy.fields.push({
-                                        name: 'Feedback:',
-                                        value: detailedResponse
-                                    });
-                                    bot.createMessage('392442695756546059', {embed: embedy});
+                                    return msg.channel.createMessage('<:bexn:393137089631354880> An error has occured. Either you have timed out or the response is below 10 characters long. Please start over again.');
                                 }
-                            }
-                            else {
-                                msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 3");
-                            }
-                        });
-                    } else {
-                        msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 2")
-                    }
-                })
-            } else {
-               // lol ok
-            }
-        })
-        
-    }
+                            });
+                        }   
+                    });
+                }
+            });
+            msg.channel.awaitMessages(m => m.content.toLowerCase() === "feedback" && m.author.id == msg.author.id, {maxMatches: 1, time: 30000}).then((responses) => {
+                if(responses.length) {
+                    msg.channel.createMessage("<:bexy:393137089622966272> Nice, let's submit some feedback or a nice suggestion! First, what is the subject/topic gonna be?") 
+                    msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
+                        if(responses.length) {
+                            if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
+                            subject = responses[0].content;
+                            msg.channel.createMessage("<:bexy:393137089622966272> Awesome! Please describe as detailed as you can on how we can realize this suggestion or implement the feedback!");
+                            msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 300000}).then((responses) => {
+                                detailedResponse = responses[0].content;
+                                if(responses.length) {
+                                    if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
+                                    msg.channel.createMessage("<:bexy:393137089622966272> Thank you so much for your feedback! We promise to keep this anonymous.")
+                                    msg.author.feedback = true;
+                                    var embedy = {
+                                        title: `New anonymous feedback!`,
+                                        color: 0x71368a,
+                                        fields: [
+                                            {
+                                                name: `Subject/topic:`,
+                                                value: `${subject}`
+                                            },
+                                        ],
+                                        timestamp: new Date()
+                                    };
+                                    if (detailedResponse.length > 1024) { // If message is too big
+                                        hastebin(detailedResponse, "txt").then(r => { // Hastebin it
+                                            var message = `The message was too long, it was sent to <${r}>`;
+                                            embedy.fields.push({
+                                                name: 'Feedback:',
+                                                value: message
+                                            });
+                                            bot.createMessage('392442695756546059', {embed: embedy});
+                                        });
+                                    }
+                                    else {
+                                        embedy.fields.push({
+                                            name: 'Feedback:',
+                                            value: detailedResponse
+                                        });
+                                        bot.createMessage('392442695756546059', {embed: embedy});
+                                    }
+                                }
+                                else {
+                                    msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 3");
+                                }
+                            });
+                        } else {
+                            msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 2")
+                        }
+                    })
+                } else {
+                // lol ok
+                }
+            })
+        }
 
 
         
@@ -274,7 +273,7 @@ bot.on("messageCreate", function (msg) {
                 bot.incrementMessage(msg)
                 setTimeout(() => {
                     bot.cooldowns.delete(msg.author.id);
-                }, 10 * 1000)
+                }, 3 * 1000)
             }
         }
         if (msg.channel.id == "397522914955755531" && msg.author.id == "392445621165883392") {
