@@ -66,15 +66,15 @@ bot.on("messageCreate", function (msg) {
                                 msg.channel.createMessage("<:bexy:393137089622966272> Thank you so much for your feedback! We promise to keep this anonymous.")
                             }
                             else {
-                                msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. ");
+                                msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 3");
                             }
                         });
                     } else {
-                        msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again.")
+                        msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 2")
                     }
                 })
             } else {
-                msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again.")
+                msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 1")
             }
         })
         
