@@ -54,6 +54,7 @@ bot.on("messageCreate", function (msg) {
     //if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
         if (msg.content.toLowerCase().startsWith('feedback')) {
+            var args = msg.content.toLowerCase().replace('feedback:', '');
             var embedy = {
                 title: `New anonymous feedback!`,
                 author: {
