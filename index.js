@@ -53,8 +53,10 @@ bot.on("messageCreate", function (msg) {
     // let responses = msg.channel.awaitMessages(m => m.content === "yes");
     //if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
+        msg.author.getDMChannel().then(c => c.createMessage('say yes'));
+        let responses = msg.channel.awaitMessages(m => m.content === "yes");
+        if(responses.length) bot.createMessage(msg.channel.id, "you said yes");
         if (msg.content.toLowerCase().startsWith('feedback')) {
-            var args = msg.content.toLowerCase().replace('feedback:', '');
             if (args.length < 20) return bot.createMessage('Please provide a response longer than 20 characters.');
             var embedy = {
                 title: `New anonymous feedback!`,
