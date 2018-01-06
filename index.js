@@ -53,7 +53,7 @@ bot.on("messageCreate", function (msg) {
     // let responses = msg.channel.awaitMessages(m => m.content === "yes");
     // if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
-        bot.feedback = false;
+        msg.feedback = false;
         if(msg.content.toLowerCase().startsWith("hi")){
         msg.author.getDMChannel().then(c => c.createMessage('Hi, thanks for contacting me! Would you like to submit some anonymous \`feedback\`, a \`suggestion\`, or \`message\` the mods?'));
         msg.channel.awaitMessages(m => m.content === "feedback" && m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
