@@ -7,9 +7,7 @@ const readdir = require("fs").readdir,
     PARTNER_ROLE = `392169937755439106`,
     cleverbot = require("cleverbot.io"),
     cbot = new cleverbot("2SdhrLJP6NuXAsEM", "q2DN9aQMWiSxm4WBcLbTV1kYNT8o2eiO");
-    cbot.create(function (err, session) {
 
-    });
 module.exports = (bot) => {
     bot.register("ping", (msg, args) => {
         var start = new Date(msg.timestamp).getTime();
@@ -22,11 +20,11 @@ module.exports = (bot) => {
     });
     bot.register("clever", (msg, args) => {
         args = args.join(' ');
-        bot.create(function (err, session) {
-        cbot.ask(args, function (err, response) {
-            if (err) return console.log(err);
-            bot.createMessage(msg.channel.id, `**Discord Hub:** ${response}`)
-          });
+        cbot.create(function (err, session) {
+            cbot.ask(args, function (err, response) {
+                if (err) return console.log(err);
+                bot.createMessage(msg.channel.id, `**Discord Hub:** ${response}`);
+            });
         });
     }, {
         description: "Talk to the bot!",
