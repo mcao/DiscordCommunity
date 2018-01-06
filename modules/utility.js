@@ -19,9 +19,11 @@ module.exports = (bot) => {
         fullDescription: "This command is used to check the bot's latency, or if it's up."
     });
     bot.register("clever", (msg, args) => {
+        const SESSION_NAME = 'hi';
+        cbot.setNick(SESSION_NAME);
         args = args.join(' ');
-        cbot.create(function (err, session) {
-            cbot.ask(args, function (err, response) {
+        cbot.create(function (err, SESSION_NAME) {
+            cbot.ask(args, function (err, res) {
                 if (err) return console.log(err);
                 bot.createMessage(msg.channel.id, `**Discord Hub:** ${response}`);
             });
