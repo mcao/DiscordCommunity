@@ -67,10 +67,10 @@ bot.on("messageCreate", function (msg) {
                 msg.channel.createMessage("<:bexy:393137089622966272> Nice, let's submit some feedback or a nice suggestion! First, what is the subject/topic gonna be?") 
                 msg.channel.awaitMessages(m => m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
                     if(responses.length) {
-                        //subject = `${m.content}`;
+                        subject = responses[0].content;
                         msg.channel.createMessage("<:bexy:393137089622966272> Awesome! Please describe as detailed as you can on how we can realize this suggestion or implement the feedback!");
                         msg.channel.awaitMessages(m => m.author.id == msg.author.id, {maxMatches: 1, time: 300000}).then((responses) => {
-                            //detailedResponse = `${m.content}`;
+                            detailedResponse = responses[0].content;
                             if(responses.length) {
                                 msg.channel.createMessage("<:bexy:393137089622966272> Thank you so much for your feedback! We promise to keep this anonymous.")
                                 msg.author.feedback = true;
@@ -84,11 +84,11 @@ bot.on("messageCreate", function (msg) {
                                     fields: [
                                         {
                                             name: `Subject/topic:`,
-                                            value: `hi`
+                                            value: `${subject}`
                                         },
                                         {
                                             name: `Feedback:`,
-                                            value: `hi`
+                                            value: `${detailedResponse}`
                                         }
                                     ],
                                     timestamp: new Date()
