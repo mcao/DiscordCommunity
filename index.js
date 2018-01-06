@@ -58,18 +58,42 @@ bot.on("messageCreate", function (msg) {
     // if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type == 1) {
         msg.author.feedback = false;
-        if(msg.content.toLowerCase().startsWith("hi")){
+        if(msg.content.toLowerCase().startsWith("hi")) {
+        var subject;
+        var detailedResponse;
         msg.author.getDMChannel().then(c => c.createMessage('Hi, thanks for contacting me! Would you like to submit some anonymous \`feedback\`, a \`suggestion\`, or \`message\` the mods?'));
         msg.channel.awaitMessages(m => m.content === "feedback" && m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
             if(responses.length) {
                 msg.channel.createMessage("<:bexy:393137089622966272> Nice, let's submit some feedback or a nice suggestion! First, what is the subject/topic gonna be?") 
                 msg.channel.awaitMessages(m => m.author.id == msg.author.id, {maxMatches: 1, time: 10000}).then((responses) => {
                     if(responses.length) {
+                        subject = responses[0].content;
                         msg.channel.createMessage("<:bexy:393137089622966272> Awesome! Please describe as detailed as you can on how we can realize this suggestion or implement the feedback!");
                         msg.channel.awaitMessages(m => m.author.id == msg.author.id, {maxMatches: 1, time: 300000}).then((responses) => {
+                            detailedResponse = responses[0].content;
                             if(responses.length) {
                                 msg.channel.createMessage("<:bexy:393137089622966272> Thank you so much for your feedback! We promise to keep this anonymous.")
                                 msg.author.feedback = true;
+                                var embedy = {
+                                    title: `New anonymous feedback!`,
+                                    author: {
+                                        name: "Discord Community",
+                                        icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
+                                    },
+                                    color: 0x71368a,
+                                    fields: [
+                                        {
+                                            name: `Subject/topic:`,
+                                            value: `${subject}`
+                                        },
+                                        {
+                                            name: `Feedback:`,
+                                            value: `${detailedResponse}`
+                                        }
+                                    ],
+                                    timestamp: new Date()
+                                };
+                                bot.createMessage('392442695756546059', {embed: embedy})
                             }
                             else {
                                 msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 3");
