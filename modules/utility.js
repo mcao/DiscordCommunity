@@ -19,11 +19,11 @@ module.exports = (bot) => {
     });
     bot.register("clever", (msg, args) => {
         args = args.join(' ');
-        request.get('http://www.cleverbot.com/getreply?key=CC68v6dd86WetHxwJN-KOjqsMxg&input=Hello&cs=76nxdxIJ02AAA&callback=JSON')
-        .end(function(err, res) {
-            var parsedJson = JSON.parse(res.text);
-            console.log(parsedJson);
-            console.log('HI JOSEPH: ' + parsedJson.output)
+        require('unirest').get("http://www.cleverbot.com/getreply?key=CC68v6dd86WetHxwJN-KOjqsMxg&input=Hello&cs=76nxdxIJ02AAA&callback=JSON")
+        .end(function(res) {
+            var body = res.body
+            var response = JSON.parse(body.substring(5, body.length - 4))
+            msg.channel.createMessage(`**Cleverbot:** ${response.output}`);
         });
     }, {
         description: "Talk to the bot!",
