@@ -91,7 +91,23 @@ bot.on("messageCreate", function (msg) {
                                     ],
                                     timestamp: new Date()
                                 };
-                                bot.createMessage('392442695756546059', {embed: embedy})
+                                if (detailedResponse.length > 1024) { // If message is too big
+                                    hastebin(detailedResponse, "txt").then(r => { // Hastebin it
+                                        var message = `The message was too long, it was sent to <${r}>`;
+                                        embedy.fields.push({
+                                            name: 'Feedback:',
+                                            value: message
+                                        });
+                                        bot.createMessage('392442695756546059', {embed: embedy});
+                                    });
+                                }
+                                else {
+                                    embedy.fields.push({
+                                        name: 'Feedback:',
+                                        value: detailedResponse
+                                    });
+                                    bot.createMessage('392442695756546059', {embed: embedy});
+                                }
                             }
                             else {
                                 msg.channel.createMessage("<:bexn:393137089631354880> You took too long to reply, please try again. 3");
