@@ -75,7 +75,6 @@ bot.on("messageCreate", function (msg) {
                                     if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
                                     msg.channel.createMessage('<:bexy:393137089622966272> Thanks! We will get back to you as soon as possible.');
                                     detailedResponse = responses[0].content;
-                                    bot.createMessage('392442695756546059', `check devs server, new modmail arrived. i have been smarter, this is the modmail channel: <#${existingChan[0].id}>`);
                                     var nextTicket;
                                     var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
                                     if (existingChan[0]) { // If there's already a channel for that user
@@ -119,14 +118,17 @@ bot.on("messageCreate", function (msg) {
                                     if (existingChan[0]) { // If there's already a channel for that user
                                         return existingChan[0].createMessage({ embed: embedy });
                                     }
-                                    bot.newTicket(msg.user.id, msg.channel.id, null);
-                                    var mailName = `${Object.keys(bot.tickets).length}-${msg.author.id}`; // Channel name
-                                    bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
-                                        channel.edit({ topic: `User: ${msg.author.username}#${msg.author.discriminator}` });
-                                        var channelID;
-                                        bot.createMessage('398565803613749259', { embed: embedy });
-                                        channel.createMessage({ embed: embedy });
-                                    });
+                                    else {
+                                        bot.newTicket(msg.user.id, msg.channel.id, null);
+                                        var mailName = `${Object.keys(bot.tickets).length}-${msg.author.id}`; // Channel name
+                                        bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
+                                            channel.edit({ topic: `User: ${msg.author.username}#${msg.author.discriminator}` });
+                                            var channelID;
+                                            bot.createMessage('398565803613749259', { embed: embedy });
+                                            channel.createMessage({ embed: embedy });
+                                        });
+                                    }
+                                    bot.createMessage('392442695756546059', `check devs server, new modmail arrived. i have been smarter, this is the modmail channel: <#${bot.guilds.get(TEST_GUILD).channels.filter(c => c.name == `${nextTicket}-${msg.author.id}`)[0].id}>`);
                                 }
                                 else {
                                     return msg.channel.createMessage('<:bexn:393137089631354880> An error has occured. Either you have timed out or the response is below 10 characters long. Please start over again.');
