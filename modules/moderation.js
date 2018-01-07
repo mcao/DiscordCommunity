@@ -284,9 +284,10 @@ module.exports = (bot) => {
 
     bot.register("claim", (msg, args) => {
         args = args.join(' ');
-        if (!args.length) return msg.channel.createMessage('Please provide an ID <:bexn:393137089631354880>');
-        if (!bot.tickets[args]) return msg.channel.createMessage('Invalid ID <:bexn:393137089631354880>')
-        msg.channel.createMessage(`<@${msg.author.id}>, you have claimed ticket \`${args}\``);
+        // if (!args.length) return msg.channel.createMessage('Please provide an ID <:bexn:393137089631354880>');
+        // if (!bot.tickets[args]) return msg.channel.createMessage('Invalid ID <:bexn:393137089631354880>')
+        // msg.channel.createMessage(`<@${msg.author.id}>, you have claimed ticket \`${args}\``);
+        msg.channel.createMessage("Listen. I don't work, stop hecking using me <:bexangry:390557738473881601> 😠")
     }, {
         description: "Claim a modmail ticket.",
         fullDescription: "Claim a ticket for mod mail, to respond to a user.",
