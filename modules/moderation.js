@@ -292,7 +292,7 @@ module.exports = (bot) => {
         description: "Claim a modmail ticket.",
         fullDescription: "Claim a ticket for mod mail, to respond to a user.",
         requirements: {
-            roleIDs: ['392157971507052554', '392150288729112587'],
+            roleIDs: ['392157971507052554', '392150288729112587', '397192363031789578'],
         }
     });
 
