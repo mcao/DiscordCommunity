@@ -151,19 +151,14 @@ bot.on("messageCreate", function (msg) {
                         msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase()  == 'cancel' && m.content.length > 10, {maxMatches: 1, time: 300000}).then((responses) => {
                             if (responses.length) {
                                 if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
-                                msg.channel.createMessage('<:bexy:393137089622966272> Thanks! We will get back to you as soon as possible.');
+                                msg.channel.createMessage('<:bexy:393137089622966272> Thank you so much for suggesting! We will review your suggestion and will get back to you as soon as possible.');
                                 detailedResponse = responses[0].content;
-                                bot.createMessage('392442695756546059', `check devs server, new modmail arrived`);
                                 
                                 var embedy = {
-                                    title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
-                                    description: `Ticket #${nextTicket}`,
+                                    title: `New suggestion from ${msg.author.username}#${msg.author.discriminator}`,
                                     author: {
                                         name: "Discord Community",
                                         icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
-                                    },
-                                    thumbnail: {
-                                        url: msg.author.avatarURL.replace("?size=128", "")
                                     },
                                     color: 0x71368a,
                                     fields: [
@@ -172,32 +167,18 @@ bot.on("messageCreate", function (msg) {
                                             value: `${subject}`
                                         },
                                     ],
-                                    footer: {
-                                        text: `Do "!claim ${nextTicket}" to claim this ticket.`
-                                    },
                                     timestamp: new Date()
                                 };
-                                if (msg.content.length > 1024) { // If message is too big
+                                if (detailedResponse.length > 1024) { // If message is too big
                                     hastebin(detailedResponse, "txt").then(r => { // Hastebin it
                                         var message = `The message was too long, it was sent to <${r}>`;
-                                        embedy.fields.push({ name: 'Message:', value: message });
+                                        embedy.fields.push({ name: 'Suggestion:', value: message });
                                     });
                                 }
                                 else {
-                                    embedy.fields.push({ name: 'Message:', value: `${detailedResponse}` })
+                                    embedy.fields.push({ name: 'Suggestion:', value: `${detailedResponse}` })
                                 }
-                                var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
-                                if (existingChan[0]) { // If there's already a channel for that user
-                                    return existingChan[0].createMessage({ embed: embedy });
-                                }
-                                bot.newTicket(msg.user.id, msg.channel.id, null);
-                                var mailName = `${Object.keys(bot.tickets).length}-${msg.author.id}`; // Channel name
-                                bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
-                                    channel.edit({ topic: `User: ${msg.author.username}#${msg.author.discriminator}` });
-                                    var channelID;
-                                    bot.createMessage('398565803613749259', { embed: embedy });
-                                    channel.createMessage({ embed: embedy });
-                                });
+                                client.createMessage('392442695756546059', {embed: embedy})
                             }
                             else {
                                 return msg.channel.createMessage('<:bexn:393137089631354880> An error has occured. Either you have timed out or the response is below 10 characters long. Please start over again.');
