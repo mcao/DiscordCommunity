@@ -120,11 +120,10 @@ bot.on("messageCreate", function (msg) {
                                         return existingChan[0].createMessage({ embed: embedy });
                                     }
                                     else {
-                                        bot.newTicket(msg.user.id, msg.channel.id, null);
-                                        var mailName = `${Object.keys(bot.tickets).length}-${msg.author.id}`; // Channel name
+                                        bot.newTicket(msg.author.id, msg.channel.id, null);
+                                        var mailName = `${Object.keys(bot.tickets).length+1}-${msg.author.id}`; // Channel name
                                         bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
                                             channel.edit({ topic: `User: ${msg.author.username}#${msg.author.discriminator}` });
-                                            var channelID;
                                             bot.createMessage('398565803613749259', { embed: embedy });
                                             channel.createMessage({ embed: embedy });
                                         });
