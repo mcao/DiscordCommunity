@@ -154,7 +154,7 @@ bot.on("messageCreate", function (msg) {
                                     msg.channel.createMessage('<:bexy:393137089622966272> Thank you so much for submitting your suggestion, we always appreciate suggestions to improve the community!');
                                     detailedResponse = responses[0].content;
                                     var embedy = {
-                                        title: `New suggestion by ${msg.author.username}#${msg.author.discriminator}`,
+                                        title: `New suggestion!`,
                                         thumbnail: {
                                             url: `${msg.author.avatarURL.replace('?size=128', '')}`
                                         },
@@ -165,6 +165,9 @@ bot.on("messageCreate", function (msg) {
                                                 value: `${subject}`
                                             },
                                         ],
+                                        footer: {
+                                            text:  `suggested by ${msg.author.username}#${msg.author.discriminator}`
+                                        },
                                         timestamp: new Date()
                                     };
                                     if (detailedResponse.length > 1024) { // If message is too big
