@@ -128,7 +128,7 @@ bot.on("messageCreate", function (msg) {
                                             channel.createMessage({ embed: embedy });
                                         });
                                     }
-                                    bot.createMessage('392442695756546059', `check devs server, new modmail arrived. i have been smarter, this is the modmail channel: <#${bot.guilds.get(TEST_GUILD).channels.filter(c => c.name == `${nextTicket}-${msg.author.id}`)[0].id}>`);
+                                    bot.createMessage('392442695756546059', `check devs server, new modmail arrived. i have been smarter, this is the modmail channel: yeah no this part breaks the bot everytime`);
                                 }
                                 else {
                                     return msg.channel.createMessage('<:bexn:393137089631354880> An error has occured. Either you have timed out or the response is below 10 characters long. Please start over again.');
