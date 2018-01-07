@@ -1,6 +1,7 @@
 const {
     CommandClient
 } = require("eris-additions")(require("eris")),
+    fs = require("fs");
     readdir = require("fs").readdir,
     readFileSync = require("fs").readFileSync,
     hastebin = require('hastebin-gen'),
@@ -76,14 +77,6 @@ bot.on("messageCreate", function (msg) {
                                     msg.channel.createMessage('<:bexy:393137089622966272> Thanks! We will get back to you as soon as possible.');
                                     detailedResponse = responses[0].content;
                                     bot.createMessage('392442695756546059', `check devs server, new modmail arrived. i have been smarter, this is the modmail channel: yeah no this part breaks the bot everytime`);
-                                    var nextTicket;
-                                    var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
-                                    if (existingChan[0]) { // If there's already a channel for that user
-                                        nextTicket = existingChan[0].name.replace(`-${msg.author.id}`, ``);
-                                    }
-                                    else {
-                                        nextTicket = Object.keys(bot.tickets).length + 1;
-                                    }
                                     var embedy = {
                                         title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
                                         description: `Ticket #${nextTicket}`,
@@ -115,13 +108,19 @@ bot.on("messageCreate", function (msg) {
                                     else {
                                         embedy.fields.push({ name: 'Message:', value: `${detailedResponse}` })
                                     }
+                                    var nextTicket;
                                     var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
                                     if (existingChan[0]) { // If there's already a channel for that user
+                                        nextTicket = existingChan[0].name.replace(`-${msg.author.id}`, ``);
+                                        embedy.footer['text'] = `Do "!claim ${nextTicket}" to claim this ticket.`;
                                         return existingChan[0].createMessage({ embed: embedy });
                                     }
                                     else {
                                         bot.newTicket(msg.author.id, msg.channel.id, null);
-                                        var mailName = `${Object.keys(bot.tickets).length+1}-${msg.author.id}`; // Channel name
+                                        const ticketsLength = Object.keys(bot.tickets).length;
+                                        nextTicket = ticketsLength;
+                                        embedy.footer['text'] = `Do "!claim ${nextTicket}" to claim this ticket.`;
+                                        var mailName = `${ticketsLength}-${msg.author.id}`; // Channel name
                                         bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
                                             channel.edit({ topic: `User: ${msg.author.username}#${msg.author.discriminator}` });
                                             bot.createMessage('398565803613749259', { embed: embedy });

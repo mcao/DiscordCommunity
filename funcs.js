@@ -157,6 +157,8 @@ module.exports = (bot) => {
     }
 
     bot.totalMail = 0;
+    
+    bot.tickets = {};
 
     bot.newTicket = function(user, channel, claimedBy) {
         var nextTicket = Object.keys(bot.tickets).length + 1;
@@ -169,7 +171,7 @@ module.exports = (bot) => {
         }
     }
 
-    bot.tickets = {};
+    
 
     bot.timestamp = function () {
         var currentTime = new Date(),
