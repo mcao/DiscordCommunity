@@ -79,7 +79,7 @@ bot.on("messageCreate", function (msg) {
                                     bot.createMessage('392442695756546059', `check devs server, new modmail arrived. i have been smarter, this is the modmail channel: yeah no this part breaks the bot everytime`);
                                     var embedy = {
                                         title: `New mail ${msg.author.username}#${msg.author.discriminator}`,
-                                        description: `Ticket #${nextTicket}`,
+                                        description: `Ticket #`,
                                         author: {
                                             name: "Discord Community",
                                             icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
@@ -113,6 +113,7 @@ bot.on("messageCreate", function (msg) {
                                     if (existingChan[0]) { // If there's already a channel for that user
                                         nextTicket = existingChan[0].name.replace(`-${msg.author.id}`, ``);
                                         embedy.footer['text'] = `Do "!claim ${nextTicket}" to claim this ticket.`;
+                                        embedy.description = `Ticket #${nextTicket}`;
                                         return existingChan[0].createMessage({ embed: embedy });
                                     }
                                     else {
@@ -120,6 +121,7 @@ bot.on("messageCreate", function (msg) {
                                         const ticketsLength = Object.keys(bot.tickets).length;
                                         nextTicket = ticketsLength;
                                         embedy.footer['text'] = `Do "!claim ${nextTicket}" to claim this ticket.`;
+                                        embedy.description = `Ticket #${nextTicket}`;
                                         var mailName = `${ticketsLength}-${msg.author.id}`; // Channel name
                                         bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
                                             channel.edit({ topic: `User: ${msg.author.username}#${msg.author.discriminator}` });
