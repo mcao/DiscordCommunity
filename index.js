@@ -68,6 +68,7 @@ bot.on("messageCreate", function (msg) {
                     msg.channel.createMessage('<:bexy:393137089622966272> Sure thing! What\'s the subject/topic of your mail?');
                     msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 20000}).then((responses) => {
                         if (responses.length) {
+                            subject = responses[0].content;
                             msg.channel.createMessage('<:bexy:393137089622966272> Alright! Now please type your message and be as detailed as possible.');
                             msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
                                 if(responses.length) {
