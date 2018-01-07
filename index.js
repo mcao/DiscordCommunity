@@ -99,7 +99,7 @@ bot.on("messageCreate", function (msg) {
                                         },
                                         timestamp: new Date()
                                     };
-                                    if (msg.content.length > 1024) { // If message is too big
+                                    if (detailedResponse.length > 1024) { // If message is too big
                                         hastebin(detailedResponse, "txt").then(r => { // Hastebin it
                                             var message = `The message was too long, it was sent to <${r}>`;
                                             embedy.fields.push({ name: 'Message:', value: message });
@@ -308,6 +308,28 @@ Please remember to read the <#392171939101409290> and post something in <#392152
         setTimeout(function () {
             member.addRole('392169263982444546', "Autorole")
         }, 120000);
+        member.user.getDMChannel().then((channel) => {
+            // Community banner
+            channel.createMessage("", { file: fs.readFileSync("./images/community.png"), name: "welcome.png" }).then((msg) => {
+                // Introduction text
+                msg.channel.createMessage("Welcome to the **Discord Hub community!**\n\nThis server has the goal of being the biggest community server in all of Discord, and is a project owned and moderated by **Discord Hub Network**. <:bexnice:390556541591486464>").then(() => {
+                    // Information banner
+                    msg.channel.createMessage("", { file: fs.readFileSync("./images/information.png"), name: "info.png" }).then((msg) => {
+                        // Information text
+                        msg.channel.createMessage("**-**Events - we host large events from time to time and do some small fun daily events in <#392407095171088384>.\n**-**A Community - we are made **for you**, the community. Suggest features and updates in <#394720234684284948>.\n**-**Active and suits everyone - we make a great deal of making everyone feel a home, and hope you will help us and take part.\n**-**A custom super swag private bot that gives you roles depending on your activity! Do `!help` in <#394698464253968394> to see more.\n**-**A dedicated and active staff team - we do our very best to make this community the best and to make cool updates for you guys. \n**-**Do you love moderating communities? Do you love Discord? If so, apply to become staff here: <https://discord.guide/staff-application>.\n**-**Are you a content creator or community owner? Do you wanna partner with the hub? If yes, apply here: <https://discord.guide/partner-application>.\n**-**If you have any questions, concerns and private matters you wanna discuss, feel free to DM me (this bot) back or message one of the admins.\n\nInterested in seeing the role list of the **Hub Network** and how you can climb the ladder and become the master? Check it out!").then(() => {
+                            // Role list image
+                            msg.channel.createMessage("", { file: fs.readFileSync("./images/roles.png"), name: "roles.png" }).then((msg) => {
+                                // Rules banner 
+                                msg.channel.createMessage("", { file: fs.readFileSync("./images/rules.png"), name: "rules.png" }).then((msg) => {
+                                    // Rules text
+                                    msg.channel.createMessage("**-**Be considerate for others and be responsible/respectful in all you say and do.\n**-**Listen and cooperate with staff; refusing to do so may result in you being warned, kicked, and/or banned from the server.\n**-**Please keep all posts and/or conversations in their respective text channels. Please also read the pinned tabs in the channels.\n**-**This server is completely SFW. All NSFW will be deleted and a punishment will be issued depending on severity.\n**-**Keep it cool - stick to the community guidelines at all time.\n**NOTE:** Don’t forget to please <#392152654505050112>! We love to get to know new people! If you are a Discord Nitro, HypeSquad or Partner member, then ask to have a cool role assigned to you in your introduction!\nAlso, note that you, as a new members, will be restricted to the information channels, <#392152654505050112> and <#392152516596465664> for 2 minutes upon joining.\nPlease note that **we are not Discord Staff** and are **not associated with Discord in any way.** This server is purely a community for Discord Hub Network.\n**Invite your friends to join us via this link! Although if you make your own invite and get 15 friends to join it, you will get a custom role!**\nhttps://discord.gg/ATUtmyu");
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
     }
 })
 
