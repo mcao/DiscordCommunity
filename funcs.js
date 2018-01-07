@@ -43,7 +43,7 @@ module.exports = (bot) => {
                         bot.profiles[key].messageCount = Math.ceil(bot.profiles[key].messageCount * 0.98);
                     }
                 }
-                bot.log("Deducted 2% from levels!")
+                console.log("Deducted 2% from levels!")
                 bot.writeProfiles()
             }
         }, 60000)
@@ -99,7 +99,12 @@ module.exports = (bot) => {
                     bot.createMessage(msg.channel.id, `Congratulations <@${msg.author.id}>, you have achieved **${role.name}**! 🎉🎉🎉`)
                     bot.profiles[msg.author.id].lastRankAssignment++;
                     msg.addReaction("🎉");
-                    msg.member.addRole(role.id);
+                    msg.member.addRole(role.id).then(
+                        /* on succes we log the success! */
+                        (it) => bot.log(`**DEBUG** Added ${role.name} to ${msg.author.name} successfully!`),
+                        /* on failure we log the failure! However its formatted to mentions for easier handling in chat. */
+                        (it) => bot.log(`**DEBUG** Failed to add <@&${role.id}> to <@${msg.author.id}>!`)
+                    );
                     if (i > 0)
                         msg.member.removeRole(msg.channel.guild.roles.get(profiles[i - 1].id).id)
                 }
@@ -120,7 +125,7 @@ module.exports = (bot) => {
     bot.loadProfiles = function () {
         var profilesJson = fs.readFileSync("./profiles.json")
         bot.profiles = JSON.parse(profilesJson)
-        bot.log("[PROFILES] Profiles successfully loaded!")
+        console.log("[PROFILES] Profiles successfully loaded!")
         return "Profiles successfully loaded!"
     }
 
@@ -130,7 +135,7 @@ module.exports = (bot) => {
         if (JSON.stringify(profiles) == JSON.stringify(bot.profiles)) return; // Only writes if there's a difference
 
         fs.writeFileSync("./profiles.json", JSON.stringify(bot.profiles, null, 3));
-        bot.log("[PROFILES] Profiles successfully saved to file!")
+        console.log("[PROFILES] Profiles successfully saved to file!")
         bot.backupProfiles();
         return "Profiles successfully saved to file!";
     }
@@ -142,7 +147,7 @@ module.exports = (bot) => {
             m = new Date().getMonth() + 1,
             y = new Date().getFullYear();
         fs.writeFileSync(`profiles-${d}-${m}-${y}.json`, JSON.stringify(profiles, null, 3))
-        bot.log("[PROFILES] Profiles successfully backed up!")
+        console.log("[PROFILES] Profiles successfully backed up!")
         return "Profiles successfully backed up!"
     }
 
