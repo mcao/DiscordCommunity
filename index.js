@@ -141,54 +141,6 @@ bot.on("messageCreate", function (msg) {
                 });
             }
         msg.channel.awaitMessages(m => m.content.toLowerCase() === "suggestion" && m.author.id == msg.author.id, {maxMatches: 1, time: 30000}).then((responses) => {
-            if (responses.length) {
-                msg.channel.createMessage('<:bexy:393137089622966272> Alright, what\'s the topc/subject of your suggestion? **Note:** This is not anonymous.');
-                msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
-                    if(responses.length) {
-                        if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
-                        subject = responses[0].content;
-                        msg.channel.createMessage('<:bexy:393137089622966272> Sweet! Now, please describe your suggestion and be as detailed as possible.');
-                        msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase()  == 'cancel' && m.content.length > 10, {maxMatches: 1, time: 300000}).then((responses) => {
-                            if (responses.length) {
-                                if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
-                                msg.channel.createMessage('<:bexy:393137089622966272> Thank you so much for suggesting! We will review your suggestion and will get back to you as soon as possible.');
-                                detailedResponse = responses[0].content;
-                                
-                                var embedy = {
-                                    title: `New suggestion from ${msg.author.username}#${msg.author.discriminator}`,
-                                    author: {
-                                        name: "Discord Community",
-                                        icon_url: "https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256"
-                                    },
-                                    color: 0x71368a,
-                                    fields: [
-                                        {
-                                            name: `Subject/topic:`,
-                                            value: `${subject}`
-                                        },
-                                    ],
-                                    timestamp: new Date()
-                                };
-                                if (detailedResponse.length > 1024) { // If message is too big
-                                    hastebin(detailedResponse, "txt").then(r => { // Hastebin it
-                                        var message = `The message was too long, it was sent to <${r}>`;
-                                        embedy.fields.push({ name: 'Suggestion:', value: message });
-                                    });
-                                }
-                                else {
-                                    embedy.fields.push({ name: 'Suggestion:', value: `${detailedResponse}` })
-                                }
-                                client.createMessage('392442695756546059', {embed: embedy})
-                            }
-                            else {
-                                return msg.channel.createMessage('<:bexn:393137089631354880> An error has occured. Either you have timed out or the response is below 10 characters long. Please start over again.');
-                            }
-                        });
-                        }
-                    });
-                }
-        });
-        msg.channel.awaitMessages(m => m.content.toLowerCase() === "suggestion" && m.author.id == msg.author.id, {maxMatches: 1, time: 30000}).then((responses) => {
                 if (responses.length) {
                     msg.channel.createMessage('<:bexy:393137089622966272> Alright, what\'s the topc/subject of your suggestion? **Note:** This is not anonymous.');
                     msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
