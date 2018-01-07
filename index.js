@@ -306,11 +306,7 @@ bot.on("guildMemberAdd", function (guild, member) {
         bot.createMessage("392152516596465664", `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada:
 Please remember to read the <#392171939101409290> and post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>`)
         setTimeout(function () {
-            try {
-                member.addRole('392169263982444546', "Autorole")
-            } catch(err) {
-                console.log(err.Message);
-            }
+                member.addRole('392169263982444546', "Autorole").catch(() => {});
         }, 120000);
         member.user.getDMChannel().then((channel) => {
             // Community banner
