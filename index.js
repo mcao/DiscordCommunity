@@ -68,17 +68,18 @@ bot.on("messageCreate", function (msg) {
                     msg.channel.createMessage('<:bexy:393137089622966272> Sure thing! What\'s the subject/topic of your mail?');
                     msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 20000}).then((responses) => {
                         if (responses.length) {
+                            subject = responses[0].content;
                             msg.channel.createMessage('<:bexy:393137089622966272> Alright! Now please type your message and be as detailed as possible.');
                             msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
                                 if(responses.length) {
                                     if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
                                     msg.channel.createMessage('<:bexy:393137089622966272> Thanks! We will get back to you as soon as possible.');
                                     detailedResponse = responses[0].content;
-                                    bot.createMessage('392442695756546059', `check devs server, new modmail arrived`);
+                                    bot.createMessage('392442695756546059', `check devs server, new modmail arrived. i have been smarter, this is the modmail channel: <#${existingChan[0].id}>`);
                                     var nextTicket;
                                     var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
                                     if (existingChan[0]) { // If there's already a channel for that user
-                                        nextTicket = existingChan.name.replace(`-${msg.author.id}`, ``);
+                                        nextTicket = existingChan[0].name.replace(`-${msg.author.id}`, ``);
                                     }
                                     else {
                                         nextTicket = Object.keys(bot.tickets).length + 1;
