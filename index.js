@@ -75,7 +75,7 @@ bot.on("messageCreate", function (msg) {
                                     if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
                                     msg.channel.createMessage('<:bexy:393137089622966272> Thanks! We will get back to you as soon as possible.');
                                     detailedResponse = responses[0].content;
-                                    bot.createMessage('392442695756546059', `check devs server, new modmail arrived`);
+                                    bot.createMessage('392442695756546059', `check devs server, new modmail arrived. i have been smarter, this is the modmail channel: <#${existingChan[0].id}>`);
                                     var nextTicket;
                                     var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
                                     if (existingChan[0]) { // If there's already a channel for that user
