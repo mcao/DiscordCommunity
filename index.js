@@ -78,7 +78,7 @@ bot.on("messageCreate", function (msg) {
                                     var nextTicket;
                                     var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
                                     if (existingChan[0]) { // If there's already a channel for that user
-                                        nextTicket = nextTicket.replace(`-${msg.author.id}`, ``);
+                                        nextTicket = existingChan.name.replace(`-${msg.author.id}`, ``);
                                     }
                                     else {
                                         nextTicket = Object.keys(bot.tickets).length + 1;
