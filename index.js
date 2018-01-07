@@ -166,7 +166,7 @@ bot.on("messageCreate", function (msg) {
                                             },
                                         ],
                                         footer: {
-                                            text:  `suggested by ${msg.author.username}#${msg.author.discriminator}`
+                                            text:  `Suggested by ${msg.author.username}#${msg.author.discriminator}`
                                         },
                                         timestamp: new Date()
                                     };
