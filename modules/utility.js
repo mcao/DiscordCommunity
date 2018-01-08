@@ -270,7 +270,7 @@ module.exports = (bot) => {
                 leftToGo = 15 - i.uses;
             }
             msg.channel.createMessage('Fetching invite(s)..').then((m) => {
-                m.edit(`Your permanent invite (\`${i.code}\`) has been used **${i.uses}** times. You have to invite \`${leftToGo}\` more people to get the **Invite Fever** role!`);
+                m.edit(`Your permanent invite (discord.gg/\`${i.code}\`) has been used **${i.uses}** times. You have to invite \`${leftToGo}\` more people to get the **Invite Fever** role!`);
             });
         }));
     }, {
