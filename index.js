@@ -399,6 +399,14 @@ bot.on("guildBanRemove", function (guild, user) {
     }
 });
 
+bot.on("messageReactionAdd", function (message, emoji, userID) {
+    if (message.id != '399412466460655637') return;
+    if (emoji.id != '393137089622966272') return;
+    var user = message.channel.guild.members.get(userID);
+    if (user.roles.indexOf('392169263982444546') > -1) return;
+    else user.addRole('392169263982444546', 'Verified');
+})
+
 process.on("uncaughtException", (err) => {
     console.error(err.stack)
 });
