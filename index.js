@@ -179,7 +179,7 @@ bot.on("messageCreate", function (msg) {
                                                 name: 'Suggestion:',
                                                 value: message
                                             });
-                                            bot.createMessage('392442695756546059', {embed: embedy});
+                                            bot.createMessage('392178846306402314', {embed: embedy});
                                         });
                                     }
                                     else {
@@ -187,7 +187,7 @@ bot.on("messageCreate", function (msg) {
                                             name: 'Suggestion:',
                                             value: detailedResponse
                                         });
-                                        bot.createMessage('392442695756546059', {embed: embedy});
+                                        bot.createMessage('392178846306402314', {embed: embedy});
                                     }
                                 }
                                 else {
@@ -230,7 +230,7 @@ bot.on("messageCreate", function (msg) {
                                                 name: 'Feedback:',
                                                 value: message
                                             });
-                                            bot.createMessage('392442695756546059', {embed: embedy});
+                                            bot.createMessage('392178846306402314', {embed: embedy});
                                         });
                                     }
                                     else {
@@ -238,7 +238,7 @@ bot.on("messageCreate", function (msg) {
                                             name: 'Feedback:',
                                             value: detailedResponse
                                         });
-                                        bot.createMessage('392442695756546059', {embed: embedy});
+                                        bot.createMessage('392178846306402314', {embed: embedy});
                                     }
                                 }
                                 else {
