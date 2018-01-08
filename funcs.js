@@ -6,6 +6,7 @@ module.exports = (bot) => {
     bot.runninggames = new Set();
     bot.randomnumber = 0;
     bot.guesscounter = 0;
+    bot.guesstries = 15;
 
     bot.register = function (name, command, options) {
         if (bot.commands[name]) {

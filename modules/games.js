@@ -1,8 +1,5 @@
 module.exports = (bot) => {
     bot.register("guessit", (msg, args) => {
-        if (msg.channel.id != '396842501971116032') {
-            return;
-        }
         if (bot.runninggames.has("guessit")) {
             return "Please finish the current game first!";
         } else {
@@ -23,14 +20,12 @@ module.exports = (bot) => {
                 if (bot.runninggames.has("guessit") && counter == bot.guesscounter) {
                     msg.channel.createMessage(`Ok the time is over now! You failed to guess ${bot.randomnumber}. Sorry`);
                     bot.runninggames.delete("guessit");
+                    bot.guesstries = 15;
                 }
             }, 90 * 1000)
-            return `You may start guesssing now! Well its ${bot.randomnumber} you cheater :eyes:`
+            return `You may start guesssing now!`
         }
     }, {
-        requirements: {
-            roleIDs: ['397898635565727745']
-        },
         description: `Starts a "guess a number" game if none is running!`,
         fullDescription: `Starts a "guess a number" game if none is running!`
     })

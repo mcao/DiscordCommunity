@@ -271,19 +271,27 @@ bot.on("messageCreate", function (msg) {
             });
         }
 
-        if (msg.channel.id == '396842501971116032' && !isNaN(msg.content) && !msg.author.bot) {
+        // #bot-commands
+        if (msg.channel.id == '399990949054513152' && !isNaN(msg.content) && !msg.author.bot) {
             if (!bot.runninggames.has("guessit")) {
                 return
+            }
+            if (bot.guesstries == 0) {
+                msg.channel.createMessage(`Ok the time is over now! You failed to guess ${bot.randomnumber}. Sorry`);
+                bot.runninggames.delete("guessit");
+                bot.guesstries = 15;
             }
             if (msg.content == bot.randomnumber) {
                 msg.channel.createMessage(`Hurray <@${msg.author.id}> you solved it!`)
                 bot.runninggames.delete("guessit")
+                bot.guesstries = 15;
             } else {
                 if (msg.content > bot.randomnumber) {
                     msg.channel.createMessage(`Hmm, i guess you should aim lower then ${msg.content} ${msg.author.username}.`)
                 } else if (msg.content < bot.randomnumber) {
                     msg.channel.createMessage(`Hmm, i guess you should aim higher then ${msg.content} ${msg.author.username}.`)
                 }
+                --bot.guesstries;
             }
         }
 
