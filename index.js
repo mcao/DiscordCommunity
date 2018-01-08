@@ -6,6 +6,7 @@ const {
     readFileSync = require("fs").readFileSync,
     hastebin = require('hastebin-gen'),
     HOME_GUILD = `358528040617377792`,
+    VOTES = ['bexy:393137089622966272', 'bexn:393137089631354880'],
     TEST_GUILD = `396914522801176577`;
 var bot = new CommandClient(require("./config.json").token, {
     disableEvents: ['PRESENCE_UPDATE']
@@ -179,7 +180,7 @@ bot.on("messageCreate", function (msg) {
                                                 name: 'Suggestion:',
                                                 value: message
                                             });
-                                            bot.createMessage('392178846306402314', {embed: embedy});
+                                            bot.createMessage('392178846306402314', {embed: embedy}).then(m => VOTES.forEach(function(vote) {m.addReaction(vote);}))
                                         });
                                     }
                                     else {
@@ -187,7 +188,7 @@ bot.on("messageCreate", function (msg) {
                                             name: 'Suggestion:',
                                             value: detailedResponse
                                         });
-                                        bot.createMessage('392178846306402314', {embed: embedy});
+                                        bot.createMessage('392178846306402314', {embed: embedy}).then(m => VOTES.forEach(function(vote) {m.addReaction(vote);}))
                                     }
                                 }
                                 else {
@@ -213,7 +214,7 @@ bot.on("messageCreate", function (msg) {
                                     msg.channel.createMessage("<:bexy:393137089622966272> Thank you so much for your feedback! We promise to keep this anonymous.")
                                     msg.author.feedback = true;
                                     var embedy = {
-                                        title: `New anonymous feedback!`,
+                                        title: `NEW ANONYMOUS FEEDBACK!`,
                                         color: 0x71368a,
                                         fields: [
                                             {
@@ -230,7 +231,7 @@ bot.on("messageCreate", function (msg) {
                                                 name: 'Feedback:',
                                                 value: message
                                             });
-                                            bot.createMessage('392178846306402314', {embed: embedy});
+                                            bot.createMessage('392178846306402314', {embed: embedy}).then(m => VOTES.forEach(function(vote) {m.addReaction(vote);}))
                                         });
                                     }
                                     else {
@@ -238,7 +239,7 @@ bot.on("messageCreate", function (msg) {
                                             name: 'Feedback:',
                                             value: detailedResponse
                                         });
-                                        bot.createMessage('392178846306402314', {embed: embedy});
+                                        bot.createMessage('392178846306402314', {embed: embedy}).then(m => VOTES.forEach(function(vote) {m.addReaction(vote);}))
                                     }
                                 }
                                 else {
