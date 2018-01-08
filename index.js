@@ -179,8 +179,7 @@ bot.on("messageCreate", function (msg) {
                                             embedy.fields.push({
                                                 name: 'Suggestion:',
                                                 value: message
-                                            }); 
-                                            bot.createMessage('392442695756546059', '​​')
+                                            });
                                             bot.createMessage('392442695756546059', `**New suggestion submitted**\nby ${msg.author.username}#${msg.author.discriminator}\n\n**Subject/Topic:**\n${subject}**\n\nDescription:**\n${detailedResponse}`).then(m => VOTES.forEach(function(vote) {m.addReaction(vote);}))
                                             //bot.createMessage('392178846306402314', {embed: embedy}).then(m => VOTES.forEach(function(vote) {m.addReaction(vote);}))
                                         });
@@ -190,7 +189,6 @@ bot.on("messageCreate", function (msg) {
                                             name: 'Suggestion:',
                                             value: detailedResponse
                                         });
-                                        bot.createMessage('392442695756546059', '​​')
                                         bot.createMessage('392442695756546059', `**New suggestion submitted**\nby ${msg.author.username}#${msg.author.discriminator}\n\n**Subject/Topic:**\n${subject}**\n\nDescription:**\n${detailedResponse}`).then(m => VOTES.forEach(function(vote) {m.addReaction(vote);}))
                                         //bot.createMessage('392178846306402314', {embed: embedy}).then(m => VOTES.forEach(function(vote) {m.addReaction(vote);}))
                                     }
