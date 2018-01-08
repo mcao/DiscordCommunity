@@ -122,7 +122,7 @@ bot.on("messageCreate", function (msg) {
                                         nextTicket = ticketsLength;
                                         embedy.footer['text'] = `Do "!claim ${nextTicket}" to claim this ticket.`;
                                         embedy.description = `Ticket #${nextTicket}`;
-                                        var mailName = `${ticketsLength}-${msg.author.id}`; // Channel name
+                                        var mailName = `${ticketsLength}-${msg.author.username}`; // Channel name
                                         bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then((channel) => {
                                             channel.edit({ topic: `User: ${msg.author.username}#${msg.author.discriminator}` });
                                             bot.createMessage('398565803613749259', { embed: embedy });
