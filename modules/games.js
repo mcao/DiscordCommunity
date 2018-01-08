@@ -7,9 +7,12 @@ module.exports = (bot) => {
             return "Please finish the current game first!";
         } else {
             if (!isNaN(args)) {
+                if (args < 200) {
+                    return `Your number is too easy :frowning:\nTry 200 or greater ;)`
+                }
                 bot.randomnumber = Math.round(Math.random() * (args - 0 + 1)) + 1;
             } else {
-                bot.randomnumber = Math.round(Math.random() * ("1000" - 0 + 1)) + 1;
+                return "Please use !guessit <number>."
             }
             bot.runninggames.add("guessit");
             ++bot.guesscounter;
