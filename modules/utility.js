@@ -258,6 +258,22 @@ module.exports = (bot) => {
         fullDescription: "Deletes the original command and the bot will say the arguments."
     });
 
+    bot.register("invite", (msg, args) => {
+        msg.channel.guild.getInvites().then((v) => v.forEach(i => {
+            if(i.inviter&& ! i.temporary)
+            if (i.inviter.username != msg.author.username) return;
+                msg.channel.createMessage('Fetching invite..').then((m) => {
+                m.edit(`Your permanent invite (\`${i.code}\`) has been used **${i.uses}** times.`);
+            });
+        }));
+    }, {
+        requirements: {
+            roleIDs: ['392169263982444546', '392425936366075905', '392150288729112587', '392164671664422912', '392162455717150730', '392161607976878092']
+        },
+        description: "Check how many uses your invite has.",
+        fullDescription: "This is used to check how many times your invite has been used, and check the code you've been using."
+    });
+
     bot.register("exec", (msg, args) => {
         try {
             var res = require("child_process").execSync(args.join(" "))
