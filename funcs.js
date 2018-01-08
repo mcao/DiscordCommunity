@@ -3,6 +3,8 @@ module.exports = (bot) => {
     bot.config = require("./config.json")
 
     bot.cooldowns = new Set();
+    bot.runninggames = new Set();
+    bot.randomnumber = 0;
 
     bot.register = function (name, command, options) {
         if (bot.commands[name]) {

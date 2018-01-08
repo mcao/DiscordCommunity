@@ -258,10 +258,10 @@ bot.on("messageCreate", function (msg) {
                 // lol ok
                 }
             })
-        }
+    }
 
 
-        else if (msg.channel.type == 0) {
+    else if (msg.channel.type == 0) {
         const reactions = ['#⃣', '🇭', '🇾', '🇵', '🇪', '✨', 'bexhype:390557755339177994', 'bexlove:390556541717053440', 'bexhey:390556541360799748', 'bexangry:390557738473881601', 'hypekey:390416915207815168', 'nitro:390416828272476161', 'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
         const voteReactions = ['bexy:393137089622966272', 'bexn:393137089631354880'];
         const channels = ["392407095171088384", "392173071223750656", "392172869154635786", "392173094728630275"];
@@ -271,6 +271,19 @@ bot.on("messageCreate", function (msg) {
             bot.reactions.forEach(function (reaction) {
                 msg.addReaction(reaction);
             });
+        }
+
+        if (msg.channel.id == '396842501971116032' && !isNaN(msg.content) && !msg.author.bot) {
+            if (msg.content == bot.randomnumber) {
+                msg.channel.createMessage(`Hurray <@${msg.author.id}> you solved it!`)
+                bot.runninggames.delete("guessit")
+            } else {
+                if (msg.content > bot.randomnumber) {
+                    msg.channel.createMessage(`Hmm, i guess you should aim lower then ${msg.content} ${msg.author.name}.`)
+                } else if (msg.content < bot.randomnumber) {
+                    msg.channel.createMessage(`Hmm, i guess you should aim higher then ${msg.content} ${msg.author.name}.`)
+                }
+            }
         }
 
         if (msg.channel.id == "392152654505050112") { // #introductions
