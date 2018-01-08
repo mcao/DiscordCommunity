@@ -272,7 +272,7 @@ bot.on("messageCreate", function (msg) {
         }
 
         // #bot-commands
-        if (msg.channel.id == '399990949054513152' && !isNaN(msg.content) && !msg.author.bot) {
+        if (msg.channel.id == '394698464253968394' && !isNaN(msg.content) && !msg.author.bot) {
             if (!bot.runninggames.has("guessit")) {
                 return
             }
