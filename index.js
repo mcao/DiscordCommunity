@@ -145,7 +145,7 @@ bot.on("messageCreate", function (msg) {
             }
         msg.channel.awaitMessages(m => m.content.toLowerCase() === "suggestion" && m.author.id == msg.author.id, {maxMatches: 1, time: 30000}).then((responses) => {
                 if (responses.length) {
-                    msg.channel.createMessage('<:bexy:393137089622966272> Alright, what\'s the topc/subject of your suggestion? **Note:** This is not anonymous.');
+                    msg.channel.createMessage('<:bexy:393137089622966272> Alright, what\'s the topic/subject of your suggestion? **Note:** This is not anonymous.');
                     msg.channel.awaitMessages(m => m.author.id == msg.author.id || m.content.toLowerCase() == 'cancel', {maxMatches: 1, time: 30000}).then((responses) => {
                         if(responses.length) {
                             if (responses[0].content.toLowerCase() == 'cancel') return msg.channel.createMessage('<:bexn:393137089631354880> Process cancelled.')
