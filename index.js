@@ -109,7 +109,7 @@ bot.on("messageCreate", function (msg) {
                                         embedy.fields.push({ name: 'Message:', value: `${detailedResponse}` })
                                     }
                                     var nextTicket;
-                                    var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.id));
+                                    var existingChan = bot.guilds.get(TEST_GUILD).channels.filter(c => c.name.includes(msg.author.username));
                                     if (existingChan[0]) { // If there's already a channel for that user
                                         nextTicket = existingChan[0].name.replace(`-${msg.author.id}`, ``);
                                         embedy.footer['text'] = `Do "!claim ${nextTicket}" to claim this ticket.`;
