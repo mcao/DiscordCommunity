@@ -261,9 +261,16 @@ module.exports = (bot) => {
     bot.register("invite", (msg, args) => {
         msg.channel.guild.getInvites().then((v) => v.forEach(i => {
             if(i.inviter&& ! i.temporary)
+            if (!i.inviter) return;
             if (i.inviter.username != msg.author.username) return;
-                msg.channel.createMessage('Fetching invite..').then((m) => {
-                m.edit(`Your permanent invite (\`${i.code}\`) has been used **${i.uses}** times.`);
+            var leftToGo;
+            if (i.uses > 15) {
+                leftToGo = 0
+            } else {
+                leftToGo = 15 - i.uses;
+            }
+            msg.channel.createMessage('Fetching invite(s)..').then((m) => {
+                m.edit(`Your permanent invite (\`${i.code}\`) has been used **${i.uses}** times. You have to invite \`${leftToGo}\` more people to get the **Invite Fever** role!`);
             });
         }));
     }, {
