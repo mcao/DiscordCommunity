@@ -103,7 +103,7 @@ module.exports = (bot) => {
                     msg.addReaction("🎉");
                     msg.member.addRole(role.id).then(
                         /* on succes we log the success! */
-                        (it) => bot.log(`**DEBUG** Added ${role.name} to ${msg.author.name} successfully!`),
+                        (it) => bot.log(`**DEBUG** Added ${role.name} to ${msg.author.username} successfully!`),
                         /* on failure we log the failure! However its formatted to mentions for easier handling in chat. */
                         (it) => bot.log(`**DEBUG** Failed to add <@&${role.id}> to <@${msg.author.id}>!`)
                     );

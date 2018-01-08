@@ -9,7 +9,7 @@ module.exports = (bot) => {
             if (!isNaN(args)) {
                 bot.randomnumber = Math.round(Math.random() * (args - 0 + 1)) + 1;
             } else {
-                bot.randomnumber = Math.round(Math.random() * (1000 - 0 + 1)) + 1;
+                bot.randomnumber = Math.round(Math.random() * 1000) + 1;
             }
             bot.runninggames.add("guessit")
             setTimeout(() => {

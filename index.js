@@ -280,9 +280,9 @@ bot.on("messageCreate", function (msg) {
                 bot.runninggames.delete("guessit")
             } else {
                 if (msg.content > bot.randomnumber) {
-                    msg.channel.createMessage(`Hmm, i guess you should aim lower then ${msg.content} ${msg.author.name}.`)
+                    msg.channel.createMessage(`Hmm, i guess you should aim lower then ${msg.content} ${msg.author.username}.`)
                 } else if (msg.content < bot.randomnumber) {
-                    msg.channel.createMessage(`Hmm, i guess you should aim higher then ${msg.content} ${msg.author.name}.`)
+                    msg.channel.createMessage(`Hmm, i guess you should aim higher then ${msg.content} ${msg.author.username}.`)
                 }
             }
         }
