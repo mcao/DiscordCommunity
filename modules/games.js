@@ -7,9 +7,9 @@ module.exports = (bot) => {
             return "Please finish the current game first!"
         } else {
             if (!isNaN(args)) {
-                bot.randomnumber = Math.floor(Math.random() * (args - 0 + 1)) + 1;
+                bot.randomnumber = Math.round(Math.random() * (args - 0 + 1)) + 1;
             } else {
-                bot.randomnumber = Math.floor(Math.random() * (1000 - 0 + 1)) + 1;
+                bot.randomnumber = Math.round(Math.random() * (1000 - 0 + 1)) + 1;
             }
             bot.runninggames.add("guessit")
             setTimeout(() => {
@@ -18,7 +18,7 @@ module.exports = (bot) => {
                     bot.runninggames.delete("guessit")
                 }
             }, 90 * 1000)
-            return "You may start guesssing now!"
+            return `You may start guesssing now! Well its ${bot.randomnumber} you cheater :eyes:`
         }
     }, {
         requirements: {

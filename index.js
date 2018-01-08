@@ -272,6 +272,9 @@ bot.on("messageCreate", function (msg) {
         }
 
         if (msg.channel.id == '396842501971116032' && !isNaN(msg.content) && !msg.author.bot) {
+            if (!bot.runninggames.has("guessit")) {
+                return
+            }
             if (msg.content == bot.randomnumber) {
                 msg.channel.createMessage(`Hurray <@${msg.author.id}> you solved it!`)
                 bot.runninggames.delete("guessit")
