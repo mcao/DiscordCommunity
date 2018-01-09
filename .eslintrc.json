@@ -217,7 +217,6 @@
         "space-unary-ops": "error",
         "spaced-comment": "error",
         "unicode-bom": "error",
-        "arrow-body-style": "error",
         "arrow-parens": [
             "error",
             "as-needed"
