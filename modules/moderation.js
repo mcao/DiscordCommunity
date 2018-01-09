@@ -115,7 +115,7 @@ module.exports = (bot) => {
         description: "Warns a user.",
         fullDescription: "A command used to store a warning for a user who has violated a rule..",
         requirements: {
-            roleIDs: ['392157971507052554', '392150288729112587'],
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587'],
             userIDs: bot.config.owners
         }
     });
@@ -284,13 +284,15 @@ module.exports = (bot) => {
 
     bot.register("claim", (msg, args) => {
         args = args.join(' ');
-        if (!args.length) return msg.channel.createMessage('Please provide an ID <:bexn:393137089631354880>');
-        if (!bot.tickets[args]) return msg.channel.createMessage('Invalid ID <:bexn:393137089631354880>')
+        // if (!args.length) return msg.channel.createMessage('Please provide an ID <:bexn:393137089631354880>');
+        // if (!bot.tickets[args]) return msg.channel.createMessage('Invalid ID <:bexn:393137089631354880>')
+        // msg.channel.createMessage(`<@${msg.author.id}>, you have claimed ticket \`${args}\``);
+        msg.channel.createMessage("Listen. I don't work, stop hecking using me <:bexangry:390557738473881601> 😠")
     }, {
         description: "Claim a modmail ticket.",
         fullDescription: "Claim a ticket for mod mail, to respond to a user.",
         requirements: {
-            roleIDs: ['392157971507052554', '392150288729112587'],
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '397192363031789578'],
         }
     });
 
@@ -319,7 +321,7 @@ module.exports = (bot) => {
         description: "Reset warnings for a user.",
         fullDescription: "Resets the warnings for a user.",
         requirements: {
-            roleIDs: ['392157971507052554', '392150288729112587'],
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587'],
             userIDs: bot.config.owners
         }
     });
@@ -342,7 +344,7 @@ module.exports = (bot) => {
         description: "Resets a level.",
         fullDescription: "Resets the message count for the given user.",
         requirements: {
-            roleIDs: ['392157971507052554', '392150288729112587']
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587']
         }
     });
 }

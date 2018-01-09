@@ -69,7 +69,7 @@ module.exports = (bot) => {
         }
     }, {
         requirements: {
-            roleIDs: ['392157971507052554', '392150288729112587']
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '392164671664422912']
         },
         description: "Give a user the nitro role.",
         fullDescription: "This is used to give users who have nitro the Nitro role."
@@ -111,7 +111,7 @@ module.exports = (bot) => {
         }
     }, {
         requirements: {
-            roleIDs: ['392157971507052554', '392150288729112587']
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '392164671664422912']
         },
         description: "Give a user the Discord Partner role.",
         fullDescription: "This is used to give users who have the partner badge the Discord Partner role."
@@ -153,7 +153,7 @@ module.exports = (bot) => {
         }
     }, {
         requirements: {
-            roleIDs: ['392157971507052554', '392150288729112587']
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '392164671664422912']
         },
         aliases: ['hype'],
         description: "Give a user the Hypesquad role.",
@@ -176,7 +176,7 @@ module.exports = (bot) => {
         return 'Done! <:bexhey:390556541360799748>';
     }, {
         requirements: {
-            roleIDs: ['392425936366075905', '392150288729112587']
+            roleIDs: ['392425936366075905', '392150288729112587', '392164671664422912']
         },
         description: "Change the reactions added to the fotd channel.",
         fullDescription: "Easier & quicker to add reactions."
@@ -209,7 +209,7 @@ module.exports = (bot) => {
         })
     }, {
         requirements: {
-            roleIDs: ['392157971507052554', '392150288729112587']
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '392164671664422912']
         },
         description: "Check potential nitro users who dont have the role.",
         fullDescription: "Check potential nitro users who don't have the nitro role, used by mods."
@@ -252,10 +252,33 @@ module.exports = (bot) => {
         return args;
     }, {
         requirements: {
-            roleIDs: ['392425936366075905', '392150288729112587']
+            roleIDs: ['392425936366075905', '392150288729112587', '392164671664422912']
         },
         description: "Say command",
         fullDescription: "Deletes the original command and the bot will say the arguments."
+    });
+
+    bot.register("invite", (msg, args) => {
+        msg.channel.guild.getInvites().then((v) => v.forEach(i => {
+            if(i.inviter&& ! i.temporary)
+            if (!i.inviter) return;
+            if (i.inviter.username != msg.author.username) return;
+            var leftToGo;
+            if (i.uses > 15) {
+                leftToGo = 0
+            } else {
+                leftToGo = 15 - i.uses;
+            }
+            msg.channel.createMessage('Fetching invite(s)..').then((m) => {
+                m.edit(`Your permanent invite (\`discord.gg/${i.code}\`) has been used **${i.uses}** times. You have to invite \`${leftToGo}\` more people to get the **Invite Fever** role!`);
+            });
+        }));
+    }, {
+        requirements: {
+            roleIDs: ['392169263982444546', '392425936366075905', '392150288729112587', '392164671664422912', '392162455717150730', '392161607976878092']
+        },
+        description: "Check how many uses your invite has.",
+        fullDescription: "This is used to check how many times your invite has been used, and check the code you've been using."
     });
 
     bot.register("exec", (msg, args) => {

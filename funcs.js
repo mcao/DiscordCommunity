@@ -3,6 +3,10 @@ module.exports = bot => {
     bot.config = require('./config.json');
 
     bot.cooldowns = new Set();
+    bot.runninggames = new Set();
+    bot.randomnumber = 0;
+    bot.guesscounter = 0;
+    bot.guesstries = 15;
 
     bot.register = function(name, command, options) {
         if (bot.commands[name]) {
@@ -97,7 +101,12 @@ module.exports = bot => {
                         `Congratulations <@${msg.author.id}>, you have achieved **${role.name}**! 🎉🎉🎉`);
                     bot.profiles[msg.author.id].lastRankAssignment++;
                     msg.addReaction('🎉');
-                    msg.member.addRole(role.id);
+                    msg.member.addRole(role.id).then(
+                        /* on succes we log the success! */
+                        () => bot.log(`**DEBUG** Added ${role.name} to ${msg.author.username} successfully!`),
+                        /* on failure we log the failure! */
+                        () => bot.log(`**DEBUG** Failed to add <@&${role.id}> to <@${msg.author.id}>!`)
+                    );
                     if (i > 0) msg.member.removeRole(msg.channel.guild.roles.get(profiles[i - 1].id).id);
                 }
             }
@@ -151,6 +160,8 @@ module.exports = bot => {
 
     bot.totalMail = 0;
 
+    bot.tickets = {};
+
     bot.newTicket = function(user, channel) {
         var nextTicket = Object.keys(bot.tickets).length + 1;
         bot.tickets[nextTicket] = {
@@ -161,8 +172,6 @@ module.exports = bot => {
             finished: false,
         };
     };
-
-    bot.tickets = {};
 
     bot.timestamp = function() {
         var currentTime = new Date(),
