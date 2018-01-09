@@ -349,7 +349,7 @@ module.exports = bot => {
             userIDs: bot.config.owners,
         },
         description: 'Reloads a module',
-        fullDescription: 'This command is used to reload modules.'
+        fullDescription: 'This command is used to reload modules.',
     });
 
     function clean(text) {
@@ -430,6 +430,6 @@ module.exports = bot => {
         },
         description: 'Start an event.',
 
-        fullDescription: 'This command is used to start a countdown for an event in the events channel.'
+        fullDescription: 'This command is used to start a countdown for an event in the events channel.',
     });
 };
