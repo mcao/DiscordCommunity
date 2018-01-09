@@ -262,7 +262,7 @@ module.exports = (bot) => {
         msg.channel.guild.getInvites().then((v) => v.forEach(i => {
             if(i.inviter&& ! i.temporary)
             if (!i.inviter) return;
-            if (i.temporary) return;
+            if (i.maxAge != 0) return;
             if (i.inviter.username != msg.author.username) return;
             var leftToGo;
             if (i.uses > 15) {
