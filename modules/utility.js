@@ -35,7 +35,7 @@ module.exports = bot => {
 
     bot.register('nitro', (msg, args) => {
         args = args.join(' ');
-        if (args.length == 18 || args.length == 17) {
+        if (args.length === 18 || args.length === 17) {
             var userID = args;
             var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf(`${NITRO_ROLE}`) > -1) {
@@ -45,9 +45,10 @@ module.exports = bot => {
                 member.addRole(`${NITRO_ROLE}`, 'User is nitro');
                 return `Gave **${member.username}#${member.discriminator}** Nitro <:bexy:393137089622966272>`;
             }
-        } else if (msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
-            var userID = msg.mentions[0].id;
-            var member = msg.channel.guild.members.get(userID);
+            // 0 == true, -1 == false
+        } else if (msg.mentions[0] && msg.mentions[0].username) {
+            userID = msg.mentions[0].id;
+            member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf(`${NITRO_ROLE}`) > -1) {
                 member.removeRole(`${NITRO_ROLE}`, 'User is not nitro');
                 return `Removed Nitro from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
@@ -56,7 +57,7 @@ module.exports = bot => {
                 return `Gave **${member.username}#${member.discriminator}** Nitro <:bexy:393137089622966272>`;
             }
         } else if (!args) {
-            var member = msg.member;
+            member = msg.member;
             if (member.roles.indexOf(`${NITRO_ROLE}`) > -1) {
                 member.removeRole(`${NITRO_ROLE}`, 'User is not Nitro');
                 return `Removed Nitro from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
@@ -65,7 +66,7 @@ module.exports = bot => {
                 return `Gave **${member.username}#${member.discriminator}** Nitro <:bexy:393137089622966272>`;
             }
         } else {
-            return 'Please provide a valid user <:bexn:393137089631354880>'
+            return 'Please provide a valid user <:bexn:393137089631354880>';
         }
     }, {
         requirements: {
@@ -77,7 +78,7 @@ module.exports = bot => {
 
     bot.register('partner', (msg, args) => {
         args = args.join(' ');
-        if (args.length == 18 || args.length == 17) {
+        if (args.length === 18 || args.length === 17) {
             var userID = args;
             var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf(`${PARTNER_ROLE}`) > -1) {
@@ -87,9 +88,10 @@ module.exports = bot => {
                 member.addRole(`${NITRO_ROLE}`, 'User is is a Discord Partner');
                 return `Gave **${member.username}#${member.discriminator}** Discord Partner <:bexy:393137089622966272>`;
             }
-        } else if (msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
-            var userID = msg.mentions[0].id;
-            var member = msg.channel.guild.members.get(userID);
+            // 0 == true, -1 == false
+        } else if (msg.mentions[0] && msg.mentions[0].username) {
+            userID = msg.mentions[0].id;
+            member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf(`${PARTNER_ROLE}`) > -1) {
                 member.removeRole(`${PARTNER_ROLE}`, 'User is not Discord Partner');
                 return `Removed Discord Partner from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
@@ -98,7 +100,7 @@ module.exports = bot => {
                 return `Gave **${member.username}#${member.discriminator}** Discord Partner <:bexy:393137089622966272>`;
             }
         } else if (!args) {
-            var member = msg.member;
+            member = msg.member;
             if (member.roles.indexOf(`${PARTNER_ROLE}`) > -1) {
                 member.removeRole(`${PARTNER_ROLE}`, 'User is not Discord Partner');
                 return `Removed Discord Partner from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
@@ -119,7 +121,7 @@ module.exports = bot => {
 
     bot.register('hypesquad', (msg, args) => {
         args = args.join(' ');
-        if (args.length == 18 || args.length == 17) {
+        if (args.length === 18 || args.length === 17) {
             var userID = args;
             var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf(`${HYPESQUAD_ROLE}`) > -1) {
@@ -129,9 +131,10 @@ module.exports = bot => {
                 member.addRole(`${HYPESQUAD_ROLE}`, 'User is is a Hypesquad');
                 return `Gave **${member.username}#${member.discriminator}** Hypesquad <:bexy:393137089622966272>`;
             }
-        } else if (msg.mentions[0] && msg.mentions[0].username) { // 0 == true, -1 == false
-            var userID = msg.mentions[0].id;
-            var member = msg.channel.guild.members.get(userID);
+            // 0 == true, -1 == false
+        } else if (msg.mentions[0] && msg.mentions[0].username) {
+            userID = msg.mentions[0].id;
+            member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf(`${HYPESQUAD_ROLE}`) > -1) {
                 member.removeRole(`${HYPESQUAD_ROLE}`, 'User is not Hypesquad');
                 return `Removed Hypesquad from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
@@ -140,7 +143,7 @@ module.exports = bot => {
                 return `Gave **${member.username}#${member.discriminator}** Hypesquad <:bexy:393137089622966272>`;
             }
         } else if (!args) {
-            var member = msg.member;
+            member = msg.member;
             if (member.roles.indexOf(`${HYPESQUAD_ROLE}`) > -1) {
                 member.removeRole(`${HYPESQUAD_ROLE}`, 'User is not Hypesquad');
                 return `Removed Hypesquad from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
@@ -149,7 +152,7 @@ module.exports = bot => {
                 return `Gave **${member.username}#${member.discriminator}** Hypesquad <:bexy:393137089622966272>`;
             }
         } else {
-            return 'Please provide a valid user <:bexn:393137089631354880>'
+            return 'Please provide a valid user <:bexn:393137089631354880>';
         }
     }, {
         requirements: {
@@ -162,9 +165,9 @@ module.exports = bot => {
 
     bot.register('reactions', (msg, args) => {
         bot.reactions = [];
-        if (args.length == 0) return 'Reset the reactions!';
+        if (args.length === 0) return 'Reset the reactions!';
 
-        args.forEach(function(arg) {
+        args.forEach(arg => {
             if (arg.includes(':')) {
                 arg = arg.replace('<:', '');
                 arg = arg.replace('>', '');
@@ -172,7 +175,7 @@ module.exports = bot => {
             } else {
                 bot.reactions.push(arg);
             }
-        })
+        });
         return 'Done! <:bexhey:390556541360799748>';
     }, {
         requirements: {
@@ -183,7 +186,9 @@ module.exports = bot => {
     });
 
     bot.register('nitrousers', (msg, args) => {
-        var nitro_users = msg.channel.guild.members.filter(m => m.avatarURL.includes('.gif')).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf(`${NITRO_ROLE}`) < 0).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf(`${PARTNER_ROLE}`) < 0).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169947511390210') < 0);
+        var nitro_users = msg.channel.guild.members.filter(m => m.avatarURL.includes('.gif')).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf(`${NITRO_ROLE}`) < 0);
+        nitro_users = nitro_users.filter(m => msg.channel.guild.members.get(m.id).roles.indexOf(`${PARTNER_ROLE}`) < 0);
+        nitro_users = nitro_users.filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169947511390210') < 0);
         if (nitro_users.length === 0) return bot.createMessage(msg.channel.id, 'Cannot find any potential nitro users without the role.');
         var chunked = bot.chunkArray(nitro_users, 10);
         // split nitro users into groups of ten
@@ -204,7 +209,7 @@ module.exports = bot => {
                 }
             };
             nitro_users.map(u => embedy.fields.push({ name: `Potentially nitro:`, value: `<@${u.id}> - ${u.id}` }));
-            bot.createMessage(msg.channel.id, { embed: embedy })
+            bot.createMessage(msg.channel.id, { embed: embedy });
         });
         return null;
     }, {
@@ -285,7 +290,7 @@ module.exports = bot => {
 
     bot.register('exec', (msg, args) => {
         try {
-            var res = require('child_process').execSync(args.join(' '))
+            var res = require('child_process').execSync(args.join(' '));
         } catch (err) {
             res = err;
         }
@@ -300,10 +305,10 @@ module.exports = bot => {
 
     bot.register('update', (msg, args) => {
         bot.createMessage(msg.channel.id, 'Updating...').then(e => {
-            var evaled = require('child_process').execSync('git pull').toString()
-            bot.createMessage(e.channel.id, '```' + evaled + '```')
+            var evaled = require('child_process').execSync('git pull').toString();
+            bot.createMessage(e.channel.id, '```' + evaled + '```');
             if (evaled.indexOf('Already up-to-date.') < 0) {
-                bot.createMessage(e.channel.id, 'New code successfully pulled! Restarting...')
+                bot.createMessage(e.channel.id, 'New code successfully pulled! Restarting...');
                 setTimeout(() => {
                     process.exit(0);
                 }, 2000);
@@ -325,7 +330,7 @@ module.exports = bot => {
                 if (args[0] === 'all') {
                     delete require.cache[require.resolve(`./${f}`)];
                     require(`./${f}`)(bot);
-                    bot.createMessage(msg.channel.id, `Module \`${f}\` successfully reloaded!`)
+                    bot.createMessage(msg.channel.id, `Module \`${f}\` successfully reloaded!`);
                 } else if (f.indexOf(args[0]) > -1) {
                     delete require.cache[require.resolve(`./${f}`)];
                     require(`./${f}`)(bot);
@@ -342,10 +347,10 @@ module.exports = bot => {
         },
         description: 'Reloads a module',
         fullDescription: 'This command is used to reload modules.'
-    })
+    });
 
     function clean(text) {
-        if (typeof (text) === 'string') {
+        if (typeof text === 'string') {
             return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));
         } else {
             return text;
@@ -369,7 +374,7 @@ module.exports = bot => {
         }
 
         function countdownMessage() {
-            var msgSent = '**' + eventDescription + '**\nstarting in **' + countdownTime + ' minutes!**';
+            msgSent = '**' + eventDescription + '**\nstarting in **' + countdownTime + ' minutes!**';
             bot.createMessage('392173094728630275', msgSent).then(it => {
                 msgSent = it;
             });
@@ -393,18 +398,18 @@ module.exports = bot => {
         }
 
         function amountBoolean() {
-            return countdownTime == 0;
+            return countdownTime === 0;
         }
 
         function getAmount() {
-            setTimeout(() => { amountBoolean; }, 60000)
+            setTimeout(() => { amountBoolean(); }, 60000);
         }
 
         if (argsArray[0] === 'start') {
             if (isNaN(argsArray[1])) {
                 bot.createMessage(msg.channel.id, 'Time must be a number!');
             } else {
-                bot.createMessage(msg.channel.id, 'Event **' + eventDescription + '** started!')
+                bot.createMessage(msg.channel.id, 'Event **' + eventDescription + '** started!');
                 countdownMessage();
                 countdownFunc();
                 sendEdit();
@@ -414,7 +419,7 @@ module.exports = bot => {
                 }
             }
         } else {
-            bot.createMessage(msg.channel.id, 'The correct usage is: `!event start <time> <description>`!')
+            bot.createMessage(msg.channel.id, 'The correct usage is: `!event start <time> <description>`!');
         }
     }, {
         requirements: {
@@ -422,5 +427,5 @@ module.exports = bot => {
         },
         description: 'Start an event.',
         fullDescription: 'This command is used to start a countdown for an event in the events channel.'
-    })
-}
+    });
+};
