@@ -277,10 +277,10 @@ module.exports = bot => {
                     msg.channel.createMessage(msg.channel.id, 'Well done! You got the role!');
                 } else {
                     leftToGo = 15 - i.uses;
+                    msg.channel.createMessage('Fetching invite(s)..').then(m => {
+                        m.edit(`Your permanent invite (\`discord.gg/${i.code}\`) has been used **${i.uses}** times. You have to invite \`${leftToGo}\` more people to get the **Invite Fever** role!`);
+                    });
                 }
-                msg.channel.createMessage('Fetching invite(s)..').then(m => {
-                    m.edit(`Your permanent invite (\`discord.gg/${i.code}\`) has been used **${i.uses}** times. You have to invite \`${leftToGo}\` more people to get the **Invite Fever** role!`);
-                });
             }
         }));
     }, {
