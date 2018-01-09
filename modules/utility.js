@@ -44,6 +44,7 @@ module.exports = bot => {
                 member.addRole(`${NITRO_ROLE}`, 'User is nitro');
                 return `Gave **${member.username}#${member.discriminator}** Nitro <:bexy:393137089622966272>`;
             }
+            // 0 == true, -1 == false
         } else if (msg.mentions[0] && msg.mentions[0].username) {
             userID = msg.mentions[0].id;
             member = msg.channel.guild.members.get(userID);
@@ -86,6 +87,7 @@ module.exports = bot => {
                 member.addRole(`${NITRO_ROLE}`, 'User is is a Discord Partner');
                 return `Gave **${member.username}#${member.discriminator}** Discord Partner <:bexy:393137089622966272>`;
             }
+            // 0 == true, -1 == false
         } else if (msg.mentions[0] && msg.mentions[0].username) {
             userID = msg.mentions[0].id;
             member = msg.channel.guild.members.get(userID);
@@ -128,6 +130,7 @@ module.exports = bot => {
                 member.addRole(`${HYPESQUAD_ROLE}`, 'User is is a Hypesquad');
                 return `Gave **${member.username}#${member.discriminator}** Hypesquad <:bexy:393137089622966272>`;
             }
+            // 0 == true, -1 == false
         } else if (msg.mentions[0] && msg.mentions[0].username) {
             userID = msg.mentions[0].id;
             member = msg.channel.guild.members.get(userID);
@@ -346,7 +349,7 @@ module.exports = bot => {
             userIDs: bot.config.owners,
         },
         description: 'Reloads a module',
-        fullDescription: 'This command is used to reload modules.',
+        fullDescription: 'This command is used to reload modules.'
     });
 
     function clean(text) {
@@ -402,9 +405,7 @@ module.exports = bot => {
         }
 
         function getAmount() {
-            setTimeout(() => {
-                return amountBoolean;
-            }, 60000);
+            setTimeout(() => { amountBoolean(); }, 60000);
         }
 
         if (argsArray[0] === 'start') {
@@ -428,6 +429,7 @@ module.exports = bot => {
             roleIDs: ['392169572863836160'],
         },
         description: 'Start an event.',
-        fullDescription: 'This command is used to start a countdown for an event in the events channel.',
+
+        fullDescription: 'This command is used to start a countdown for an event in the events channel.'
     });
 };

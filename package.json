@@ -9,6 +9,7 @@
   "private": true,
   "dependencies": {
     "eris": "^0.8.2",
+    "eris-additions": "^1.2.5",
     "hastebin-gen": "^1.3.1"
   }
 }
