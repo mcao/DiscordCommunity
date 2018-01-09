@@ -34,9 +34,9 @@ module.exports = bot => {
 
     bot.register('nitro', (msg, args) => {
         args = args.join(' ');
+        var userID = args;
+        var member = msg.channel.guild.members.get(userID);
         if (args.length === 18 || args.length === 17) {
-            var userID = args;
-            var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf(`${NITRO_ROLE}`) > -1) {
                 member.removeRole(`${NITRO_ROLE}`, 'User is not nitro');
                 return `Removed Nitro from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
@@ -77,9 +77,9 @@ module.exports = bot => {
 
     bot.register('partner', (msg, args) => {
         args = args.join(' ');
+        var userID = args;
+        var member = msg.channel.guild.members.get(userID);
         if (args.length === 18 || args.length === 17) {
-            var userID = args;
-            var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf(`${PARTNER_ROLE}`) > -1) {
                 member.removeRole(`${PARTNER_ROLE}`, 'User is not a Discord Partner');
                 return `Removed Discord Partner from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
@@ -120,9 +120,9 @@ module.exports = bot => {
 
     bot.register('hypesquad', (msg, args) => {
         args = args.join(' ');
+        var userID = args;
+        var member = msg.channel.guild.members.get(userID);
         if (args.length === 18 || args.length === 17) {
-            var userID = args;
-            var member = msg.channel.guild.members.get(userID);
             if (member.roles.indexOf(`${HYPESQUAD_ROLE}`) > -1) {
                 member.removeRole(`${HYPESQUAD_ROLE}`, 'User is not a Hypesquad member');
                 return `Removed Hypesquad from **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`;
