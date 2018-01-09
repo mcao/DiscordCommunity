@@ -1,5 +1,4 @@
 const readdir = require('fs').readdir,
-    writeFile = require('fs').writeFileSync,
     util = require('util'),
     hastebin = require('hastebin-gen'),
     NITRO_ROLE = `392169841554882570`,
@@ -10,14 +9,14 @@ let clev = new Cleverbot({
     key: 'CC68v6dd86WetHxwJN-KOjqsMxg',
 });
 module.exports = bot => {
-    bot.register('ping', (msg, args) => {
+    bot.register('ping', msg => {
         var start = new Date(msg.timestamp).getTime();
         bot.createMessage(msg.channel.id, 'Pong!')
             .then(sentMsg => sentMsg.edit('Pong! **' + (new Date(sentMsg.timestamp).getTime() - start) + 'ms**'))
             .catch(console.error);
     }, {
         description: 'Pong!',
-        fullDescription: "This command is used to check the bot's latency, or if it's up."
+        fullDescription: "This command is used to check the bot's latency, or if it's up.",
     });
     bot.register('clever', (msg, args) => {
         args = args.join(' ');
@@ -30,7 +29,7 @@ module.exports = bot => {
         return null;
     }, {
         description: 'Talk to the bot!',
-        fullDescription: "Speak with Discord Hub when you're feeling **very** lonely."
+        fullDescription: "Speak with Discord Hub when you're feeling **very** lonely.",
     });
 
     bot.register('nitro', (msg, args) => {
@@ -70,10 +69,10 @@ module.exports = bot => {
         }
     }, {
         requirements: {
-            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '392164671664422912']
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '392164671664422912'],
         },
         description: 'Give a user the nitro role.',
-        fullDescription: 'This is used to give users who have nitro the Nitro role.'
+        fullDescription: 'This is used to give users who have nitro the Nitro role.',
     });
 
     bot.register('partner', (msg, args) => {
@@ -113,10 +112,10 @@ module.exports = bot => {
         }
     }, {
         requirements: {
-            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '392164671664422912']
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '392164671664422912'],
         },
         description: 'Give a user the Discord Partner role.',
-        fullDescription: 'This is used to give users who have the partner badge the Discord Partner role.'
+        fullDescription: 'This is used to give users who have the partner badge the Discord Partner role.',
     });
 
     bot.register('hypesquad', (msg, args) => {
@@ -156,11 +155,11 @@ module.exports = bot => {
         }
     }, {
         requirements: {
-            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '392164671664422912']
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '392164671664422912'],
         },
         aliases: ['hype'],
         description: 'Give a user the Hypesquad role.',
-        fullDescription: 'This is used to give users who are members of Hypesquad the Hypesquad role.'
+        fullDescription: 'This is used to give users who are members of Hypesquad the Hypesquad role.',
     });
 
     bot.register('reactions', (msg, args) => {
@@ -179,34 +178,36 @@ module.exports = bot => {
         return 'Done! <:bexhey:390556541360799748>';
     }, {
         requirements: {
-            roleIDs: ['392425936366075905', '392150288729112587', '392164671664422912']
+            roleIDs: ['392425936366075905', '392150288729112587', '392164671664422912'],
         },
         description: 'Change the reactions added to the fotd channel.',
-        fullDescription: 'Easier & quicker to add reactions.'
+        fullDescription: 'Easier & quicker to add reactions.',
     });
 
-    bot.register('nitrousers', (msg, args) => {
-        var nitro_users = msg.channel.guild.members.filter(m => m.avatarURL.includes('.gif')).filter(m => msg.channel.guild.members.get(m.id).roles.indexOf(`${NITRO_ROLE}`) < 0);
-        nitro_users = nitro_users.filter(m => msg.channel.guild.members.get(m.id).roles.indexOf(`${PARTNER_ROLE}`) < 0);
-        nitro_users = nitro_users.filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169947511390210') < 0);
+    bot.register('nitrousers', msg => {
+        var nitro_users = msg.channel.guild.members
+            .filter(m => m.avatarURL.includes('.gif'))
+            .filter(m => msg.channel.guild.members.get(m.id).roles.indexOf(`${NITRO_ROLE}`) < 0)
+            .filter(m => msg.channel.guild.members.get(m.id).roles.indexOf(`${PARTNER_ROLE}`) < 0)
+            .filter(m => msg.channel.guild.members.get(m.id).roles.indexOf('392169947511390210') < 0);
         if (nitro_users.length === 0) return bot.createMessage(msg.channel.id, 'Cannot find any potential nitro users without the role.');
         var chunked = bot.chunkArray(nitro_users, 10);
         // split nitro users into groups of ten
-        chunked.forEach(users => {
+        chunked.forEach(() => {
             var embedy = {
                 title: `List of potential nitro users`,
                 color: 0x71368a,
                 author: {
                     name: 'Discord Community',
-                    icon_url: 'https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256'
+                    icon_url: 'https://cdn.discordapp.com/avatars/392450607983755264/071e72220fae40698098221d52df3e5f.jpg?size=256',
                 },
                 timestamp: new Date(),
                 fields: [
 
                 ],
                 footer: {
-                    text: `Note: This is not 100% accurate. Length: ${nitro_users.length} users`
-                }
+                    text: `Note: This is not 100% accurate. Length: ${nitro_users.length} users`,
+                },
             };
             nitro_users.map(u => embedy.fields.push({ name: `Potentially nitro:`, value: `<@${u.id}> - ${u.id}` }));
             bot.createMessage(msg.channel.id, { embed: embedy });
@@ -214,10 +215,10 @@ module.exports = bot => {
         return null;
     }, {
         requirements: {
-            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '392164671664422912']
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587', '392164671664422912'],
         },
         description: 'Check potential nitro users who dont have the role.',
-        fullDescription: "Check potential nitro users who don't have the nitro role, used by mods."
+        fullDescription: "Check potential nitro users who don't have the nitro role, used by mods.",
     });
 
     bot.register('eval', (msg, args) => {
@@ -226,7 +227,7 @@ module.exports = bot => {
             let evaled = eval(code);
             let type = typeof evaled || 'undefined';
             let insp = util.inspect(evaled, {
-                depth: 1
+                depth: 1,
             });
 
             if (evaled === null) evaled = 'null';
@@ -246,10 +247,10 @@ module.exports = bot => {
         return 'failure?';
     }, {
         requirements: {
-            userIDs: bot.config.owners
+            userIDs: bot.config.owners,
         },
         description: 'Evaluates code',
-        fullDescription: 'This command is used to evaluate code on the bot.'
+        fullDescription: 'This command is used to evaluate code on the bot.',
     });
 
     bot.register('say', (msg, args) => {
@@ -258,13 +259,13 @@ module.exports = bot => {
         return args;
     }, {
         requirements: {
-            roleIDs: ['392425936366075905', '392150288729112587', '392164671664422912']
+            roleIDs: ['392425936366075905', '392150288729112587', '392164671664422912'],
         },
         description: 'Say command',
-        fullDescription: 'Deletes the original command and the bot will say the arguments.'
+        fullDescription: 'Deletes the original command and the bot will say the arguments.',
     });
 
-    bot.register('invite', (msg, args) => {
+    bot.register('invite', msg => {
         msg.channel.guild.getInvites().then(v => v.forEach(i => {
             if (i.inviter && !i.temporary && !i.maxAge) {
                 if (!i.inviter) return;
@@ -282,10 +283,10 @@ module.exports = bot => {
         }));
     }, {
         requirements: {
-            roleIDs: ['392169263982444546', '392425936366075905', '392150288729112587', '392164671664422912', '392162455717150730', '392161607976878092']
+            roleIDs: ['392169263982444546', '392425936366075905', '392150288729112587', '392164671664422912', '392162455717150730', '392161607976878092'],
         },
         description: 'Check how many uses your invite has.',
-        fullDescription: "This is used to check how many times your invite has been used, and check the code you've been using."
+        fullDescription: "This is used to check how many times your invite has been used, and check the code you've been using.",
     });
 
     bot.register('exec', (msg, args) => {
@@ -297,13 +298,13 @@ module.exports = bot => {
         return '```LIDF\n' + res + '```';
     }, {
         requirements: {
-            userIDs: bot.config.owners
+            userIDs: bot.config.owners,
         },
         description: 'Executes to command line',
-        fullDescription: 'This command is used to execute command line commands.'
+        fullDescription: 'This command is used to execute command line commands.',
     });
 
-    bot.register('update', (msg, args) => {
+    bot.register('update', msg => {
         bot.createMessage(msg.channel.id, 'Updating...').then(e => {
             var evaled = require('child_process').execSync('git pull').toString();
             bot.createMessage(e.channel.id, '```' + evaled + '```');
@@ -316,10 +317,10 @@ module.exports = bot => {
         });
     }, {
         requirements: {
-            userIDs: bot.config.owners
+            userIDs: bot.config.owners,
         },
         description: "Updates the bot's code.",
-        fullDescription: "This command is used to update the bot's code on Github."
+        fullDescription: "This command is used to update the bot's code on Github.",
     });
 
     bot.register('reload', (msg, args) => {
@@ -343,7 +344,7 @@ module.exports = bot => {
         return null;
     }, {
         requirements: {
-            userIDs: bot.config.owners
+            userIDs: bot.config.owners,
         },
         description: 'Reloads a module',
         fullDescription: 'This command is used to reload modules.'
@@ -423,9 +424,10 @@ module.exports = bot => {
         }
     }, {
         requirements: {
-            roleIDs: ['392169572863836160']
+            roleIDs: ['392169572863836160'],
         },
         description: 'Start an event.',
+
         fullDescription: 'This command is used to start a countdown for an event in the events channel.'
     });
 };
