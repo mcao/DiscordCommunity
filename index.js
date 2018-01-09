@@ -46,8 +46,8 @@ bot.on('ready', () => {
     try {
         bot.getMessage(JSON.parse(readFileSync('./channel.json')).channel,
             JSON.parse(readFileSync('./channel.json')).message).then(msg => {
-                msg.edit('Restarted!');
-            });
+            msg.edit('Restarted!');
+        });
     } catch (err) {
         bot.log(err);
     }
@@ -261,7 +261,7 @@ bot.on('messageCreate', msg => {
             'love:390416915194970122', 'HypeMan:390416914826133505', 'wlove:390416915341901826'];
         const voteReactions = ['bexy:393137089622966272', 'bexn:393137089631354880'];
         const channels = ['392407095171088384', '392173071223750656', '392172869154635786', '392173094728630275'];
-
+        //                      #fun-of-the-day
         if (msg.channel.id === '392407095171088384') {
             if (bot.reactions.length === 0) return;
             bot.reactions.forEach(reaction => {
@@ -269,7 +269,7 @@ bot.on('messageCreate', msg => {
             });
         }
 
-        // #bot-commands
+        //                      #bot-commands
         if (msg.channel.id === '394698464253968394' && !isNaN(msg.content) && !msg.author.bot) {
             if (!bot.runninggames.has('guessit')) return;
             if (bot.guesstries === 0) {
@@ -291,7 +291,7 @@ bot.on('messageCreate', msg => {
             }
         }
 
-         // #introductions
+        //                      #introductions
         if (msg.channel.id === '392152654505050112') {
             msg.addReaction('bexhey:390556541360799748');
         } else if (channels.indexOf(msg.channel.id) > -1) {
@@ -315,14 +315,16 @@ bot.on('messageCreate', msg => {
                 }, 3 * 1000);
             }
         }
+        //                      #bot-commits                                GitHub-Webhook
         if (msg.channel.id === '397522914955755531' && msg.author.id === '392445621165883392') {
-            // #bot-development
+            //                  #bot-development
             bot.createMessage('392442695756546059', 'Automatic Code Update Initiated.').then(() => {
                 var evaled = require('child_process').execSync('git pull').toString();
                 bot.createMessage('392442695756546059', 'Automatic Code Update Successful.');
                 var desc = msg.embeds[0].description.toString();
+                //                  #bot-development , @Michael ...
                 bot.createMessage('392442695756546059',
-                `<@171319044715053057>, the following changes were pushed by **${desc.match(/.+\s-\s([\w\d-_]+)$/)[1] || 'Unknown'}**. Please approve the changes and restart the bot.\n\`\`\`${evaled}\`\`\``);
+                    `<@171319044715053057>, the following changes were pushed by **${desc.match(/.+\s-\s([\w\d-_]+)$/)[1] || 'Unknown'}**. Please approve the changes and restart the bot.\n\`\`\`${evaled}\`\`\``);
             });
         }
     }
@@ -330,11 +332,12 @@ bot.on('messageCreate', msg => {
 
 bot.on('guildMemberAdd', (guild, member) => {
     if (guild.id === HOME_GUILD) {
+        //                 #chit-chat ...
         bot.createMessage('392152516596465664', `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada:
 Please remember to read the <#392171939101409290> and react with <:bexy:393137089622966272> to get the humans role. Don't forget to post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>.`);
         setTimeout(() => {
             member.addRole('392169263982444546', 'Autorole').catch();
-        }, 900000);
+        }, 10 * 60 * 1000);
         member.user.getDMChannel().then(channel => {
             // Community banner
             channel.createMessage(null, { file: fs.readFileSync('./images/community.png'), name: 'welcome.png' }).then(msg => {
@@ -409,6 +412,7 @@ bot.on('guildBanAdd', (guild, user) => {
                 }],
             },
         };
+        //              #mod-log
         bot.getChannel('398936742532743188').createMessage(embed);
 
         for (var i = 0; i < guildList.length; i++) {
@@ -420,6 +424,7 @@ bot.on('guildBanAdd', (guild, user) => {
                     guild2.banMember(user.id, 0, 'Automated Ban Sync - User banned on ' + guild.name);
                 });
             } catch (err) {
+                //              #hub-bot
                 bot.getChannel('392897329721507850').createMessage(`Error: ${err.stack}`);
             }
         }
@@ -436,6 +441,7 @@ bot.on('guildBanRemove', (guild, user) => {
             bot.log(`Unbanning ${user.username} on ${guild2.name}!`);
             guild2.unbanMember(user.id, 0, 'Automated Unban Sync - User unbanned on ' + guild.name);
         } catch (err) {
+            //              #hannahs-hub
             bot.getChannel('389588585889660928').createMessage(`Error: ${err}`);
         }
     }
