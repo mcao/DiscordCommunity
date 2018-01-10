@@ -415,7 +415,7 @@ bot.on('guildBanAdd', (guild, user) => {
             var guilds = bot.guilds.map(g => { return g; });
             for (var i = 0; i < guilds.length; i++) {
                 try {
-                    if (!guilds[i].id === guild.id) {
+                    if (guilds[i].id !== guild.id) {
                         bot.log(`Banning ${user.username} on ${guilds[i].name}!`);
                         guilds[i].banMember(user.id, 0, 'Automated Ban Sync - User banned on ' + guild.name + ' for ' + decodeURIComponent(logs.entries[0].reason));
                     }
