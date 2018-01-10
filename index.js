@@ -13,6 +13,7 @@ var bot = new CommandClient(require('./config.json').token, {
 require('./funcs.js')(bot);
 
 if (process.argv && process.argv[2] === 'dev') console.log('[DEVELOPER MODE] Starting in Developer Mode...');
+else console.log("Starting...");
 
 bot.on('ready', () => {
     bot.log(`Logged in as ${bot.user.username}#${bot.user.discriminator}!`);
@@ -56,10 +57,6 @@ bot.on('ready', () => {
 });
 
 bot.on('messageCreate', msg => {
-    // const yesno = ['bexy:393137089622966272', 'bexn:393137089631354880'];
-    // if (msg.channel.type == 1) {
-    // let responses = msg.channel.awaitMessages(m => m.content === "yes");
-    // if(responses.length) bot.createMessage(msg.channel.id, "You said yes :)");
     if (msg.channel.type === 1) {
         msg.author.feedback = false;
         if (msg.content.toLowerCase().startsWith('start') || msg.content.toLowerCase().startsWith('begin')) {
