@@ -264,6 +264,7 @@ module.exports = bot => {
         description: 'Say command',
         fullDescription: 'Deletes the original command and the bot will say the arguments.',
     });
+
     bot.register("invitefever", (msg, args) => {
         var inviteFever = new Object;
         msg.channel.guild.getInvites().then((v) => v.forEach(i => {
