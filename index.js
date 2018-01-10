@@ -12,6 +12,8 @@ var bot = new CommandClient(require('./config.json').token, {
 
 require('./funcs.js')(bot);
 
+console.log("Starting...");
+
 bot.on('ready', () => {
     bot.log(`Logged in as ${bot.user.username}#${bot.user.discriminator}!`);
 
