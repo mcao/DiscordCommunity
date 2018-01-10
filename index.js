@@ -317,7 +317,7 @@ bot.on('messageCreate', msg => {
         }
         //                      #bot-commits                                GitHub-Webhook
         if (msg.channel.id === '397522914955755531' && msg.author.id === '392445621165883392') {
-            // master
+            // master commits ok
             if (!msg.embeds[0].title || !msg.embeds[0].title.includes('master')) return;
             //                  #bot-development
             bot.createMessage('392442695756546059', 'Automatic Code Update Initiated.').then(() => {
