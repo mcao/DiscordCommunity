@@ -288,7 +288,7 @@ module.exports = bot => {
 
             ]
         };
-        if (Object.keys(inviteFever).length == 0) return 'No users are in need of the invite fever role.';
+        if (Object.keys(inviteFever).length == 0) return 'No users are in need of the **Invite Fever** role.';
         for (var user in inviteFever) {
             embedy.fields.push({name: `${user.user} - <@${user.userID}> - ${user.userID}`, value: `Uses: **${user.uses}**`});
         }
@@ -328,11 +328,13 @@ module.exports = bot => {
     });
 
     bot.register('invite', (msg, args) => {
-        var users = new Array;
+        var users = {};
         msg.channel.guild.getInvites().then(v => v.forEach(i => {
             if (i.inviter && !i.temporary && !i.maxAge) {
                 if (!i.inviter) return;
-                users.push(i.inviter.username);
+                users[i.inviter.id] = {
+                    user: i.inviter.username
+                }
                 if (i.inviter.username !== msg.author.username) return;
                 var leftToGo;
                 if (i.uses > 15) {
@@ -345,7 +347,12 @@ module.exports = bot => {
                 });
             }
         }));
-        if (users.indexOf(msg.author.username) == -1) return 'You don\'t have any permanent invites, go make one in <#392171939101409290>! <:bexhey:390556541360799748>'
+        var hey = false;
+        for(var user in users) {
+            if (users.user == msg.author.username) {
+                return 'You don\'t have any permanent invites, go make one in <#392171939101409290>! <:bexhey:390556541360799748>'
+            }
+        }
     }, {
         requirements: {
             roleIDs: ['392169263982444546', '392425936366075905', '392150288729112587', '392164671664422912', '392162455717150730', '392161607976878092']
