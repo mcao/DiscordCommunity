@@ -71,6 +71,7 @@ module.exports = bot => {
         if (msg.mentions[0]) {
             user = msg.mentions[0].id;
         }
+        msg.delete();
         bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
         bot.users.get(user).getDMChannel().then(c => c.createMessage(`You have been warned in **${msg.channel.guild.name}** for the following reason: **${reason}**.`));
 
