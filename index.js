@@ -273,7 +273,7 @@ bot.on('messageCreate', msg => {
         if (msg.channel.id === '394698464253968394' && !isNaN(msg.content) && !msg.author.bot) {
             if (!bot.runninggames.has('guessit')) return;
             if (bot.guesstries === 0) {
-                msg.channel.createMessage(`Ok the time is over now! You failed to guess ${bot.randomnumber}. Sorry`);
+                msg.channel.createMessage(`Ok you had your last chance. Guessing is over now! You failed to guess ${bot.randomnumber}. Sorry`);
                 bot.runninggames.delete('guessit');
                 bot.guesstries = 15;
             }
@@ -283,9 +283,9 @@ bot.on('messageCreate', msg => {
                 bot.guesstries = 15;
             } else {
                 if (msg.content > bot.randomnumber) {
-                    msg.channel.createMessage(`Hmm, i guess you should aim lower then ${msg.content} ${msg.author.username}.`);
+                    msg.channel.createMessage(`Hmm, i guess you should aim lower than ${msg.content} ${msg.author.username}.`);
                 } else if (msg.content < bot.randomnumber) {
-                    msg.channel.createMessage(`Hmm, i guess you should aim higher then ${msg.content} ${msg.author.username}.`);
+                    msg.channel.createMessage(`Hmm, i guess you should aim higher than ${msg.content} ${msg.author.username}.`);
                 }
                 --bot.guesstries;
             }
@@ -317,8 +317,8 @@ bot.on('messageCreate', msg => {
         }
         //                      #bot-commits                                GitHub-Webhook
         if (msg.channel.id === '397522914955755531' && msg.author.id === '392445621165883392') {
-            // master commits ok
-            if (!msg.embeds[0].title || !msg.embeds[0].title.includes('master')) return;
+            // dev commits ok
+            if (!msg.embeds[0].title || !msg.embeds[0].title.includes('dev')) return;
             //                  #bot-development
             bot.createMessage('392442695756546059', 'Automatic Code Update Initiated.').then(() => {
                 var evaled = require('child_process').execSync('git pull').toString();
