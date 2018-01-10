@@ -12,6 +12,8 @@ var bot = new CommandClient(require('./config.json').token, {
 
 require('./funcs.js')(bot);
 
+if (process.argv && process.argv[2] === 'dev') console.log('[DEVELOPER MODE] Starting in Developer Mode...');
+
 bot.on('ready', () => {
     bot.log(`Logged in as ${bot.user.username}#${bot.user.discriminator}!`);
 
