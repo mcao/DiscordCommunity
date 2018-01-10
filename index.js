@@ -385,7 +385,6 @@ bot.on('guildBanAdd', (guild, user) => {
 
     setTimeout(() => {
         guild.getAuditLogs(2, null, 22).then(logs => {
-
             bot.getChannel('398936742532743188').createMessage({
                 embed: {
                     color: 8919211,
@@ -406,23 +405,21 @@ bot.on('guildBanAdd', (guild, user) => {
                         inline: true,
                     }, {
                         name: 'Ban Reason',
-                        value: logs.entries[0].reason || 'Not Specified',
+                        value: decodeURIComponent(logs.entries[0].reason) || 'Not Specified',
                         inline: true,
                     }],
                 },
             });
 
-
-            for (var i = 0; i < guildList.length; i++) {
+            var guilds = bot.guilds.map(g => { return g; });
+            for (var i = 0; i < guilds.size; i++) {
                 try {
-                    const guild2 = bot.guilds.get(guildList[i]);
-                    if (guild2.id === guild.id) return;
+                    if (guilds[i].id === guild.id) return;
                     guild.getBans(user.id).then(() => {
-                        bot.log(`Banning ${user.username} on ${guild2.name}!`);
-                        guild2.banMember(user.id, 0, 'Automated Ban Sync - User banned on ' + guild.name);
+                        bot.log(`Banning ${user.username} on ${guilds[i].name}!`);
+                        guilds[i].banMember(user.id, 0, 'Automated Ban Sync - User banned on ' + guild.name + ' for ' + decodeURIComponent(logs.entries[0].reason));
                     });
                 } catch (err) {
-                    //              #hub-bot
                     bot.getChannel('392897329721507850').createMessage(`Error: ${err.stack}`);
                 }
             }
