@@ -428,17 +428,15 @@ bot.on('guildBanAdd', (guild, user) => {
 });
 
 bot.on('guildBanRemove', (guild, user) => {
-    const guildList = bot.config.guilds;
-
-    for (var i = 0; i < guildList.length; i++) {
+    var guilds = bot.guilds.map(g => { return g; });
+    for (var i = 0; i < guilds.length; i++) {
         try {
-            const guild2 = bot.guilds.get(guildList[i]);
-            if (guild2.id === guild.id) return;
-            bot.log(`Unbanning ${user.username} on ${guild2.name}!`);
-            guild2.unbanMember(user.id, 0, 'Automated Unban Sync - User unbanned on ' + guild.name);
+            if (guilds[i].id !== guild.id) {
+                bot.log(`Unbanning ${user.username} on ${guilds[i].name}!`);
+                guilds[i].unbanMember(user.id, 0, 'Automated Unban Sync - User unbanned on ' + guild.name);
+            }
         } catch (err) {
-            // #hannahs-hub
-            bot.getChannel('392442695756546059').createMessage(`Error: ${err}`);
+            bot.getChannel('392897329721507850').createMessage(`Error: ${err.stack}`);
         }
     }
 });
