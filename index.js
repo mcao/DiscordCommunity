@@ -381,10 +381,11 @@ bot.on('guildMemberAdd', (guild, member) => {
 });
 
 bot.on('guildBanAdd', (guild, user) => {
-    const guildList = bot.config.guilds;
 
     setTimeout(() => {
         guild.getAuditLogs(2, null, 22).then(logs => {
+            if (logs.entries[0].user.id === bot.user.id) return;
+
             bot.getChannel('398936742532743188').createMessage({
                 embed: {
                     color: 8919211,
@@ -414,9 +415,10 @@ bot.on('guildBanAdd', (guild, user) => {
             var guilds = bot.guilds.map(g => { return g; });
             for (var i = 0; i < guilds.length; i++) {
                 try {
-                    if (guilds[i].id === guild.id) return;
-                    bot.log(`Banning ${user.username} on ${guilds[i].name}!`);
-                    guilds[i].banMember(user.id, 0, 'Automated Ban Sync - User banned on ' + guild.name + ' for ' + decodeURIComponent(logs.entries[0].reason));
+                    if (!guilds[i].id === guild.id) {
+                        bot.log(`Banning ${user.username} on ${guilds[i].name}!`);
+                        guilds[i].banMember(user.id, 0, 'Automated Ban Sync - User banned on ' + guild.name + ' for ' + decodeURIComponent(logs.entries[0].reason));
+                    }
                 } catch (err) {
                     bot.getChannel('392897329721507850').createMessage(`Error: ${err.stack}`);
                 }
