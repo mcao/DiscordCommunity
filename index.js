@@ -12,7 +12,8 @@ var bot = new CommandClient(require('./config.json').token, {
 
 require('./funcs.js')(bot);
 
-console.log("Starting...");
+if (process.argv && process.argv[2] === 'dev') console.log('[DEVELOPER MODE] Starting in Developer Mode...');
+else console.log("Starting...");
 
 bot.on('ready', () => {
     bot.log(`Logged in as ${bot.user.username}#${bot.user.discriminator}!`);
@@ -315,17 +316,20 @@ bot.on('messageCreate', msg => {
         }
         //                      #bot-commits                                GitHub-Webhook
         if (msg.channel.id === '397522914955755531' && msg.author.id === '392445621165883392') {
-            // dev commits ok
-            if (!msg.embeds[0].title || !msg.embeds[0].title.includes('dev')) return;
+            if (!msg.embeds[0].title) return;
+            if (process.argv && process.argv[2] === 'dev' && !msg.embeds[0].title.includes('dev')) return;
+            else if (!msg.embeds[0].title.includes('master')) return;
+
             //                  #bot-development
             bot.createMessage('392442695756546059', 'Automatic Code Update Initiated.').then(() => {
                 var evaled = require('child_process').execSync('git pull').toString();
-                if (evaled.indexOf("Already up to date.") > -1) return bot.createMessage('392442695756546059', 'Aborted: Already Up to Date.');
+                if (evaled.indexOf('Already up to date' > -1)) return bot.createMessage('392442695756546059', 'Aborted: Already Up to Date.');
                 bot.createMessage('392442695756546059', 'Automatic Code Update Successful.');
                 var desc = msg.embeds[0].description.toString();
                 //                  #bot-development , @Michael ...
                 bot.createMessage('392442695756546059',
                     `<@171319044715053057>, the following changes were pushed by **${desc.match(/.+\s-\s([\w\d-_]+)$/)[1] || 'Unknown'}**. Please approve the changes and restart the bot.\n\`\`\`${evaled}\`\`\``);
+                return null;
             });
         }
     }
