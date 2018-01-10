@@ -45,9 +45,9 @@ bot.on('ready', () => {
 
     try {
         bot.getMessage(JSON.parse(readFileSync('./channel.json')).channel,
-        JSON.parse(readFileSync('./channel.json')).message).then(msg => {
-            msg.edit('Restarted!');
-        });
+            JSON.parse(readFileSync('./channel.json')).message).then(msg => {
+                msg.edit('Restarted!');
+            });
     } catch (err) {
         bot.log(err);
     }
@@ -332,9 +332,8 @@ bot.on('messageCreate', msg => {
 
 bot.on('guildMemberAdd', (guild, member) => {
     if (guild.id === HOME_GUILD) {
-        //                 #chit-chat ...
-        bot.createMessage('392152516596465664', `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada:
-Please remember to read the <#392171939101409290> and react with <:bexy:393137089622966272> to get the humans role. Don't forget to post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>.`);
+        bot.createMessage('392152516596465664', `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada: ` +
+            `Please remember to read the <#392171939101409290> and react with <:bexy:393137089622966272> to get the humans role. Don't forget to post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>.`);
         setTimeout(() => {
             member.addRole('392169263982444546', 'Autorole').catch();
         }, 10 * 60 * 1000);
@@ -343,39 +342,39 @@ Please remember to read the <#392171939101409290> and react with <:bexy:39313708
             channel.createMessage(null, { file: fs.readFileSync('./images/community.png'), name: 'welcome.png' }).then(msg => {
                 // Introduction text
                 msg.channel.createMessage('Welcome to the **Discord Hub community!**\n\nThis server has the goal of being the biggest community server in all of Discord, ' +
-                'and is a project owned and moderated by the **Discord Hub Network**. <:bexnice:390556541591486464>').then(() => {
-                    // Information banner
-                    msg.channel.createMessage(null, { file: fs.readFileSync('./images/information.png'), name: 'info.png' }).then(() => {
-                        // Information text
-                        msg.channel.createMessage('**-**Events - we host large events from time to time and do some small fun daily events in <#392407095171088384>.\n\n' +
-                        '**-**A Community - we are made **for you**, the community. Suggest features and updates in <#394720234684284948>.\n\n' +
-                        '**-**Active and suits everyone - we make a great deal of making everyone feel a home, and hope you will help us and take part.\n\n' +
-                        '**-**A custom super swag private bot that gives you roles depending on your activity! Do `!help` in <#394698464253968394> to see more.\n\n' +
-                        '**-**A dedicated and active staff team - we do our very best to make this community the best and to make cool updates for you guys. \n\n' +
-                        '**-**Do you love moderating communities? Do you love Discord? If so, apply to become staff here: <https://discord.guide/staff-application>.\n\n' +
-                        '**-**Are you a content creator or community owner? Do you wanna partner with the hub? If yes, apply here: <https://discord.guide/partner-application>.\n' +
-                        '**-**If you have any questions, concerns and private matters you wanna discuss, feel free to DM me (this bot) back or message one of the admins.\n\n\n' +
-                        'Interested in seeing the role list of the **Hub Network** and how you can climb the ladder and become the master? Check it out!').then(() => {
-                            // Role list image
-                            msg.channel.createMessage('', { file: fs.readFileSync('./images/roles.png'), name: 'roles.png' }).then(() => {
-                                // Rules banner
-                                msg.channel.createMessage('', { file: fs.readFileSync('./images/rules.png'), name: 'rules.png' }).then(() => {
-                                    // Rules text
-                                    msg.channel.createMessage('**-**Be considerate for others and be responsible/respectful in all you say and do.\n\n' +
-                                    '**-**Listen and cooperate with staff; refusing to do so may result in you being warned, kicked, and/or banned from the server.\n\n' +
-                                    '**-**Please keep all posts and/or conversations in their respective text channels. Please also read the pinned tabs in the channels.\n\n' +
-                                    '**-**This server is completely SFW. All NSFW will be deleted and a punishment will be issued depending on severity.\n\n' +
-                                    '**-**Keep it cool - stick to the community guidelines at all time.\n\n' +
-                                    '**NOTE:** Don’t forget to please <#392152654505050112>! We love to get to know new people! ' +
-                                    'If you are a Discord Nitro, HypeSquad or Partner member, then ask to have a cool role assigned to you in your introduction!\n\n' +
-                                    'Also, note that you, as a new members, will be restricted to the information channels, <#392152654505050112> and <#392152516596465664> for 2 minutes upon joining.\n' +
-                                    'Please note that **we are not Discord Staff** and are **not associated with Discord in any way.** This server is purely a community for Discord Hub Network.\n\n' +
-                                    'Invite your friends to join us via this link (**Although if you make your own invite and get 15 friends to join it, you will get a custom role!**)\n\nhttps://discord.gg/ATUtmyu');
+                    'and is a project owned and moderated by the **Discord Hub Network**. <:bexnice:390556541591486464>').then(() => {
+                        // Information banner
+                        msg.channel.createMessage(null, { file: fs.readFileSync('./images/information.png'), name: 'info.png' }).then(() => {
+                            // Information text
+                            msg.channel.createMessage('**-**Events - we host large events from time to time and do some small fun daily events in <#392407095171088384>.\n\n' +
+                                '**-**A Community - we are made **for you**, the community. Suggest features and updates in <#394720234684284948>.\n\n' +
+                                '**-**Active and suits everyone - we make a great deal of making everyone feel a home, and hope you will help us and take part.\n\n' +
+                                '**-**A custom super swag private bot that gives you roles depending on your activity! Do `!help` in <#394698464253968394> to see more.\n\n' +
+                                '**-**A dedicated and active staff team - we do our very best to make this community the best and to make cool updates for you guys. \n\n' +
+                                '**-**Do you love moderating communities? Do you love Discord? If so, apply to become staff here: <https://discord.guide/staff-application>.\n\n' +
+                                '**-**Are you a content creator or community owner? Do you wanna partner with the hub? If yes, apply here: <https://discord.guide/partner-application>.\n' +
+                                '**-**If you have any questions, concerns and private matters you wanna discuss, feel free to DM me (this bot) back or message one of the admins.\n\n\n' +
+                                'Interested in seeing the role list of the **Hub Network** and how you can climb the ladder and become the master? Check it out!').then(() => {
+                                    // Role list image
+                                    msg.channel.createMessage('', { file: fs.readFileSync('./images/roles.png'), name: 'roles.png' }).then(() => {
+                                        // Rules banner
+                                        msg.channel.createMessage('', { file: fs.readFileSync('./images/rules.png'), name: 'rules.png' }).then(() => {
+                                            // Rules text
+                                            msg.channel.createMessage('**-**Be considerate for others and be responsible/respectful in all you say and do.\n\n' +
+                                                '**-**Listen and cooperate with staff; refusing to do so may result in you being warned, kicked, and/or banned from the server.\n\n' +
+                                                '**-**Please keep all posts and/or conversations in their respective text channels. Please also read the pinned tabs in the channels.\n\n' +
+                                                '**-**This server is completely SFW. All NSFW will be deleted and a punishment will be issued depending on severity.\n\n' +
+                                                '**-**Keep it cool - stick to the community guidelines at all time.\n\n' +
+                                                '**NOTE:** Don’t forget to please <#392152654505050112>! We love to get to know new people! ' +
+                                                'If you are a Discord Nitro, HypeSquad or Partner member, then ask to have a cool role assigned to you in your introduction!\n\n' +
+                                                'Also, note that you, as a new members, will be restricted to the information channels, <#392152654505050112> and <#392152516596465664> for 2 minutes upon joining.\n' +
+                                                'Please note that **we are not Discord Staff** and are **not associated with Discord in any way.** This server is purely a community for Discord Hub Network.\n\n' +
+                                                'Invite your friends to join us via this link (**Although if you make your own invite and get 15 friends to join it, you will get a custom role!**)\n\nhttps://discord.gg/ATUtmyu');
+                                        });
+                                    });
                                 });
-                            });
                         });
                     });
-                });
             });
         });
     }
@@ -384,51 +383,51 @@ Please remember to read the <#392171939101409290> and react with <:bexy:39313708
 bot.on('guildBanAdd', (guild, user) => {
     const guildList = bot.config.guilds;
 
-    guild.getAuditLogs(2, null, 22).then(logs => {
-        if (logs.entries[0].user.id === bot.user.id) return;
+    setTimeout(() => {
+        guild.getAuditLogs(2, null, 22).then(logs => {
 
-        var embed = {
-            embed: {
-                color: 8919211,
-                footer: {
-                    icon_url: bot.users.get(logs.entries[0].user.id).avatarURL.replace('?size=128', ''),
-                    text: 'Banned by ' + logs.entries[0].user.username + '#' + logs.entries[0].user.discriminator + ' | Banned User ID: ' + user.id,
+            bot.getChannel('398936742532743188').createMessage({
+                embed: {
+                    color: 8919211,
+                    footer: {
+                        icon_url: bot.users.get(logs.entries[0].user.id).avatarURL.replace('?size=128', ''),
+                        text: 'Banned by ' + logs.entries[0].user.username + '#' + logs.entries[0].user.discriminator + ' | Banned User ID: ' + logs.entries[0].targetID,
+                    },
+                    thumbnail: {
+                        url: bot.users.get(logs.entries[0].targetID).avatarURL.replace('?size=128', ''),
+                    },
+                    fields: [{
+                        name: 'User Banned',
+                        value: bot.users.get(logs.entries[0].targetID).username + '#' + bot.users.get(logs.entries[0].targetID).discriminator,
+                        inline: true,
+                    }, {
+                        name: 'Banned In',
+                        value: guild.name,
+                        inline: true,
+                    }, {
+                        name: 'Ban Reason',
+                        value: logs.entries[0].reason || 'Not Specified',
+                        inline: true,
+                    }],
                 },
-                thumbnail: {
-                    url: user.avatarURL.replace('?size=128', ''),
-                },
-                fields: [{
-                    name: 'User Banned',
-                    value: user.username + '#' + user.discriminator,
-                    inline: true,
-                }, {
-                    name: 'Banned in',
-                    value: guild.name,
-                    inline: true,
-                }, {
-                    name: 'Ban Reason',
-                    value: logs.entries[0].reason || 'Not Specified',
-                    inline: true,
-                }],
-            },
-        };
-        //              #mod-log
-        bot.getChannel('398936742532743188').createMessage(embed);
+            });
 
-        for (var i = 0; i < guildList.length; i++) {
-            try {
-                const guild2 = bot.guilds.get(guildList[i]);
-                if (guild2.id === guild.id) return;
-                guild.getBans(user.id).then(() => {
-                    bot.log(`Banning ${user.username} on ${guild2.name}!`);
-                    guild2.banMember(user.id, 0, 'Automated Ban Sync - User banned on ' + guild.name);
-                });
-            } catch (err) {
-                //              #hub-bot
-                bot.getChannel('392897329721507850').createMessage(`Error: ${err.stack}`);
+
+            for (var i = 0; i < guildList.length; i++) {
+                try {
+                    const guild2 = bot.guilds.get(guildList[i]);
+                    if (guild2.id === guild.id) return;
+                    guild.getBans(user.id).then(() => {
+                        bot.log(`Banning ${user.username} on ${guild2.name}!`);
+                        guild2.banMember(user.id, 0, 'Automated Ban Sync - User banned on ' + guild.name);
+                    });
+                } catch (err) {
+                    //              #hub-bot
+                    bot.getChannel('392897329721507850').createMessage(`Error: ${err.stack}`);
+                }
             }
-        }
-    });
+        });
+    }, 5000);
 });
 
 bot.on('guildBanRemove', (guild, user) => {
@@ -441,8 +440,8 @@ bot.on('guildBanRemove', (guild, user) => {
             bot.log(`Unbanning ${user.username} on ${guild2.name}!`);
             guild2.unbanMember(user.id, 0, 'Automated Unban Sync - User unbanned on ' + guild.name);
         } catch (err) {
-            //              #hannahs-hub
-            bot.getChannel('389588585889660928').createMessage(`Error: ${err}`);
+            // #hannahs-hub
+            bot.getChannel('392442695756546059').createMessage(`Error: ${err}`);
         }
     }
 });

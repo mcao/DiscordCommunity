@@ -222,7 +222,7 @@ module.exports = bot => {
     });
 
     bot.register('eval', (msg, args) => {
-        var code = args.join('');
+        var code = args.join(' ');
         try {
             let evaled = eval(code);
             let type = typeof evaled || 'undefined';
