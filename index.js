@@ -338,10 +338,10 @@ bot.on('messageCreate', msg => {
 bot.on('guildMemberAdd', (guild, member) => {
     if (guild.id === HOME_GUILD) {
         bot.createMessage('392152516596465664', `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada: ` +
-            `Please remember to read the <#392171939101409290> and react with <:bexy:393137089622966272> to get the humans role. Don't forget to post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>.`);
+            `\n\nPlease remember to read the <#392171939101409290>. You will receive your Humans role in 2 minutes. Don't forget to post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>.`);
         setTimeout(() => {
             member.addRole('392169263982444546', 'Autorole').catch();
-        }, 10 * 60 * 1000);
+        }, 2 * 60 * 1000);
         member.user.getDMChannel().then(channel => {
             // Community banner
             channel.createMessage(null, { file: fs.readFileSync('./images/community.png'), name: 'welcome.png' }).then(msg => {
