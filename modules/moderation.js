@@ -116,7 +116,7 @@ module.exports = bot => {
         description: 'Warns a user.',
         fullDescription: 'A command used to store a warning for a user who has violated a rule..',
         requirements: {
-            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587'],
+            roleIDs: ['392425936366075905', '392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587'],
             userIDs: bot.config.owners,
         },
     });
