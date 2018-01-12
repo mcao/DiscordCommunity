@@ -17,7 +17,7 @@ module.exports = bot => {
             var counter = bot.guesscounter;
 
             setTimeout(() => {
-                if (bot.runninggames.has('guessit') && msg.content === bot.randomnumber) {
+                if (bot.runninggames.has('guessit') && msg.content == bot.randomnumber) {
                     msg.channel.createMessage(`:tada: Well done! You did it! The number was ${bot.randomnumber}`);
                     bot.runninggames.delete('guessit');
                 } else if (bot.runninggames.has('guessit') && counter === bot.guesscounter) {
