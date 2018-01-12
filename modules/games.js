@@ -18,10 +18,9 @@ module.exports = bot => {
 
             setTimeout(() => {
                 if (bot.runninggames.has('guessit') && msg.content === bot.randomnumber) {
-                    msg.channel.createMessage(':tada: Well done! You did it! The number was ${bot.randomnumber}');
+                    msg.channel.createMessage(`:tada: Well done! You did it! The number was ${bot.randomnumber}`);
                     bot.runninggames.delete('guessit');
-                }
-                else if (bot.runninggames.has('guessit') && counter === bot.guesscounter) {
+                } else if (bot.runninggames.has('guessit') && counter === bot.guesscounter) {
                     msg.channel.createMessage(`Ok the time is over now! You failed to guess ${bot.randomnumber}. Sorry`);
                     bot.runninggames.delete('guessit');
                     bot.guesstries = 15;
