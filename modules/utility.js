@@ -341,7 +341,7 @@ module.exports = bot => {
                 if (i.uses > 15) {
                     leftToGo = 0;
                     msg.member.addRole('392373664722452490', 'Received for inviting more than 15 people');
-                    msg.channel.createMessage(msg.channel.id, 'Well done! You got the role!');
+                    msg.channel.createMessage('Well done! You got the role!');
                 } else {
                     leftToGo = 15 - i.uses;
                     msg.channel.createMessage('Fetching invite(s)..').then(m => {
