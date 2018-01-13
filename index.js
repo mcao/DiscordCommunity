@@ -13,7 +13,7 @@ var bot = new CommandClient(require('./config.json').token, {
 require('./funcs.js')(bot);
 
 if (process.argv && process.argv[2] === 'dev') console.log('[DEVELOPER MODE] Starting in Developer Mode...');
-else console.log("Starting...");
+else console.log('Starting...');
 
 bot.on('ready', () => {
     bot.log(`Logged in as ${bot.user.username}#${bot.user.discriminator}!`);
@@ -385,7 +385,6 @@ bot.on('guildMemberAdd', (guild, member) => {
 });
 
 bot.on('guildBanAdd', (guild, user) => {
-
     setTimeout(() => {
         guild.getAuditLogs(2, null, 22).then(logs => {
             if (logs.entries[0].user.id === bot.user.id) return;
@@ -415,7 +414,7 @@ bot.on('guildBanAdd', (guild, user) => {
                     }],
                 },
             });
-            
+
             bot.getChannel('398936742532743188').createMessage({
                 embed: {
                     color: 8919211,
