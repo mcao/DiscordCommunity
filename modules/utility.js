@@ -236,7 +236,7 @@ module.exports = bot => {
 
             if (toStr.length > 1500) {
                 hastebin(toStr, 'js').then(r => {
-                    return 'Output too large. Posted to ' + r
+                    bot.createMessage(msg.channel, 'Output too large. Posted to ' + r);
                 });
             } else {
                 return '**Result:**\n```js\n' + toStr + '```\n**Type:**\n```js\n' + type + '```';
