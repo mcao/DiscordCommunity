@@ -158,7 +158,7 @@ module.exports = bot => {
                 color: color,
                 timestamp: (new Date()).toISOString(),
                 footer: {
-                    text: orig_user.guild ? orig_user.guild : 'Unknown guild',
+                    text: orig_user.guild ? orig_user.guild.name : 'Unknown guild',
                     icon_url: orig_user.guild ? orig_user.guild.iconURL : 'https://cdn.discordapp.com/embed/avatars/0.png',
                 },
                 thumbnail: {
