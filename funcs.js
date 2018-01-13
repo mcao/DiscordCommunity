@@ -121,6 +121,77 @@ module.exports = bot => {
         }
     };
 
+    bot.sendModLog = (type, user, moderator, reason) => {
+        let color;
+        let word;
+        switch (type) {
+            case 'ban':
+                color = 14175787;
+                word = 'banned';
+                break;
+            case 'kick':
+                color = 15696398;
+                word = 'kicked';
+                break;
+            case 'mute':
+                color = 4880836;
+                word = 'muted';
+                break;
+            case 'warn':
+                color = 5030984;
+                word = 'warned';
+                break;
+            default:
+                color = 7500402;
+                word = type;
+        }
+
+        let orig_user = user;
+
+        if (typeof user === require('eris').Member) user = user.user;
+        if (typeof moderator === require('eris').Member) moderator = moderator.user;
+
+        let channel = bot.getChannel('401764985153388550');
+        channel.createMessage({
+            embed: {
+                title: `${user.username} has been ${word}`,
+                color: color,
+                timestamp: (new Date()).toISOString(),
+                footer: {
+                    text: orig_user.guild ? orig_user.guild.name : 'Unknown guild',
+                    icon_url: orig_user.guild ? orig_user.guild.iconURL : 'https://cdn.discordapp.com/embed/avatars/0.png',
+                },
+                thumbnail: {
+                    url: user.avatarURL,
+                },
+                fields: [
+                    {
+                        name: 'Member',
+                        value: `${user.username}#${user.discriminator} - ${user.id}`,
+                    },
+                    {
+                        name: 'Moderator',
+                        value: `${moderator.username}#${moderator.discriminator} - ${moderator.id}`,
+                    },
+                    {
+                        name: 'Reason',
+                        value: reason,
+                    },
+                    {
+                        name: 'Total Warnings',
+                        value: bot.profiles[user.id] ? bot.profiles[user.id].warnings.length : '0',
+                        inline: true,
+                    },
+                    {
+                        name: 'Total Mutes',
+                        value: '0',
+                        inline: true,
+                    },
+                ],
+            },
+        });
+    };
+
     bot.loadProfiles = function() {
         var profilesJson = fs.readFileSync('./profiles.json');
         bot.profiles = JSON.parse(profilesJson);
