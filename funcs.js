@@ -147,7 +147,6 @@ module.exports = bot => {
         }
 
         let orig_user = user;
-        let orig_mod = moderator;
 
         if (typeof user === require('eris"').Member) user = user.user;
         if (typeof moderator === require('eris').Member) moderator = moderator.user;
@@ -163,7 +162,7 @@ module.exports = bot => {
                         icon_url: orig_user.guild ? orig_user.guild.iconURL : 'https://cdn.discordapp.com/embed/avatars/0.png',
                     },
                     thumbnail: {
-                        url: user.avatarURL
+                        url: user.avatarURL,
                     },
                     fields: [
                         {
@@ -180,7 +179,7 @@ module.exports = bot => {
                         },
                         {
                             name: 'Total Warnings',
-                            value: bot.profiles[user.id] ? bot.profiles[user.id].warnings.length ? '0',
+                            value: bot.profiles[user.id] ? bot.profiles[user.id].warnings.length : '0',
                             inline: true,
                         },
                         {
