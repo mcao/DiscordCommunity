@@ -335,32 +335,32 @@ module.exports = bot => {
     });
 
     bot.register('kick', (msg, args) => {
-        if (args.length == 0) return 'Invalid arguments <:bexn:393137089631354880>';
+        if (args.length === 0) return 'Invalid arguments <:bexn:393137089631354880>';
         if (!args[0]) return 'Please provide a user <:bexn:393137089631354880>';
         if (!args[1]) return 'Please provide a reason <:bexn:393137089631354880>';
 
-        var member = args.splice(0, 1); // First argument: user mention/id
+        var member = args.splice(0, 1);
+        // First argument: user mention/id
 
-        var reason = args.splice(1) // Second argument and rest of message: reason
+        var reason = args.splice(1);
+        // Second argument and rest of message: reason
         reason = args.join(' ');
 
-        if (member.length == 18 || member.length == 17) {
+        if (member.length === 18 || member.length === 17) {
             member = msg.channel.guild.members.get(member);
-        }
-        else if (msg.mentions[0]) {
+        } else if (msg.mentions[0]) {
             member = msg.channel.guild.members.get(msg.mentions[0].id);
-        }
-        else {
+        } else {
             return msg.channel.createMessage('Invalid user <:bexn:393137089631354880>');
         }
 
         if (member.roles.has('392157971507052554') || member.roles.has('392162455717150730')) return 'User is immune <:bexn:393137089631354880>';
 
-        member.kick(reason).then(() => msg.channel.createMessage(`**${msg.member.username}#${msg.member.discriminator}** has been kicked <:bexy:393137089622966272>`)).catch((err) => {
+        member.kick(reason).then(() => msg.channel.createMessage(`**${msg.member.username}#${msg.member.discriminator}** has been kicked <:bexy:393137089622966272>`)).catch(err => {
             console.log(err);
         });
         bot.sendModLog('kick', member, msg.member, reason);
-
+        return null;
     }, {
         description: 'Kick a user.',
         fullDescription: 'Kick a user off the server.',
@@ -369,31 +369,32 @@ module.exports = bot => {
         },
     });
     bot.register('ban', (msg, args) => {
-        if (args.length == 0) return 'Invalid arguments <:bexn:393137089631354880>';
+        if (args.length === 0) return 'Invalid arguments <:bexn:393137089631354880>';
         if (!args[0]) return 'Please provide a user <:bexn:393137089631354880>';
         if (!args[1]) return 'Please provide a reason <:bexn:393137089631354880>';
 
-        var member = args.splice(0, 1); // First argument: user mention/id
+        var member = args.splice(0, 1);
+        // First argument: user mention/id
 
-        var reason = args.splice(1) // Second argument and rest of message: reason
+        var reason = args.splice(1);
+        // Second argument and rest of message: reason
         reason = args.join(' ');
 
-        if (member.length == 18 || member.length == 17) {
+        if (member.length === 18 || member.length === 17) {
             member = msg.channel.guild.members.get(member);
-        }
-        else if (msg.mentions[0]) {
+        } else if (msg.mentions[0]) {
             member = msg.channel.guild.members.get(msg.mentions[0].id);
-        }
-        else {
+        } else {
             return msg.channel.createMessage('Invalid user <:bexn:393137089631354880>');
         }
 
         if (member.roles.has('392157971507052554') || member.roles.has('392162455717150730')) return 'User is immune <:bexn:393137089631354880>';
 
-        member.ban(1, reason).then(() => msg.channel.createMessage(`**${msg.member.username}#${msg.member.discriminator}** has been banned <:bexy:393137089622966272>`)).catch((err) => {
+        member.ban(1, reason).then(() => msg.channel.createMessage(`**${msg.member.username}#${msg.member.discriminator}** has been banned <:bexy:393137089622966272>`)).catch(err => {
             console.log(err);
         });
         bot.sendModLog('ban', member, msg.member, reason);
+        return null;
     }, {
         description: 'Ban a user.',
         fullDescription: 'Ban a user off the Hub Network.',

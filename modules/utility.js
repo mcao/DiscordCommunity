@@ -265,77 +265,75 @@ module.exports = bot => {
         fullDescription: 'Deletes the original command and the bot will say the arguments.',
     });
 
-    bot.register("invitefever", (msg, args) => {
-        var inviteFever = new Object;
-        msg.channel.guild.getInvites().then((v) => v.forEach(i => {
-            if(i.inviter&& ! i.temporary)
+    bot.register('invitefever', msg => {
+        var inviteFever = {};
+        msg.channel.guild.getInvites().then(v => v.forEach(i => {
             if (!i.inviter) return;
-            if (i.maxAge != 0) return;
+            if (i.maxAge !== 0) return;
             if (i.uses < 15) return;
             inviteFever.users[i.inviter.id] = {
                 user: `${i.inviter.username}#${i.inviter.discriminator}`,
                 userID: i.inviter.id,
-                uses: i.uses
+                uses: i.uses,
             };
         }));
         var embedy = {
             title: 'List of users who are in need of the Invite Fever role.',
             timestamp: new Date(),
             footer: {
-                text: 'Do "!autofever" to give all users the role'
+                text: 'Do "!autofever" to give all users the role',
             },
             color: 0x71368a,
             fields: [
 
-            ]
+            ],
         };
-        if (Object.keys(inviteFever).length == 0) return 'No users are in need of the **Invite Fever** role.';
+        if (Object.keys(inviteFever).length === 0) return 'No users are in need of the **Invite Fever** role.';
         for (var user in inviteFever) {
-            embedy.fields.push({name: `${user.user} - <@${user.userID}> - ${user.userID}`, value: `Uses: **${user.uses}**`});
+            embedy.fields.push({ name: `${user.user} - <@${user.userID}> - ${user.userID}`, value: `Uses: **${user.uses}**` });
         }
-        bot.createMessage(msg.channel.id, {embed: embedy});
-        
+        bot.createMessage(msg.channel.id, { embed: embedy });
+        return null;
     }, {
         requirements: {
-            roleIDs: ['392425936366075905', '392150288729112587', '392164671664422912', '392162455717150730', '392161607976878092']
+            roleIDs: ['392425936366075905', '392150288729112587', '392164671664422912', '392162455717150730', '392161607976878092'],
         },
-        description: "Check users who are in need of the invite fever role.",
-        fullDescription: "Do !autofever to give all users the invite fever role."
+        description: 'Check users who are in need of the invite fever role.',
+        fullDescription: 'Do !autofever to give all users the invite fever role.',
     });
 
-    bot.register("autofever", (msg, args) => {
-        var inviteFever = new Array;
-        msg.channel.guild.getInvites().then((v) => v.forEach(i => {
-            if(i.inviter&& ! i.temporary)
+    bot.register('autofever', msg => {
+        var inviteFever = [];
+        msg.channel.guild.getInvites().then(v => v.forEach(i => {
             if (!i.inviter) return;
-            if (i.maxAge != 0) return;
+            if (i.maxAge !== 0) return;
             if (i.uses < 15) return;
             inviteFever.push(i.inviter.id);
         }));
-        if (inviteFever.length == 0) return 'No users are in need of the **Invite Fever** role.'
-        inviteFever.forEach(function(user) {
+        if (inviteFever.length === 0) return 'No users are in need of the **Invite Fever** role.';
+        inviteFever.forEach(user => {
             var member = msg.channel.guild.members.get(user);
             member.addRole('392373664722452490', 'User hit >15 invite uses.');
         }).then(() => {
             bot.createMessage(msg.channel.id, `Gave \`${inviteFever.length}\` the **Invite Fever** role.`);
-        })
-        
+        });
+        return null;
     }, {
         requirements: {
-            roleIDs: ['392425936366075905', '392150288729112587', '392164671664422912', '392162455717150730', '392161607976878092']
+            roleIDs: ['392425936366075905', '392150288729112587', '392164671664422912', '392162455717150730', '392161607976878092'],
         },
-        description: "Check users who are in need of the invite fever role.",
-        fullDescription: "Do !autofever to give all users the invite fever role."
+        description: 'Check users who are in need of the invite fever role.',
+        fullDescription: 'Do !autofever to give all users the invite fever role.',
     });
 
-    bot.register('invite', (msg, args) => {
+    bot.register('invite', msg => {
         var users = {};
         msg.channel.guild.getInvites().then(v => v.forEach(i => {
             if (i.inviter && !i.temporary && !i.maxAge) {
                 if (!i.inviter) return;
                 users[i.inviter.id] = {
-                    user: i.inviter.username
-                }
+                    user: i.inviter.username,
+                };
                 if (i.inviter.username !== msg.author.username) return;
                 var leftToGo;
                 if (i.uses > 15) {
@@ -350,18 +348,18 @@ module.exports = bot => {
                 }
             }
         }));
-        var hey = false;
-        for(var user in users) {
-            if (users.user == msg.author.username) {
-                return 'You don\'t have any permanent invites, go make one in <#392171939101409290>! <:bexhey:390556541360799748>'
+        for (var user in users) {
+            if (user === msg.author.username) {
+                return 'You don\'t have any permanent invites, go make one in <#392171939101409290>! <:bexhey:390556541360799748>';
             }
         }
+        return null;
     }, {
         requirements: {
-            roleIDs: ['392169263982444546', '392425936366075905', '392150288729112587', '392164671664422912', '392162455717150730', '392161607976878092']
+            roleIDs: ['392169263982444546', '392425936366075905', '392150288729112587', '392164671664422912', '392162455717150730', '392161607976878092'],
         },
         description: 'Check how many uses your invite has.',
-        fullDescription: "This is used to check how many times your invite has been used, and check the code you've been using."
+        fullDescription: "This is used to check how many times your invite has been used, and check the code you've been using.",
     });
 
     bot.register('exec', (msg, args) => {

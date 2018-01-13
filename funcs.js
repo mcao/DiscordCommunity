@@ -76,13 +76,13 @@ module.exports = bot => {
         let users = leaderboard[0];
         var non_leaderboard = users.splice(20);
         users.forEach(v => {
-            if (!bot.guilds.get('358528040617377792').members.get(v)) delete bot.profiles[v]
+            if (!bot.guilds.get('358528040617377792').members.get(v)) delete bot.profiles[v];
             else bot.addGuildMemberRole('358528040617377792', v, '393606924433752064', 'User reached top 20');
         });
 
         non_leaderboard.forEach(v => {
             if (!bot.guilds.get('358528040617377792').members.get(v)) delete bot.profiles[v];
-            else bot.removeGuildMemberRole('358528040617377792', v, '393606924433752064', 'Lost Top 20').then(() => {}).catch(() => {});
+            else bot.removeGuildMemberRole('358528040617377792', v, '393606924433752064', 'Lost Top 20');
         });
     };
 
