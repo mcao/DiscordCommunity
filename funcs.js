@@ -77,14 +77,14 @@ module.exports = bot => {
         // let messageCounts = leaderboard[1];
         var non_leaderboard = users.splice(20);
         users.forEach(v => {
-            bot.addGuildMemberRole('358528040617377792', v.toString(), '393606924433752064', 'User reached top 20');
+            bot.addGuildMemberRole('358528040617377792', v, '393606924433752064', 'User reached top 20');
         });
 
         // let d = bot.guilds.find(v => v.id === '358528040617377792');
         // let members = d.members.map(v => v);
         non_leaderboard.forEach(v => {
             bot.removeGuildMemberRole('358528040617377792', // eslint-disable-next-line
-                v.toString(), '393606924433752064', 'Lost Top 20').then(() => {}).catch(() => {});
+                v.id, '393606924433752064', 'Lost Top 20').then(() => {}).catch(() => {});
         });
     };
 
