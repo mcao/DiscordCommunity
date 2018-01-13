@@ -334,6 +334,69 @@ module.exports = bot => {
         },
     });
 
+    bot.register('kick', (msg, args) => {
+        if (args.length == 0) return 'Invalid arguments <:bexn:393137089631354880>';
+        if (!args[0]) return 'Please provide a user <:bexn:393137089631354880>';
+        if (!args[1]) return 'Please provide a reason <:bexn:393137089631354880>';
+
+        var member = args.splice(0, 1); // First argument: user mention/id
+
+        var reason = args.splice(1) // Second argument and rest of message: reason
+        reason = args.join(' ');
+
+        if (member.length == 18 || member.length == 17) {
+            member = msg.channel.guild.members.get(member);
+        }
+        else if (msg.mentions[0]) {
+            member = msg.channel.guild.members.get(msg.mentions[0].id);
+        }
+        else {
+            return msg.channel.createMessage('Invalid user <:bexn:393137089631354880>');
+        }
+
+        member.kick(reason).then(() => msg.channel.createMessage(`**${msg.member.username}#${msg.member.discriminator}** has been kicked <:bexy:393137089622966272>`)).catch((err) => {
+            msg.channel.createMessage('An error has occured, please contact one of the developers <:bexn:393137089631354880>');
+            return console.log(err);
+        });
+        bot.sendModLog('kick', member, msg.member, reason);
+
+    }, {
+        description: 'Kick a user.',
+        fullDescription: 'Kick a user off the server.',
+        requirements: {
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587'],
+        },
+    });
+    bot.register('ban', (msg, args) => {
+        if (args.length == 0) return 'Invalid arguments <:bexn:393137089631354880>';
+        if (!args[0]) return 'Please provide a user <:bexn:393137089631354880>';
+        if (!args[1]) return 'Please provide a reason <:bexn:393137089631354880>';
+
+        var member = args.splice(0, 1); // First argument: user mention/id
+
+        var reason = args.splice(1) // Second argument and rest of message: reason
+        reason = args.join(' ');
+
+        if (member.length == 18 || member.length == 17) {
+            member = msg.channel.guild.members.get(member);
+        }
+        else {
+            return msg.channel.createMessage('Invalid user <:bexn:393137089631354880>');
+        }
+
+        member.kick(1, reason).then(() => msg.channel.createMessage(`**${msg.member.username}#${msg.member.discriminator}** has been banned <:bexy:393137089622966272>`)).catch((err) => {
+            msg.channel.createMessage('An error has occured, please contact one of the developers <:bexn:393137089631354880>');
+            return console.log(err);
+        });
+        bot.sendModLog('ban', member, msg.member, reason);
+
+    }, {
+        description: 'Ban a user.',
+        fullDescription: 'Ban a user off the Hub Network.',
+        requirements: {
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587'],
+        },
+    });
     bot.register('reset', (msg, args) => {
         var user = msg.mentions[0].id;
         if (args.length === 0) return bot.createMessage(msg.channel.id, 'Please provide a user. <:bexn:393137089631354880>');
