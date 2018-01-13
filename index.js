@@ -325,7 +325,7 @@ bot.on('messageCreate', msg => {
                 var evaled = require('child_process').execSync('git pull').toString();
                 console.log(evaled);
                 if (evaled.indexOf('Already up to date' > -1)) return bot.createMessage('392442695756546059', 'Aborted: Already Up to Date.');
-                bot.createMessage('392442695756546059', 'Automatic Code Update Successful.');
+                bot.createMessage('392442695756546059', 'Automatic Code Update Successful!');
                 var desc = msg.embeds[0].description.toString();
                 //                  #bot-development , @Michael ...
                 bot.createMessage('392442695756546059',
