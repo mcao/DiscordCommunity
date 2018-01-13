@@ -391,6 +391,32 @@ bot.on('guildBanAdd', (guild, user) => {
         guild.getAuditLogs(2, null, 22).then(logs => {
             if (logs.entries[0].user.id === bot.user.id) return;
 
+            bot.getChannel('401764985153388550').createMessage({
+                embed: {
+                    color: 8919211,
+                    footer: {
+                        icon_url: bot.users.get(logs.entries[0].user.id).avatarURL.replace('?size=128', ''),
+                        text: 'Banned by ' + logs.entries[0].user.username + '#' + logs.entries[0].user.discriminator + ' | Banned User ID: ' + logs.entries[0].targetID,
+                    },
+                    thumbnail: {
+                        url: bot.users.get(logs.entries[0].targetID).avatarURL.replace('?size=128', ''),
+                    },
+                    fields: [{
+                        name: 'User Banned',
+                        value: bot.users.get(logs.entries[0].targetID).username + '#' + bot.users.get(logs.entries[0].targetID).discriminator,
+                        inline: true,
+                    }, {
+                        name: 'Banned In',
+                        value: guild.name,
+                        inline: true,
+                    }, {
+                        name: 'Ban Reason',
+                        value: decodeURIComponent(logs.entries[0].reason) || 'Not Specified',
+                        inline: true,
+                    }],
+                },
+            });
+            
             bot.getChannel('398936742532743188').createMessage({
                 embed: {
                     color: 8919211,
