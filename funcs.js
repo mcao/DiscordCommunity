@@ -148,7 +148,7 @@ module.exports = bot => {
 
         let orig_user = user;
 
-        if (typeof user === require('eris"').Member) user = user.user;
+        if (typeof user === require('eris').Member) user = user.user;
         if (typeof moderator === require('eris').Member) moderator = moderator.user;
 
         bot.getChannel('401764985153388550').then(channel => {
