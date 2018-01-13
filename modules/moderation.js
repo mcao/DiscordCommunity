@@ -380,11 +380,14 @@ module.exports = bot => {
         if (member.length == 18 || member.length == 17) {
             member = msg.channel.guild.members.get(member);
         }
+        else if (msg.mentions[0]) {
+            member = msg.channel.guild.members.get(msg.mentions[0].id);
+        }
         else {
             return msg.channel.createMessage('Invalid user <:bexn:393137089631354880>');
         }
-
-        member.kick(1, reason).then(() => msg.channel.createMessage(`**${msg.member.username}#${msg.member.discriminator}** has been banned <:bexy:393137089622966272>`)).catch((err) => {
+        if (member.roles.has('392157971507052554') && member.roles.has('392162455717150730')) return 'User is immune <:bexn:393137089631354880>';
+        member.ban(1, reason).then(() => msg.channel.createMessage(`**${msg.member.username}#${msg.member.discriminator}** has been banned <:bexy:393137089622966272>`)).catch((err) => {
             msg.channel.createMessage('An error has occured, please contact one of the developers <:bexn:393137089631354880>');
             return console.log(err);
         });
