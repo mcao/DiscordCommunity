@@ -86,7 +86,7 @@ module.exports = bot => {
                                     // Yes emote
                                     case '393137089622966272':
                                         msg.channel.createMessage('Putting user in detention');
-                                        bot.addGuildMemberRole('358528040617377792', user, '392360679706853387', 'Auto-detention from warnings');
+                                        member.addRole('392360679706853387', 'Auto-detention from warnings');
                                         break;
                                     // No emote
                                     case '393137089631354880':
