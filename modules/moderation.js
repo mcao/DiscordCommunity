@@ -72,7 +72,7 @@ module.exports = bot => {
             user = msg.mentions[0].id;
         }
         var member = msg.channel.guild.members.get(user);
-        bot.sendModLog('warn', user, msg.member, reason);
+        bot.sendModLog('warn', member, msg.member, reason);
         bot.warn(user, msg.author.id, reason, `#${msg.channel.guild.channels.get(msg.channel.id).name}`);
 
         if (bot.profiles[user].warnings.length === 4) {
