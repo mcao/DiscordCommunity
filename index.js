@@ -470,6 +470,16 @@ bot.on('guildBanRemove', (guild, user) => {
     }
 });
 
+bot.on('messageReactionAdd', (message, emoji, user) => {
+    if(message.id != '402221397306376202') return;
+    if(emoji.id == '402221696389742593') { // Thumbs up
+        bot.createMessage('392442695756546059', 'AAAAA YOU THUMBED UP')
+    }
+    if(emoji.id == '402221803281448960') { // Thumbs down
+        bot.createMessage('392442695756546059', 'AAAAA YOU THUMBED DOWN')
+    }
+});
+
 bot.on('messageReactionAdd', (message, emoji, userID) => {
     if (message.id !== '399412466460655637') return;
     if (emoji.id !== '393137089622966272') return;
