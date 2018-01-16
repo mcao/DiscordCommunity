@@ -373,6 +373,7 @@ module.exports = bot => {
 
     bot.register('blacklistChan', (msg, args) => {
         args = args.join(' ');
+        if (args.length == 0) return 'Please provide a channel <:bexn:393137089631354880>';
         var chan = msg.channel.guild.channels.filter(c => c.name.toLowerCase().includes(args))[0]
         if (chan) {
             bot.addBlacklistChan(args);
