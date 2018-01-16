@@ -307,6 +307,7 @@ bot.on('messageCreate', msg => {
         }
         if (!msg.author.bot && msg.channel.guild.id === HOME_GUILD) {
             if (!bot.cooldowns.has(msg.author.id)) {
+                if (bot.blacklistedChannels.indexOf(msg.channel.name) > -1) return; 
                 bot.cooldowns.add(msg.author.id);
                 bot.incrementMessage(msg);
                 setTimeout(() => {
@@ -472,7 +473,15 @@ bot.on('guildBanRemove', (guild, user) => {
 
 bot.on('messageReactionAdd', (message, emoji, user) => {
     if(message.id != '402221527854088194') return;
-    message.channel.createMessage('AAAAAAAAAAAAA' + emoji.name);
+    var member = message.channel.guild.members.get(user.id);
+    switch(emoji.name) {
+        case 'thumbsup':
+            member.addRole('roleID');
+        break;
+        case 'thumbsdown':
+            member.addRole('role2ID');
+        break;
+    }
 });
 
 bot.on('messageReactionAdd', (message, emoji, userID) => {

@@ -370,6 +370,23 @@ module.exports = bot => {
             roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587'],
         },
     });
+
+    bot.register('blacklistChan', (msg, args) => {
+        args = args.join(' ');
+        var chan = msg.channel.guild.channels.filter(c => c.name.toLowerCase().includes(args))[0]
+        if (chan) {
+            bot.addBlacklistChan(args);
+            return `<#${chan.id}> (**${chan.name}**) is now blacklisted for XP.`;
+        }
+        return 'Invalid channel <:bexn:393137089631354880>'
+    }, {
+        description: 'Blacklist a channel from the bot, so it won\'t give XP on messages..',
+        fullDescription: 'Once a channel is blacklisted, all messages in the channel will be ignores for XP by the bot.',
+        requirements: {
+            roleIDs: ['392150288729112587', '392162455717150730', '392161607976878092', '392150288729112587'],
+        },
+    });
+
     bot.register('ban', (msg, args) => {
         if (args.length === 0) return 'Invalid arguments <:bexn:393137089631354880>';
         if (!args[0]) return 'Please provide a user <:bexn:393137089631354880>';

@@ -191,6 +191,12 @@ module.exports = bot => {
             },
         });
     };
+    
+    bot.blacklistedChannels = ['bot-commands'];
+
+    bot.addBlacklistChan = (channel) => {
+        bot.blacklistedChannels.push(channel);
+    }
 
     bot.loadProfiles = function() {
         var profilesJson = fs.readFileSync('./profiles.json');
