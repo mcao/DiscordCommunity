@@ -15,4 +15,15 @@ module.exports = bot => {
         bot.queue.splice(index, 1);
         return '<:bexy:393137089622966272> You have been removed from the queue';
     });
+
+    bot.registerCommand('aqueue', msg => {
+        if (bot.queue.length === 0) return 'No users in queue';
+        let first_user = msg.channel.guild.members.get(bot.queue[0]);
+        if (bot.queue.length === 1) return `${first_user.user.username}#${first_user.user.discriminator} is the only member of the queue.`;
+        return `${first_user.user.username}#${first_user.user.discriminator} is next and there are ${bot.queue.length - 1} left in queue`
+    }, {
+        requirements: {
+            roleIDs: ['392169572863836160', '392150288729112587'],
+        },
+    });
 };
