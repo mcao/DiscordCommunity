@@ -346,7 +346,7 @@ module.exports = bot => {
 
         var reason = args.splice(1);
         // Second argument and rest of message: reason
-        reason = args.join(' ');
+        reason = reason.join(' ');
 
         if (member.length === 18 || member.length === 17) {
             member = msg.channel.guild.members.get(member);
@@ -398,7 +398,7 @@ module.exports = bot => {
 
         var reason = args.splice(1);
         // Second argument and rest of message: reason
-        reason = args.join(' ');
+        reason = reason.join(' ');
 
         if (member.length === 18 || member.length === 17) {
             member = msg.channel.guild.members.get(member);
@@ -408,13 +408,17 @@ module.exports = bot => {
             return msg.channel.createMessage('Invalid user <:bexn:393137089631354880>');
         }
 
-        if (member.roles.has('392157971507052554') || member.roles.has('392162455717150730')) return 'User is immune <:bexn:393137089631354880>';
+        if (member.roles.indexOf('392157971507052554') > -1|| member.roles.indexOf('392162455717150730') > -1) return 'User is immune <:bexn:393137089631354880>';
 
-        member.ban(1, reason).then(() => msg.channel.createMessage(`**${msg.member.username}#${msg.member.discriminator}** has been banned <:bexy:393137089622966272>`)).catch(err => {
-            console.log(err);
+        member.ban(1, reason).then(() => {
+            msg.channel.createMessage(`Successfully banned **${member.username}#${member.discriminator}**`);
+        }).catch((err) => {
+             if (err.message.toLowerCase().includes('forbidden')) {
+                  err = 'Invalid permissions!';
+            }
+            return msg.channel.createMessage(`An error has occured: ${err}`);
         });
         bot.sendModLog('ban', member, msg.member, reason);
-        return null;
     }, {
         description: 'Ban a user.',
         fullDescription: 'Ban a user off the Hub Network.',
@@ -422,6 +426,68 @@ module.exports = bot => {
             roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587'],
         },
     });
+
+    bot.register('unban', (msg, args) => {
+        if (args.length === 0) return 'Invalid arguments <:bexn:393137089631354880>';
+        if (!args[0]) return 'Please provide a user <:bexn:393137089631354880>';
+
+        var member = args.splice(0, 1);
+        // First argument: user mention/id
+        var reason;
+        if(args[1]) {
+            reason = args.splice(1);
+            // Second argument and rest of message: reason
+            reason = reason.join(' ');
+        }
+        else {
+            reason = 'No reason given.';
+        }
+
+        if (member.length === 18 || member.length === 17) {
+            member = member.toLowerCase();
+        } 
+        else if (3 < member.length < 15) {
+            msg.channel.guild.getBans().then((users) => {
+                users.forEach(function(user) {
+                    try {
+                    var bannedUser = user.user.username.toLowerCase();
+                    var userID = user.user.id;
+                    if (member.includes(bannedUser)) return;
+                    } catch(err) {
+                        return msg.channel.createMessage(`An error has occured: \`${err.message}\``)
+                    }
+                    msg.channel.guild.unbanMember(userID, reason).then(() => {
+                        msg.channel.createMessage(`Successfully unbanned **${user.user.username}#${user.user.discriminator}**`);
+                    }).catch((err) => {
+                         if (err.message.toLowerCase().includes('forbidden')) {
+                              err = 'Invalid permissions!';
+                        }
+                        return msg.channel.createMessage(`An error has occured: ${err}`);
+                    });
+                });
+            });
+        }
+        else {
+            return msg.channel.createMessage('Invalid user <:bexn:393137089631354880>');
+        }
+        
+        msg.channel.unbanMember(member, reason).then(() => {
+            msg.channel.createMessage(`Successfully unbanned **${member.username}#${member.discriminator}**`);
+        }).catch((err) => {
+             if (err.message.toLowerCase().includes('forbidden')) {
+                  err = 'Invalid permissions!';
+            }
+            return msg.channel.createMessage(`An error has occured: ${err}`);
+        });
+        bot.sendModLog('unban', member, msg.member, reason);
+    }, {
+        description: 'Ban a user.',
+        fullDescription: 'Ban a user off the Hub Network.',
+        requirements: {
+            roleIDs: ['392157971507052554', '392162455717150730', '392161607976878092', '392150288729112587'],
+        },
+    });
+
     bot.register('reset', (msg, args) => {
         var user = msg.mentions[0].id;
         if (args.length === 0) return bot.createMessage(msg.channel.id, 'Please provide a user. <:bexn:393137089631354880>');
