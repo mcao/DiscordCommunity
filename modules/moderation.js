@@ -410,11 +410,15 @@ module.exports = bot => {
 
         if (member.roles.has('392157971507052554') || member.roles.has('392162455717150730')) return 'User is immune <:bexn:393137089631354880>';
 
-        member.ban(1, reason).then(() => msg.channel.createMessage(`**${msg.member.username}#${msg.member.discriminator}** has been banned <:bexy:393137089622966272>`)).catch(err => {
-            console.log(err);
+        member.ban(3, reason).then(() => {
+            msg.channel.createMessage(`Successfully banned **${nadeko.username}#${nadeko.discriminator}**`);
+        }).catch((err) => {
+             if (err.message.toLowerCase().includes('forbidden')) {
+                  err = 'Invalid permissions!';
+            }
+            return msg.channel.createMessage(`An error has occured: ${err}`);
         });
         bot.sendModLog('ban', member, msg.member, reason);
-        return null;
     }, {
         description: 'Ban a user.',
         fullDescription: 'Ban a user off the Hub Network.',
