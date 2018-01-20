@@ -449,17 +449,16 @@ module.exports = bot => {
         else if (3 < member.length < 15) {
             msg.channel.guild.getBans().then((users) => {
                 users.forEach(function(user) {
-                    var bannedUser = user.user.toLowerCase();
+                    var bannedUser = user.user.username.toLowerCase();
                     if (member.toLowerCase() != bannedUser) return;
                     msg.channel.unbanMember(user.user.id, reason).then(() => {
-                        msg.channel.createMessage(`Successfully unbanned **${member.username}#${member.discriminator}**`);
+                        msg.channel.createMessage(`Successfully unbanned **${user.user.username}#${user.user.discriminator}**`);
                     }).catch((err) => {
                          if (err.message.toLowerCase().includes('forbidden')) {
                               err = 'Invalid permissions!';
                         }
                         return msg.channel.createMessage(`An error has occured: ${err}`);
                     });
-                    msg.channel.createMessage(`Successfully unbanned **${user.user.username}#${user.user.discriminator}**`);
                 });
             });
         }
