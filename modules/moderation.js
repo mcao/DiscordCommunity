@@ -444,7 +444,7 @@ module.exports = bot => {
         }
 
         if (member.length === 18 || member.length === 17) {
-            member = member;
+            member = member.toLowerCase();
         } 
         else if (3 < member.length < 15) {
             msg.channel.guild.getBans().then((users) => {
@@ -452,7 +452,7 @@ module.exports = bot => {
                     try {
                     var bannedUser = user.user.username.toLowerCase();
                     var userID = user.user.id;
-                    if (member.toLowerCase().includes(bannedUser)) return;
+                    if (member.includes(bannedUser)) return;
                     } catch(err) {
                         return msg.channel.createMessage(`An error has occured: \`${err.message}\``)
                     }
