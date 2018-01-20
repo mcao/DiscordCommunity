@@ -408,9 +408,9 @@ module.exports = bot => {
             return msg.channel.createMessage('Invalid user <:bexn:393137089631354880>');
         }
 
-        if (member.roles.has('392157971507052554') || member.roles.has('392162455717150730')) return 'User is immune <:bexn:393137089631354880>';
+        if (member.roles.indexOf('392157971507052554') > -1|| member.roles.indexOf('392162455717150730') > -1) return 'User is immune <:bexn:393137089631354880>';
 
-        member.ban(3, reason).then(() => {
+        member.ban(1, reason).then(() => {
             msg.channel.createMessage(`Successfully banned **${member.username}#${member.discriminator}**`);
         }).catch((err) => {
              if (err.message.toLowerCase().includes('forbidden')) {
