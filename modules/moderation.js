@@ -411,7 +411,7 @@ module.exports = bot => {
         if (member.roles.has('392157971507052554') || member.roles.has('392162455717150730')) return 'User is immune <:bexn:393137089631354880>';
 
         member.ban(3, reason).then(() => {
-            msg.channel.createMessage(`Successfully banned **${nadeko.username}#${nadeko.discriminator}**`);
+            msg.channel.createMessage(`Successfully banned **${member.username}#${member.discriminator}**`);
         }).catch((err) => {
              if (err.message.toLowerCase().includes('forbidden')) {
                   err = 'Invalid permissions!';
