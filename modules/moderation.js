@@ -451,7 +451,7 @@ module.exports = bot => {
                 users.forEach(function(user) {
                     var bannedUser = user.user.username.toLowerCase();
                     if (member.toLowerCase() != bannedUser) return;
-                    msg.channel.unbanMember(user.user.id, reason).then(() => {
+                    msg.channel.guild.unbanMember(user.user.id, reason).then(() => {
                         msg.channel.createMessage(`Successfully unbanned **${user.user.username}#${user.user.discriminator}**`);
                     }).catch((err) => {
                          if (err.message.toLowerCase().includes('forbidden')) {
