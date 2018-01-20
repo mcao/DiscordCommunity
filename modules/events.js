@@ -26,4 +26,19 @@ module.exports = bot => {
             roleIDs: ['392169572863836160', '392150288729112587'],
         },
     });
+
+    bot.registerCommand('next', msg => {
+        let karaoke_channel = msg.channel.guild.channels.get('404265067354521610').voiceMembers;
+        karaoke_channel.forEach(v => {
+            msg.channel.guild.editMember(v.id, { mute: true }, 'Reason user not next');
+        });
+
+        msg.channel.guild.editMember(bot.queue[0], { mute: false });
+        bot.queue.splice(0, 1);
+        return '<:bexy:393137089622966272> Users have been muted & speaker unmuted'
+    }, {
+        requirements: {
+            roleIDs: ['392169572863836160', '392150288729112587'],
+        },
+    });
 };
