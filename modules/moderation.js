@@ -454,7 +454,7 @@ module.exports = bot => {
                     var userID = user.user.id;
                     if (member.toLowerCase().includes(bannedUser)) return;
                     } catch(err) {
-                        msg.channel.createMessage(`An error has occured: \`${err.message}\``)
+                        return msg.channel.createMessage(`An error has occured: \`${err.message}\``)
                     }
                     msg.channel.guild.unbanMember(userID, reason).then(() => {
                         msg.channel.createMessage(`Successfully unbanned **${user.user.username}#${user.user.discriminator}**`);
