@@ -393,7 +393,7 @@ module.exports = bot => {
         if (!args[0]) return 'Please provide a user <:bexn:393137089631354880>';
         if (!args[1]) return 'Please provide a reason <:bexn:393137089631354880>';
 
-        var member = args.splice(0, 1);
+        var member = args[0];
         // First argument: user mention/id
 
         var reason = args.splice(1);
@@ -431,7 +431,7 @@ module.exports = bot => {
         if (args.length === 0) return 'Invalid arguments <:bexn:393137089631354880>';
         if (!args[0]) return 'Please provide a user <:bexn:393137089631354880>';
 
-        var member = args.splice(0, 1);
+        var member = args[0];
         // First argument: user mention/id
         var reason;
         if(args[1]) {
