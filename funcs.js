@@ -19,6 +19,8 @@ module.exports = bot => {
         }
     };
 
+    bot.queue = [];
+
     bot.reactions = [];
 
     bot.chunkArray = function(myArray, chunk_size) {
