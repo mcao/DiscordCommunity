@@ -455,7 +455,7 @@ bot.on('guildMemberAdd', (guild, member) => {
             }
         });
     }, 5000);
-});*/
+});
 
 bot.on('guildBanRemove', (guild, user) => {
     var guilds = bot.guilds.map(g => { return g; });
@@ -469,7 +469,7 @@ bot.on('guildBanRemove', (guild, user) => {
             bot.getChannel('392897329721507850').createMessage(`Error: ${err.stack}`);
         }
     }
-});
+});*/
 
 bot.on('messageReactionAdd', (message, emoji, user) => {
     if(message.id != '402221527854088194') return;
