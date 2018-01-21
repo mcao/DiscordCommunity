@@ -401,37 +401,25 @@ module.exports = bot => {
         reason = reason.join(' ');
 
         if (member.length === 18 || member.length === 17) {
-            if (!msg.channel.guild.members.get(member)) {
-                member = member;
-            }
-            else {
                 member = msg.channel.guild.members.get(member)
-            }
+            
         } else if (msg.mentions[0]) {
-            if (!msg.channel.guild.members.get(msg.mentions[0].id)) {
-                member = msg.mentions[0].id;
-            }
-            else {
                 member = msg.channel.guild.members.get(msg.mentions[0].id);
-            }
         } else {
             return msg.channel.createMessage('Invalid user <:bexn:393137089631354880>');
         }
-        var hi = typeof member;
-        if (hi.toLowerCase() == 'object') {
-            if (member.roles.indexOf('392157971507052554') > -1|| member.roles.indexOf('392162455717150730') > -1) return 'User is immune <:bexn:393137089631354880>';
-        }
-        else {
-            client.banGuildMember(msg.channel.guild.id, member.id, 1, reason).then(() => {
-                msg.channel.createMessage(`Successfully banned **${member.username}#${member.discriminator}**`);
-            }).catch((err) => {
-                if (err.message.toLowerCase().includes('forbidden')) {
-                    err = 'Invalid permissions!';
-                }
-                return msg.channel.createMessage(`An error has occured: ${err}`);
-            });
-            bot.sendModLog('ban', member, msg.member, reason);
-        }
+
+        if (member.roles.indexOf('392157971507052554') > -1|| member.roles.indexOf('392162455717150730') > -1) return 'User is immune <:bexn:393137089631354880>';
+
+        member.ban(1, reason).then(() => {
+            msg.channel.createMessage(`Successfully banned **${member.username}#${member.discriminator}**`);
+        }).catch((err) => {
+            if (err.message.toLowerCase().includes('forbidden')) {
+                err = 'Invalid permissions!';
+            }
+            return msg.channel.createMessage(`An error has occured: ${err}`);
+        });
+        bot.sendModLog('ban', member, msg.member, reason);
     }, {
         description: 'Ban a user.',
         fullDescription: 'Ban a user off the Hub Network.',
