@@ -358,10 +358,15 @@ module.exports = bot => {
 
         if (member.roles.has('392157971507052554') || member.roles.has('392162455717150730')) return 'User is immune <:bexn:393137089631354880>';
 
-        member.kick(reason).then(() => msg.channel.createMessage(`**${msg.member.username}#${msg.member.discriminator}** has been kicked <:bexy:393137089622966272>`)).catch(err => {
-            console.log(err);
+        member.kick(reason).then(() => {
+            bot.sendModLog('kick', member, msg.member, reason);
+            msg.channel.createMessage(`**${msg.member.username}#${msg.member.discriminator}** has been kicked <:bexy:393137089622966272>`)
+        }).catch(err => {
+            if (err.message.toLowerCase().includes('forbidden')) {
+                err = 'Invalid permissions!';
+            }
+            return msg.channel.createMessage(`An error has occured: ${err}`);
         });
-        bot.sendModLog('kick', member, msg.member, reason);
         return null;
     }, {
         description: 'Kick a user.',
@@ -393,7 +398,7 @@ module.exports = bot => {
         if (!args[0]) return 'Please provide a user <:bexn:393137089631354880>';
         if (!args[1]) return 'Please provide a reason <:bexn:393137089631354880>';
 
-        var member = args.splice(0, 1);
+        var member = args[0];
         // First argument: user mention/id
 
         var reason = args.splice(1);
@@ -401,9 +406,10 @@ module.exports = bot => {
         reason = reason.join(' ');
 
         if (member.length === 18 || member.length === 17) {
-            member = msg.channel.guild.members.get(member);
+                member = msg.channel.guild.members.get(member)
+            
         } else if (msg.mentions[0]) {
-            member = msg.channel.guild.members.get(msg.mentions[0].id);
+                member = msg.channel.guild.members.get(msg.mentions[0].id);
         } else {
             return msg.channel.createMessage('Invalid user <:bexn:393137089631354880>');
         }
@@ -412,13 +418,13 @@ module.exports = bot => {
 
         member.ban(1, reason).then(() => {
             msg.channel.createMessage(`Successfully banned **${member.username}#${member.discriminator}**`);
+            bot.sendModLog('ban', member, msg.member, reason);
         }).catch((err) => {
-             if (err.message.toLowerCase().includes('forbidden')) {
-                  err = 'Invalid permissions!';
+            if (err.message.toLowerCase().includes('forbidden')) {
+                err = 'Invalid permissions!';
             }
             return msg.channel.createMessage(`An error has occured: ${err}`);
         });
-        bot.sendModLog('ban', member, msg.member, reason);
     }, {
         description: 'Ban a user.',
         fullDescription: 'Ban a user off the Hub Network.',
@@ -431,7 +437,7 @@ module.exports = bot => {
         if (args.length === 0) return 'Invalid arguments <:bexn:393137089631354880>';
         if (!args[0]) return 'Please provide a user <:bexn:393137089631354880>';
 
-        var member = args.splice(0, 1);
+        var member = args[0];
         // First argument: user mention/id
         var reason;
         if(args[1]) {
@@ -444,42 +450,60 @@ module.exports = bot => {
         }
 
         if (member.length === 18 || member.length === 17) {
-            member = member.toLowerCase();
-        } 
-        else if (3 < member.length < 15) {
-            msg.channel.guild.getBans().then((users) => {
-                users.forEach(function(user) {
-                    try {
-                    var bannedUser = user.user.username.toLowerCase();
-                    var userID = user.user.id;
-                    if (member.includes(bannedUser)) return;
-                    } catch(err) {
-                        return msg.channel.createMessage(`An error has occured: \`${err.message}\``)
+            member = member;
+            msg.channel.guild.unbanMember(member, reason).then(() => {
+                bot.sendModLog('unban', user.user, msg.member, reason);
+                member = bot.users.get(member);
+                msg.channel.createMessage(`Successfully unbanned **${member.username}#${member.discriminator}** <:bexy:393137089622966272>`);
+            }).catch((err) => {
+                if (err.message.toLowerCase().includes('forbidden')) {
+                    err = 'Invalid permissions!';
+                }
+                if (err.message.toLowerCase().includes('unknown ban')) {
+                    if (bot.users.get(member)) {
+                        err = 'Invalid user ID'
                     }
-                    msg.channel.guild.unbanMember(userID, reason).then(() => {
-                        msg.channel.createMessage(`Successfully unbanned **${user.user.username}#${user.user.discriminator}**`);
-                    }).catch((err) => {
-                         if (err.message.toLowerCase().includes('forbidden')) {
-                              err = 'Invalid permissions!';
-                        }
-                        return msg.channel.createMessage(`An error has occured: ${err}`);
-                    });
-                });
+                    else {
+                        err = 'User is not banned';
+                    }
+                }
+                return msg.channel.createMessage(`An error has occured: **${err}** <:bexn:393137089631354880>`);
             });
+        }
+        else if (3 < member.length < 15) {
+            member = "" + member;
+            member = member.toLowerCase();
+            var validUser = true;
+            var hmm = 0;
+                msg.channel.guild.getBans().then((users) => {
+                    while (hmm <= Object.keys(users).length) {
+                        users.forEach(function(user) {
+                            var bannedUser = user.user.username.toLowerCase();
+                            var userID = user.user.id;
+                            hmm++;
+                            if (member != bannedUser) return;
+                            hmm = 1000;
+                            msg.channel.guild.unbanMember(userID, reason).then(() => {
+                                msg.channel.createMessage(`Successfully unbanned **${user.user.username}#${user.user.discriminator}**<:bexy:393137089622966272>`);
+                                bot.sendModLog('unban', user.user, msg.member, reason);
+                            }).catch((err) => {
+                                if (err.message.toLowerCase().includes('forbidden')) {
+                                    err = 'Invalid permissions!';
+                                }
+                                return msg.channel.createMessage(`An error has occured: \`${err}\` <:bexn:393137089631354880>`);
+                            });
+                        });
+                    }
+                    if (hmm < 1000) {
+                        msg.channel.createMessage('Invalid user <:bexn:393137089631354880>');
+                    }
+                });
         }
         else {
             return msg.channel.createMessage('Invalid user <:bexn:393137089631354880>');
         }
         
-        msg.channel.unbanMember(member, reason).then(() => {
-            msg.channel.createMessage(`Successfully unbanned **${member.username}#${member.discriminator}**`);
-        }).catch((err) => {
-             if (err.message.toLowerCase().includes('forbidden')) {
-                  err = 'Invalid permissions!';
-            }
-            return msg.channel.createMessage(`An error has occured: ${err}`);
-        });
-        bot.sendModLog('unban', member, msg.member, reason);
+        
     }, {
         description: 'Ban a user.',
         fullDescription: 'Ban a user off the Hub Network.',
