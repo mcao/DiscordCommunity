@@ -83,6 +83,7 @@ module.exports = bot => {
         });
 
         non_leaderboard.forEach(v => {
+            console.log(v);
             if (!bot.guilds.get('358528040617377792').members.get(v)) delete bot.profiles[v];
             else bot.removeGuildMemberRole('358528040617377792', v, '393606924433752064', 'Lost Top 20');
         });
