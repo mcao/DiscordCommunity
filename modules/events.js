@@ -6,6 +6,10 @@ module.exports = bot => {
             bot.queue.push(msg.author.id);
             return `<:bexy:393137089622966272> You are now position #${bot.queue.indexOf(msg.author.id) + 1} in the queue`;
         }
+    }, {
+    	requirements: {
+    		roleIDs: ['392150288729112587']
+	}
     });
 
     bot.registerCommand('leavequeue', msg => {
@@ -14,6 +18,10 @@ module.exports = bot => {
         let index = bot.queue.indexOf(msg.author.id);
         bot.queue.splice(index, 1);
         return '<:bexy:393137089622966272> You have been removed from the queue';
+    }, {
+    	requirements: {
+    		roleIDs: ['392150288729112587']
+	}
     });
 
     bot.registerCommand('aqueue', msg => {
