@@ -290,6 +290,8 @@ module.exports = bot => {
         msg.delete();
         return null;
     }, {
+        description: 'Report a user/staff, more info in <#394698464253968394>.',
+        fullDescription: 'Report a user/staff that you think is breaking the rules or abusing their permissions.',
         requirements: {
             roleIDs: null,
         },
