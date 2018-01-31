@@ -340,8 +340,10 @@ bot.on('guildMemberAdd', (guild, member) => {
         bot.createMessage('392152516596465664', `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada: Please remember to read the <#392171939101409290>.` +
             `\n\nYou will receive your Humans role in 2 minutes. Don't forget to post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>.`);
         setTimeout(() => {
-            member.addRole('392169263982444546', 'Autorole').catch();
-        }, 2 * 60 * 1000);
+            member.addRole('392169263982444546', 'Autorole').catch((e) => {
+	    	bot.createMessage('392442695756546059', "lmao boys error");
+		bot.createMessage('392442695756546059', e);
+        }, 120 * 1000);
     //     member.user.getDMChannel().then(channel => {
     //         // Community banner
     //         channel.createMessage(null, { file: fs.readFileSync('./images/community.png'), name: 'welcome.png' }).then(msg => {
