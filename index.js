@@ -343,6 +343,7 @@ bot.on('guildMemberAdd', (guild, member) => {
             member.addRole('392169263982444546', 'Autorole').catch((e) => {
 	    	bot.createMessage('392442695756546059', "lmao boys error");
 		bot.createMessage('392442695756546059', e);
+	    })
         }, 120 * 1000);
     //     member.user.getDMChannel().then(channel => {
     //         // Community banner
