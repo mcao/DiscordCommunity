@@ -206,7 +206,7 @@ module.exports = bot => {
         });
     };
     
-    bot.blacklistedChannels = ['bot-commands'];
+    bot.blacklistedChannels = ['xd-emoji-bot-spam'];
 
     bot.loadProfiles = function() {
         var profilesJson = fs.readFileSync('./profiles.json');
