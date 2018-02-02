@@ -74,7 +74,7 @@ module.exports = bot => {
     };
 
     bot.topTwenty = () => {
-        let guild = bot.getChannel("392173071223750656").guild;
+        let guild = bot.guilds.get("358528040617377792")
         let leaderboard = bot.getLeaderboard();
         let users = leaderboard[0];
         var non_leaderboard = users.splice(20);
