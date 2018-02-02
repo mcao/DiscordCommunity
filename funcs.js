@@ -74,7 +74,7 @@ module.exports = bot => {
     };
 
     bot.topTwenty = () => {
-        let guild = bot.guilds.get("358528040617377792")
+        let guild = bot.guilds.get("358528040617377792");
         let leaderboard = bot.getLeaderboard();
         let users = leaderboard[0];
         var non_leaderboard = users.splice(20);
@@ -88,11 +88,11 @@ module.exports = bot => {
             if (!bot.guilds.get('358528040617377792').members.get(v)){
                 delete bot.profiles[v];
             } else {
-                if(!guild.members.get(v.toString()).roles.indexOf("393606924433752064") == -1){
+                if(guild.members.get(v.toString()).roles.indexOf("393606924433752064") != -1){
 
                 bot.removeGuildMemberRole('358528040617377792', v, '393606924433752064', 'Lost Top 20').then(() => {}).catch(() => {
-                    console.log("Could not remove role from "+v)
-                })
+                    console.log("Could not remove role from "+v);
+                });
             }
             }
         });
@@ -111,12 +111,14 @@ module.exports = bot => {
                         `Congratulations <@${msg.author.id}>, you have achieved **${role.name}**! 🎉🎉🎉`);
                     bot.profiles[msg.author.id].lastRankAssignment++;
                     msg.addReaction('🎉');
+                    /* jshint ignore:start */
                     msg.member.addRole(role.id).then(
                         /* on succes we log the success! */
-                        () => bot.log(`**DEBUG** Added ${role.name} to ${msg.author.username} successfully!`),
+                        () => {bot.log(`**DEBUG** Added ${role.name} to ${msg.author.username} successfully!`)},
                         /* on failure we log the failure! */
-                        () => bot.log(`**DEBUG** Failed to add <@&${role.id}> to <@${msg.author.id}>!`)
+                        () => {bot.log(`**DEBUG** Failed to add <@&${role.id}> to <@${msg.author.id}>!`)}
                     );
+                    /* jshint ignore:end */
                     if (i > 0) msg.member.removeRole(msg.channel.guild.roles.get(profiles[i - 1].id).id);
                 }
             }
