@@ -111,14 +111,14 @@ bot.on('messageCreate', msg => {
                                     // If there's already a channel for that user
                                     if (existingChan[0]) {
                                         nextTicket = existingChan[0].name.replace(`-${msg.author.id}`, ``);
-                                        embedy.footer['text'] = `Do "!claim ${nextTicket}" to claim this ticket.`;
+                                        embedy.footer.text = `Do "!claim ${nextTicket}" to claim this ticket.`;
                                         embedy.description = `Ticket #${nextTicket}`;
                                         return existingChan[0].createMessage({ embed: embedy });
                                     } else {
                                         bot.newTicket(msg.author.id, msg.channel.id, null);
                                         const ticketsLength = Object.keys(bot.tickets).length;
                                         nextTicket = ticketsLength;
-                                        embedy.footer['text'] = `Do "!claim ${nextTicket}" to claim this ticket.`;
+                                        embedy.footer.text = `Do "!claim ${nextTicket}" to claim this ticket.`;
                                         embedy.description = `Ticket #${nextTicket}`;
                                         var mailName = `${ticketsLength}-${msg.author.username}`;
                                         bot.createChannel(TEST_GUILD, mailName, 0, 'Mod mail', '398577703399194634').then(channel => {
@@ -340,11 +340,11 @@ bot.on('guildMemberAdd', (guild, member) => {
         bot.createMessage('392152516596465664', `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada: Please remember to read the <#392171939101409290>.` +
             `\n\nYou will receive your Humans role in 2 minutes. Don't forget to post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>.`);
         setTimeout(() => {
-		console.log("lol hi")
+		console.log("lol hi");
             member.addRole('392169263982444546', 'Autorole').catch((e) => {
 	    	bot.createMessage('392442695756546059', "lmao boys error");
 		bot.createMessage('392442695756546059', e);
-	    })
+	    });
         }, 120 * 1000);
     //     member.user.getDMChannel().then(channel => {
     //         // Community banner
@@ -492,7 +492,7 @@ bot.on('messageReactionAdd', (message, emoji, userID) => {
     if (message.id !== '399412466460655637') return;
     if (emoji.id !== '393137089622966272') return;
     var user = message.channel.guild.members.get(userID);
-    if (!user.roles.indexOf('392169263982444546') > -1) user.addRole('392169263982444546', 'Verified');
+    if (user.roles.indexOf('392169263982444546') == -1) user.addRole('392169263982444546', 'Verified');
 });
 
 process.on('uncaughtException', err => {
