@@ -8,6 +8,14 @@ module.exports = bot => {
     bot.guesscounter = 0;
     bot.guesstries = 15;
 
+    /**
+     * Register a new command on the bot
+     * 
+     * @param name {String} Name of command
+     * @param command {Function} Function to run
+     * @param options {Object} Objects for command
+     * @return {null}
+     */
     bot.register = function(name, command, options) {
         if (bot.commands[name]) {
             bot.log(`Reloading command: ${name}`);
@@ -23,6 +31,13 @@ module.exports = bot => {
 
     bot.reactions = [];
 
+    /**
+     * Chunk array into little nibbles :)
+     * 
+     * @param myArray {Array} The original array
+     * @param chunk_size {Number} Amount of items per chunk
+     * @return {Array} Chunked 2D array.
+     */
     bot.chunkArray = function(myArray, chunk_size) {
         var index = 0;
         var arrayLength = myArray.length;
@@ -37,10 +52,24 @@ module.exports = bot => {
         return tempArray;
     };
 
+    /**
+     * Push a warning for a user into the profile system.
+     * 
+     * @param userid {String} ID of the user
+     * @param modid {String} ID of the moderator
+     * @param reason {String} Reason for warn
+     * @param channelid {String} Channel they were warned in.
+     * @return {null}
+     */
     bot.warn = function(userid, modid, reason, channelid) {
         bot.profiles[userid].warnings.push({ user: userid, mod: modid, reason: reason, channel: channelid });
     };
 
+    /**
+     * Do not manually initiate this function.
+     * 
+     * @return {null}
+     */
     bot.twentyFourHourTimer = function() {
         setInterval(() => {
             if (new Date().getHours() === 0 && new Date().getMinutes() === 0) {
@@ -55,11 +84,22 @@ module.exports = bot => {
         }, 60000);
     };
 
+    /**
+     * Resets the IDs of a user
+     * 
+     * @param userID {String}
+     * @return {null}
+     */
     bot.resetMessages = function(userID) {
         bot.profiles[userID].messageCount = 0;
         bot.profiles[userID].lastRoleAssigned = 0;
     };
 
+    /**
+     * Fetch the current leaderboard, in the format of [[userid1, userid2], [messagecount1, messagecount2]]
+     * 
+     * @return {Array}
+     */
     bot.getLeaderboard = function() {
         let userIDs = Object.keys(bot.profiles).sort((a, b) => {
             let IDs = bot.profiles[b].messageCount - bot.profiles[a].messageCount;
@@ -73,6 +113,11 @@ module.exports = bot => {
         return result;
     };
 
+    /**
+     * Give applicable users the Top Twenty role & remove people who fell out of it.
+     * 
+     * @return {null}
+     */
     bot.topTwenty = () => {
         let guild = bot.guilds.get("358528040617377792");
         let leaderboard = bot.getLeaderboard();
@@ -98,6 +143,12 @@ module.exports = bot => {
         });
     };
 
+    /**
+     * Increment the messages for a user by one.
+     * 
+     * @param  {Eris.Message} The message object.
+     * @return {null}
+     */
     bot.incrementMessage = function(msg) {
         if (bot.profiles[msg.author.id]) {
             bot.profiles[msg.author.id].messageCount++;
@@ -135,6 +186,13 @@ module.exports = bot => {
         }
     };
 
+    /**
+     * @param type {String}
+     * @param user {Eris.Member}
+     * @param moderator {Eris.Member}
+     * @param reason {String}
+     * @return {null}
+     */
     bot.sendModLog = (type, user, moderator, reason) => {
         let color;
         let word;
@@ -208,6 +266,10 @@ module.exports = bot => {
     
     bot.blacklistedChannels = ['xd-emoji-bot-spam'];
 
+    /**
+     * Load profiles into bot.profiles
+     * @return {String}
+     */
     bot.loadProfiles = function() {
         var profilesJson = fs.readFileSync('./profiles.json');
         bot.profiles = JSON.parse(profilesJson);
@@ -215,6 +277,10 @@ module.exports = bot => {
         return 'Profiles successfully loaded!';
     };
 
+    /**
+     * Write profiles from bot.profiles
+     * @return {null}
+     */
     bot.writeProfiles = function() {
         var profilesJson = fs.readFileSync('./profiles.json'),
             profiles = JSON.parse(profilesJson);
@@ -227,6 +293,10 @@ module.exports = bot => {
         bot.backupProfiles();
     };
 
+    /**
+     * Create a backup file for the current bot.profile state
+     * @return {String}
+     */
     bot.backupProfiles = function() {
         var profilesJson = fs.readFileSync('./profiles.json'),
             profiles = JSON.parse(profilesJson),
@@ -238,6 +308,11 @@ module.exports = bot => {
         return 'Profiles successfully backed up!';
     };
 
+    /**
+     * Log a message to console & Discord
+     * @param txt {String} Text to log
+     * @return {null}
+     */
     bot.log = function(txt) {
         bot.createMessage(bot.config.logChannel, txt);
         console.log(`${this.timestamp()}  [LOG]  | ${txt}`);
@@ -247,6 +322,12 @@ module.exports = bot => {
 
     bot.tickets = {};
 
+    /**
+     * Create a new ticket
+     * @param user {String} User ID
+     * @param channel {String} Channel ID
+     * @return {null}
+     */
     bot.newTicket = function(user, channel) {
         var nextTicket = Object.keys(bot.tickets).length + 1;
         bot.tickets[nextTicket] = {
@@ -258,6 +339,10 @@ module.exports = bot => {
         };
     };
 
+    /**
+     * Create a new timestamp
+     * @return {String} Timestamp in format "[hours:minutes:seconds]"
+     */
     bot.timestamp = function() {
         var currentTime = new Date(),
             hours = currentTime.getHours(),
