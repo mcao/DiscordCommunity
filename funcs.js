@@ -74,6 +74,7 @@ module.exports = bot => {
     };
 
     bot.topTwenty = () => {
+        let guild = bot.getChannel("392173071223750656").guild;
         let leaderboard = bot.getLeaderboard();
         let users = leaderboard[0];
         var non_leaderboard = users.splice(20);
@@ -83,12 +84,16 @@ module.exports = bot => {
         });
 
         non_leaderboard.forEach(v => {
+
             if (!bot.guilds.get('358528040617377792').members.get(v)){
                 delete bot.profiles[v];
             } else {
+                if(!guild.members.get(v.toString()).roles.indexOf("393606924433752064") == -1){
+
                 bot.removeGuildMemberRole('358528040617377792', v, '393606924433752064', 'Lost Top 20').then(() => {}).catch(() => {
                     console.log("Could not remove role from "+v)
                 })
+            }
             }
         });
     };
