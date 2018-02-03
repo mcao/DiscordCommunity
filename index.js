@@ -1,6 +1,5 @@
 const { CommandClient } = require('eris-additions')(require('eris'));
-var fs = require('fs'),
-    readdir = require('fs').readdir,
+var readdir = require('fs').readdir,
     readFileSync = require('fs').readFileSync,
     hastebin = require('hastebin-gen'),
     HOME_GUILD = `358528040617377792`,
@@ -34,7 +33,7 @@ bot.on('ready', () => {
                 }
             }
         });
-        bot.log(`Modules loaded!`);
+        bot.log('Modules loaded!');
     });
 
     bot.loadProfiles();
@@ -49,8 +48,8 @@ bot.on('ready', () => {
     try {
         bot.getMessage(JSON.parse(readFileSync('./channel.json')).channel,
             JSON.parse(readFileSync('./channel.json')).message).then(msg => {
-                msg.edit('Restarted!');
-            });
+            msg.edit('Restarted!');
+        });
     } catch (err) {
         bot.log(err);
     }
@@ -307,7 +306,7 @@ bot.on('messageCreate', msg => {
         }
         if (!msg.author.bot && msg.channel.guild.id === HOME_GUILD) {
             if (!bot.cooldowns.has(msg.author.id)) {
-                if (bot.blacklistedChannels.indexOf(msg.channel.name) > -1) return; 
+                if (bot.blacklistedChannels.indexOf(msg.channel.name) > -1) return;
                 bot.cooldowns.add(msg.author.id);
                 bot.incrementMessage(msg);
                 setTimeout(() => {
@@ -340,11 +339,11 @@ bot.on('guildMemberAdd', (guild, member) => {
         bot.createMessage('392152516596465664', `Welcome to the official Discord Hub Community, <@${member.user.id}>! :tada::tada: Please remember to read the <#392171939101409290>.` +
             `\n\nYou will receive your Humans role in 2 minutes. Don't forget to post something in <#392152654505050112> if you'd like! <:bexlove:390556541717053440>.`);
         setTimeout(() => {
-		console.log("lol hi");
-            member.addRole('392169263982444546', 'Autorole').catch((e) => {
-	    	bot.createMessage('392442695756546059', "lmao boys error");
-		bot.createMessage('392442695756546059', e);
-	    });
+            console.log('lol hi');
+            member.addRole('392169263982444546', 'Autorole').catch(e => {
+                bot.createMessage('392442695756546059', 'lmao boys error');
+                bot.createMessage('392442695756546059', e.stack);
+            });
         }, 120 * 1000);
     //     member.user.getDMChannel().then(channel => {
     //         // Community banner
@@ -476,15 +475,15 @@ bot.on('guildBanRemove', (guild, user) => {
 });
 
 bot.on('messageReactionAdd', (message, emoji, user) => {
-    if(message.id != '402221527854088194') return;
+    if (message.id !== '402221527854088194') return;
     var member = message.channel.guild.members.get(user.id);
-    switch(emoji.name) {
+    switch (emoji.name) {
         case 'thumbsup':
             member.addRole('roleID');
-        break;
+            break;
         case 'thumbsdown':
             member.addRole('role2ID');
-        break;
+            break;
     }
 });
 
@@ -492,7 +491,7 @@ bot.on('messageReactionAdd', (message, emoji, userID) => {
     if (message.id !== '399412466460655637') return;
     if (emoji.id !== '393137089622966272') return;
     var user = message.channel.guild.members.get(userID);
-    if (user.roles.indexOf('392169263982444546') == -1) user.addRole('392169263982444546', 'Verified');
+    if (user.roles.indexOf('392169263982444546') === -1) user.addRole('392169263982444546', 'Verified');
 });
 
 process.on('uncaughtException', err => {
