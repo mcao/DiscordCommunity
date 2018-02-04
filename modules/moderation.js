@@ -349,7 +349,9 @@ module.exports = bot => {
         var reason = args.splice(1);
         // Second argument and rest of message: reason
         reason = reason.join(' ');
-
+        if (!reason.includes(`- ${msg.author.username}`)) {
+            reason = `${reason} - ${msg.author.username}#${msg.author.discriminator}`;
+        }
         if (member.length === 18 || member.length === 17) {
             member = msg.channel.guild.members.get(member);
         } else if (msg.mentions[0]) {
@@ -406,6 +408,9 @@ module.exports = bot => {
         var reason = args.splice(1);
         // Second argument and rest of message: reason
         reason = reason.join(' ');
+        if (!reason.includes(`- ${msg.author.username}`)) {
+            reason = `${reason} - ${msg.author.username}#${msg.author.discriminator}`;
+        }
 
         if (member.length === 18 || member.length === 17) {
                 member = msg.channel.guild.members.get(member)
@@ -446,6 +451,9 @@ module.exports = bot => {
             reason = args.splice(1);
             // Second argument and rest of message: reason
             reason = reason.join(' ');
+            if (!reason.includes(`- ${msg.author.username}`)) {
+                reason = `${reason} - ${msg.author.username}#${msg.author.discriminator}`;
+            }
         }
         else {
             reason = 'No reason given.';
