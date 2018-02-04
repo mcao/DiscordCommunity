@@ -83,7 +83,72 @@ module.exports = bot => {
             }
         }, 60000);
     };
-
+    bot.fotd = false;
+    bot.startoffQs = ['Hello everyone!', 'Hello folks!', 'Hey all!', 'Hey everyone!', '<:bexhey:390556541360799748> Eyyy, another day, another poll!', 'Yay, new poll!'];
+    bot.chooseQs = ['What is better?', 'Which would you prefer?', 'What do you prefer the most?'];
+    bot.reactionss = ['1⃣', '2⃣'];
+    bot.later = false;
+    /**
+     * Generate a FOTD message
+     * 
+     * @param q1 {String}
+     * @param q1 {String}
+     * @return {String}
+     */
+    bot.getFotdMessage = function(q1, q2) {
+        var randomQ = bot.startoffQs[Math.floor(Math.random() * bot.startoffQs.length)];
+        var randomChooseQ = bot.chooseQs[Math.floor(Math.random() * bot.chooseQs.length)];
+        var message = `${randomQ}\n\n${randomChooseQ} **${q1} or ${q2}**?`;
+        return message;
+    }
+    /**
+     * Start FOTD
+     * @return {null}
+     */
+    bot.FOTD = function() {
+        var goFotd = setInterval(() => {
+            if (!bot.fotd) return;
+            fs.readFile('../fotd.json', function (err, data) {
+                var json = JSON.parse(data);
+                if (json.length == 0) return client.createMessage('392442695756546059', '<& 392169572863836160> (event host) FOTD has ran out of questions, please refill with \`!fotd <message>\`');
+                var todaysQuestion = json[0];
+                json = json.filter(function(value) { return value != todaysQuestion });
+                fs.writeFile("../fotd.json", JSON.stringify(json), function(err) {
+                    if (err) return console.log(err);
+                });
+                // Main message
+                client.createMessage('392442695756546059', todaysQuestion).then((m) => {
+                    bot.reactionss.forEach(function(reaction) {
+                        m.addReaction(reaction);
+                    });
+                });
+            });
+        }, 10000) // 86400000
+    
+        if (bot.later) {
+            setTimeout(() => {
+                goFotd;
+            }, 10000);
+        }
+        else {
+            if (!bot.fotd) return;
+            fs.readFile('../fotd.json', function (err, data) {
+                var json = JSON.parse(data);
+                if (json.length == 0) return client.createMessage('392442695756546059', '<& 392169572863836160> (event hosts) FOTD has ran out of questions, please refill with \`!fotd <message>\`');
+                var todaysQuestion = json[0];
+                json = json.filter(function(value) { return value != todaysQuestion });
+                fs.writeFile("../fotd.json", JSON.stringify(json), function(err) {
+                    if (err) return console.log(err);
+                });
+                client.createMessage('392442695756546059', todaysQuestion).then((m) => {
+                    bot.reactionss.forEach(function(reaction) {
+                        m.addReaction(reaction);
+                    });
+                });
+            });
+            goFotd;
+        }
+    }
     /**
      * Resets the IDs of a user
      * 

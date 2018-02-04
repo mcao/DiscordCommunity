@@ -57,4 +57,66 @@ module.exports = bot => {
             roleIDs: ['392169572863836160', '392150288729112587'],
         },
     });
+    bot.registerCommand('fotd', msg => {
+        var qs = msg.content.split(' ').slice(1).join(' ').split(', ');
+        var message = bot.getFotdMessage(qs[0], qs[1]);
+        var fotdFile = JSON.parse(fs.readFileSync('../fotd.json', 'utf8'));
+        fs.readFile('../fotd.json', function (err, data) {
+            var json = JSON.parse(data)
+            json.push(message);
+            fs.writeFile('../fotd.json', JSON.stringify(json), function(err) {
+                if (err) return console.log(err);
+            });
+        });
+        msg.channel.createMessage('Done! <:bexy:393137089622966272>');
+    }, {
+        description: 'Add a FOTD.',
+        fullDescription: 'Add a FOTD to the list.',
+        requirements: {
+            roleIDs: ['392169572863836160', '392157971507052554', '392162455717150730'],
+        },
+    });
+    bot.registerCommand('startfotd', msg => {
+        if (bot.fotd) {
+            msg.channel.createMessage('FOTD is already on!');
+        }
+        bot.fotd = true;
+        bot.later = false;
+        bot.FOTD();
+        msg.channel.createMessage('Enabled FOTD! <:bexy:393137089622966272>');
+    }, {
+        description: 'Start FOTD right now.',
+        fullDescription: 'Start FOTD. Note: A FOTD will instantly be sent to the fotd channel.',
+        requirements: {
+            roleIDs: ['392169572863836160', '392157971507052554', '392162455717150730'],
+        },
+    });
+    bot.registerCommand('startfotdskip', msg => {
+        if (bot.fotd) {
+            msg.channel.createMessage('FOTD is already on!');
+        }
+        bot.fotd = true;
+        bot.later = true;
+        bot.FOTD();
+        msg.channel.createMessage('Enabled FOTD will send the next FOTD in 24 hours! <:bexy:393137089622966272>');
+    }, {
+        description: 'Start FOTD.',
+        fullDescription: 'Start the FOTD timer, will send the message in 24 hours.',
+        requirements: {
+            roleIDs: ['392169572863836160', '392157971507052554', '392162455717150730'],
+        },
+    });
+    bot.registerCommand('startfotdskip', msg => {
+        if (!bot.fotd) {
+            msg.channel.createMessage('FOTD is already off!');
+        }
+        bot.fotd = false;
+        msg.channel.createMessage('Disabled FOTD! <:bexy:393137089622966272>');
+    }, {
+        description: 'Start FOTD.',
+        fullDescription: 'Start the FOTD timer, will send the message in 24 hours.',
+        requirements: {
+            roleIDs: ['392169572863836160', '392157971507052554', '392162455717150730'],
+        },
+    });
 };
