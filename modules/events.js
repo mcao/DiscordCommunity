@@ -106,7 +106,7 @@ module.exports = bot => {
             roleIDs: ['392169572863836160', '392157971507052554', '392162455717150730'],
         },
     });
-    bot.registerCommand('startfotdskip', msg => {
+    bot.registerCommand('stopfotd', msg => {
         if (!bot.fotd) {
             msg.channel.createMessage('FOTD is already off!');
         }
