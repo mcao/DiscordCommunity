@@ -1,7 +1,7 @@
 {
   "name": "DiscordCommunity",
   "version": "1.0.0",
-  "description": "The Discord bot for the Discord Community guild",
+  "description": "The Discord bot for the Discord Hub guild",
   "main": "index.js",
   "repository": "git@github.com:mcao/DiscordCommunity.git",
   "author": "Various",

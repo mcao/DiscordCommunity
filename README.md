@@ -1,2 +1,2 @@
 # DiscordCommunity
-The Official Discord Community Bot
+The Official Discord Guide Bot
