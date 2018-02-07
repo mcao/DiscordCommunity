@@ -3,11 +3,7 @@ const readdir = require('fs').readdir,
     hastebin = require('hastebin-gen'),
     NITRO_ROLE = `nitro`,
     HYPESQUAD_ROLE = `hypesquad`,
-    PARTNER_ROLE = `discord partner`,
-    Cleverbot = require('cleverbot');
-let clev = new Cleverbot({
-    key: 'CC68v6dd86WetHxwJN-KOjqsMxg',
-});
+    PARTNER_ROLE = `discord partner`
 module.exports = bot => {
     bot.register('ping', msg => {
         var start = new Date(msg.timestamp).getTime();
@@ -17,19 +13,6 @@ module.exports = bot => {
     }, {
         description: 'Pong!',
         fullDescription: "This command is used to check the bot's latency, or if it's up.",
-    });
-    bot.register('clever', (msg, args) => {
-        args = args.join(' ');
-        if (args.toLowerCase().includes('ur stupid')) {
-            return msg.channel.createMessage(`No, I'm not <@${msg.author.id}>. BUT YOU ARE YOU FUCKER`);
-        }
-        clev.query(args)
-            .then(response =>
-                msg.channel.createMessage(response.output));
-        return null;
-    }, {
-        description: 'Talk to the bot!',
-        fullDescription: "Speak with Discord Hub when you're feeling **very** lonely.",
     });
 
     bot.register('nitro', (msg, args) => {
