@@ -113,8 +113,8 @@ module.exports = bot => {
         bot.fotd = false;
         msg.channel.createMessage('Disabled FOTD! <:bexy:393137089622966272>');
     }, {
-        description: 'Start FOTD.',
-        fullDescription: 'Start the FOTD timer, will send the message in 24 hours.',
+        description: 'Stop FOTD.',
+        fullDescription: 'Stop the FOTD timer and reset it.',
         requirements: {
             roleIDs: ['392169572863836160', '392157971507052554', '392162455717150730'],
         },
